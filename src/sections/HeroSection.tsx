@@ -184,34 +184,7 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Floating Abstract Features (Asymmetrical layout) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="max-w-7xl mx-auto w-full h-full relative">
-          {features.map(({ icon: Icon, label }, i) => {
-            const positions = [
-              { top: '20%', left: '4%' },
-              { bottom: '20%', left: '35%' },
-              { top: '30%', right: '8%' },
-              { bottom: '15%', right: '4%' },
-            ];
-            
-            return (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, scale: 0.8, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                transition={{ duration: 1, delay: 0.6 + i * 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute hidden md:flex flex-col items-center gap-2 mix-blend-plus-lighter opacity-[0.35]"
-                style={positions[i]}
-              >
-                <div className="w-12 h-12 rounded-full border border-[#00FFFF]/20 flex items-center justify-center backdrop-blur-sm bg-black/30 shadow-[0_0_15px_rgba(0,255,255,0.1)]">
-                  <Icon className="w-5 h-5 text-[#00FFFF]/70" />
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
+
 
     </section>
   )
