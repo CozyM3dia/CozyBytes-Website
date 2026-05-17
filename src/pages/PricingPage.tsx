@@ -187,13 +187,13 @@ function PricingCard({
       }}
       className={`group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] ${
         tier.highlighted
-          ? 'p-[2px] bg-[#050507] shadow-[0_0_70px_rgba(248,209,106,0.16),0_0_90px_rgba(0,255,255,0.09)] md:-translate-y-3'
+          ? 'p-[1.5px] bg-white/10 shadow-[0_0_80px_rgba(248,209,106,0.12),0_0_90px_rgba(0,255,255,0.06)] md:-translate-y-3'
           : 'border border-white/10 p-1 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]'
       }`}
     >
       {tier.highlighted && (
-        <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
-             style={{ background: 'conic-gradient(from 0deg, transparent 70%, #F8D16A 100%)' }}
+        <div className="absolute left-1/2 top-1/2 z-0 h-[250%] w-[250%] -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
+             style={{ background: 'conic-gradient(from 0deg, transparent 65%, rgba(248,209,106, 0.2) 85%, #F8D16A 100%)' }}
         />
       )}
       <div
@@ -208,7 +208,7 @@ function PricingCard({
         <div className="absolute -bottom-20 left-8 h-52 w-52 rounded-full bg-[#F8D16A]/10 blur-3xl" />
       </div>
 
-      <div className={`relative flex flex-1 flex-col rounded-[24px] px-6 py-7 md:px-7 ${
+      <div className={`relative z-10 flex flex-1 flex-col rounded-[26.5px] px-6 py-7 md:px-7 ${
         tier.highlighted ? 'bg-[#050507]' : 'bg-[#050507]/88 backdrop-blur-xl'
       }`}>
         <div className="mb-5 flex min-h-9 flex-wrap items-center justify-between gap-2">
