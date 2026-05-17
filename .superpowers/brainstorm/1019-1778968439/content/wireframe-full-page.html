@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cozybytes Media — Wireframe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #0D1B3D; }
+
+  /* === COLOR VARS === */
+  :root {
+    --primary-dark: #0D1B3D;
+    --secondary-dark: #1E2A78;
+    --cyan: #00FFFF;
+    --light1: #F7F8FA;
+    --light2: #E9ECEF;
+    --white: #FFFFFF;
+  }
+
+  /* === SECTION LABEL === */
+  .section-label {
+    position: absolute; top: 12px; left: 16px;
+    background: rgba(0,255,255,0.15); color: var(--cyan);
+    font-size: 11px; font-weight: 700; padding: 4px 10px;
+    border-radius: 4px; letter-spacing: 1px; text-transform: uppercase;
+    z-index: 10;
+  }
+  .light-label {
+    background: rgba(13,27,61,0.08); color: var(--primary-dark);
+  }
+
+  /* === HEADER / TITLE === */
+  .page-title {
+    text-align: center; padding: 32px 20px 16px;
+    background: var(--primary-dark); color: var(--white);
+  }
+  .page-title h1 { font-size: 24px; font-weight: 700; }
+  .page-title h1 span { color: var(--cyan); }
+  .page-title p { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 6px; }
+  .page-title .badge {
+    display: inline-block; border: 1px solid var(--cyan); color: var(--cyan);
+    font-size: 11px; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+  }
+
+  /* === NAVBAR WIREFRAME === */
+  .wf-navbar {
+    position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    background: var(--white);
+    border-bottom: 1px solid var(--light2);
+  }
+  .wf-navbar .logo {
+    display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px;
+  }
+  .wf-navbar .logo .icon {
+    width: 32px; height: 32px; background: var(--cyan); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--primary-dark);
+  }
+  .wf-navbar .nav-links { display: flex; gap: 24px; font-size: 13px; color: #666; }
+  .wf-navbar .nav-links span:hover { color: var(--cyan); cursor: pointer; }
+  .wf-navbar .cta-btn {
+    background: var(--cyan); color: var(--primary-dark);
+    font-size: 12px; font-weight: 700; padding: 8px 18px;
+    border-radius: 50px; border: none; cursor: pointer;
+  }
+
+  /* === HERO SECTION === */
+  .wf-hero {
+    position: relative;
+    background: var(--primary-dark);
+    padding: 60px 40px 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    align-items: center; min-height: 420px;
+  }
+  .wf-hero .hero-text { color: var(--white); }
+  .wf-hero .hero-text .tag {
+    display: inline-block; border: 1px solid rgba(0,255,255,0.4);
+    color: var(--cyan); font-size: 11px; padding: 4px 12px;
+    border-radius: 20px; margin-bottom: 16px;
+  }
+  .wf-hero .hero-text h2 { font-size: 32px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+  .wf-hero .hero-text h2 .accent { color: var(--cyan); }
+  .wf-hero .hero-text p { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  .wf-hero .btn-group { display: flex; gap: 12px; }
+  .wf-hero .btn-primary {
+    background: var(--cyan); color: var(--primary-dark);
+    font-weight: 700; font-size: 13px; padding: 12px 24px;
+    border-radius: 50px; border: none; cursor: pointer;
+  }
+  .wf-hero .btn-secondary {
+    background: transparent; color: var(--white);
+    font-weight: 600; font-size: 13px; padding: 12px 24px;
+    border-radius: 50px; border: 1px solid rgba(0,255,255,0.5); cursor: pointer;
+  }
+  .wf-hero .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .wf-hero .mock-laptop {
+    width: 260px; height: 170px; background: #1a2550;
+    border-radius: 8px; border: 2px solid rgba(0,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.3); font-size: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .wf-hero .mock-phone {
+    width: 80px; height: 140px; background: #1a2550;
+    border-radius: 12px; border: 2px solid rgba(0,255,255,0.2);
+    position: absolute; right: 20px; bottom: -20px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.3); font-size: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .wf-hero .feature-bar {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .wf-hero .feature-item {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.55); font-size: 12px;
+  }
+  .wf-hero .feature-item .fi-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: rgba(0,255,255,0.1); color: var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* === LAYANAN === */
+  .wf-layanan {
+    position: relative;
+    background: var(--light1); padding: 48px 40px;
+    text-align: center;
+  }
+  .wf-layanan h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .wf-layanan .sub { color: #666; font-size: 13px; margin-bottom: 32px; }
+  .wf-layanan .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .wf-layanan .card {
+    background: var(--white); border-radius: 16px; padding: 28px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); text-align: center;
+    transition: transform 0.2s;
+  }
+  .wf-layanan .card:hover { transform: translateY(-4px); }
+  .wf-layanan .card .card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(0,255,255,0.1); color: var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 22px;
+  }
+  .wf-layanan .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .wf-layanan .card p { font-size: 13px; color: #666; line-height: 1.5; }
+
+  /* === PORTOFOLIO === */
+  .wf-portofolio {
+    position: relative;
+    background: var(--white); padding: 48px 40px;
+    text-align: center;
+  }
+  .wf-portofolio h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .wf-portofolio .sub { color: #666; font-size: 13px; margin-bottom: 32px; }
+  .wf-portofolio .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .wf-portofolio .port-card {
+    position: relative; border-radius: 12px; overflow: hidden;
+    background: var(--light1); height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .wf-portofolio .port-card .thumb-text {
+    color: #aaa; font-size: 12px;
+  }
+  .wf-portofolio .port-card .badge-tag {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--cyan); color: var(--primary-dark);
+    font-size: 10px; font-weight: 700; padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .wf-portofolio .port-card .hover-overlay {
+    position: absolute; inset: 0;
+    background: rgba(13,27,61,0.8);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .wf-portofolio .port-card:hover .hover-overlay { opacity: 1; }
+  .wf-portofolio .port-card .hover-overlay button {
+    background: var(--cyan); color: var(--primary-dark);
+    font-weight: 700; font-size: 12px; padding: 8px 20px;
+    border-radius: 50px; border: none; cursor: pointer;
+  }
+
+  /* === CARA KERJA === */
+  .wf-carakerja {
+    position: relative;
+    background: var(--light1); padding: 48px 40px;
+    text-align: center;
+  }
+  .wf-carakerja h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .wf-carakerja .sub { color: #666; font-size: 13px; margin-bottom: 36px; }
+  .wf-carakerja .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    position: relative;
+  }
+  .wf-carakerja .steps::before {
+    content: ''; position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 2px; background: var(--light2); z-index: 0;
+  }
+  .wf-carakerja .step {
+    position: relative; z-index: 1; text-align: center;
+  }
+  .wf-carakerja .step .num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--cyan); color: var(--primary-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px; margin: 0 auto 14px;
+    box-shadow: 0 4px 12px rgba(0,255,255,0.25);
+  }
+  .wf-carakerja .step h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .wf-carakerja .step p { font-size: 12px; color: #666; line-height: 1.5; }
+
+  /* === CTA === */
+  .wf-cta {
+    position: relative;
+    background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+    padding: 56px 40px; text-align: center; color: var(--white);
+  }
+  .wf-cta h2 { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+  .wf-cta p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .wf-cta .cta-wa {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--cyan); color: var(--primary-dark);
+    font-weight: 700; font-size: 15px; padding: 14px 32px;
+    border-radius: 50px; border: none; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,255,255,0.3);
+  }
+  .wf-cta .cta-wa .wa-icon { font-size: 20px; }
+
+  /* === FOOTER === */
+  .wf-footer {
+    position: relative;
+    background: var(--primary-dark); padding: 40px 40px 20px; color: var(--white);
+  }
+  .wf-footer .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px;
+    margin-bottom: 24px;
+  }
+  .wf-footer .footer-logo { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+  .wf-footer .footer-logo span { color: var(--cyan); }
+  .wf-footer .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+  .wf-footer h4 { font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--cyan); }
+  .wf-footer ul { list-style: none; }
+  .wf-footer ul li { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+  .wf-footer .footer-bottom {
+    border-top: 1px solid var(--secondary-dark);
+    padding-top: 16px; text-align: center;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+  }
+
+  /* === ANNOTATION / LEGEND === */
+  .legend {
+    background: #f9f9f9; padding: 24px 40px; border-top: 2px solid var(--cyan);
+  }
+  .legend h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--primary-dark); }
+  .legend .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .legend .item { font-size: 12px; color: #555; display: flex; align-items: start; gap: 8px; }
+  .legend .dot {
+    width: 10px; height: 10px; border-radius: 50%; margin-top: 3px; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE TITLE ===== -->
+<div class="page-title">
+  <div class="badge">WIREFRAME — Cozybytes Media Landing Page</div>
+  <h1>Full-Page Layout <span>Wireframe</span></h1>
+  <p>7 sections • Dark/Light theme alternation • Scroll down untuk lihat semua</p>
+</div>
+
+<!-- ===== 1. NAVBAR ===== -->
+<div class="wf-navbar">
+  <span class="section-label light-label">1 — Navbar (Sticky)</span>
+  <div class="logo">
+    <div class="icon">C</div>
+    Cozybytes <span style="color:var(--cyan);font-weight:400;font-size:12px;">MEDIA</span>
+  </div>
+  <div class="nav-links">
+    <span>Beranda</span>
+    <span>Layanan</span>
+    <span>Portofolio</span>
+    <span>Cara Kerja</span>
+  </div>
+  <button class="cta-btn">Konsultasi Gratis</button>
+</div>
+
+<!-- ===== 2. HERO ===== -->
+<div class="wf-hero">
+  <span class="section-label">2 — Hero Section (Dark)</span>
+  <div class="hero-text">
+    <div class="tag">⚡ Cepat. Nyaman. Solusi Web untuk Bisnismu.</div>
+    <h2>Bikin Website <span class="accent">Cepat</span>,<br>Bisnis Makin <span class="accent">Melesat</span>.</h2>
+    <p>Dari ide hingga online dalam hitungan hari. Cozybytes Media hadir memberikan solusi web development yang cepat, desain estetik, dan proses yang super nyaman untuk bisnismu.</p>
+    <div class="btn-group">
+      <button class="btn-primary">Mulai Projekmu Sekarang</button>
+      <button class="btn-secondary">Lihat Portofolio</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="mock-laptop">💻 Website Mockup</div>
+    <div class="mock-phone">📱</div>
+  </div>
+  <div class="feature-bar">
+    <div class="feature-item">
+      <div class="fi-icon">⚡</div>
+      <span>Super Cepat</span>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">😊</div>
+      <span>Proses Nyaman</span>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">💻</div>
+      <span>Responsif & Modern</span>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">📍</div>
+      <span>Fokus Lokal</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. LAYANAN ===== -->
+<div class="wf-layanan">
+  <span class="section-label light-label">3 — Layanan (Light)</span>
+  <h2>Solusi Digital untuk Setiap Kebutuhan</h2>
+  <p class="sub">Pilih layanan yang paling cocok untuk bisnismu</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">📄</div>
+      <h3>Landing Page</h3>
+      <p>Solusi satu halaman fokus konversi tinggi untuk kampanye digitalmu.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏢</div>
+      <h3>Company Profile</h3>
+      <p>Bangun kredibilitas bisnis dengan website resmi profesional.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛒</div>
+      <h3>Toko Online</h3>
+      <p>E-commerce simpel untuk permudah pelanggan berbelanja.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. PORTOFOLIO ===== -->
+<div class="wf-portofolio">
+  <span class="section-label light-label">4 — Portofolio (White)</span>
+  <h2>Karya Cepat & Estetis Kami</h2>
+  <p class="sub">Proyek terbaru yang sudah kami selesaikan</p>
+  <div class="grid">
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 1</span>
+      <span class="badge-tag">Selesai 3 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 2</span>
+      <span class="badge-tag">Selesai 5 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 3</span>
+      <span class="badge-tag">Selesai 2 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 4</span>
+      <span class="badge-tag">Selesai 4 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 5</span>
+      <span class="badge-tag">Selesai 3 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+    <div class="port-card">
+      <span class="thumb-text">Thumbnail Proyek 6</span>
+      <span class="badge-tag">Selesai 7 Hari</span>
+      <div class="hover-overlay"><button>Lihat Detail</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. CARA KERJA ===== -->
+<div class="wf-carakerja">
+  <span class="section-label light-label">5 — Cara Kerja (Light)</span>
+  <h2>Proses Anti-Ribet, Super Nyaman</h2>
+  <p class="sub">Dari konsultasi sampai go live, semua mudah</p>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Ngobrol Santai</h3>
+      <p>Konsultasi via WhatsApp. Cerita kebutuhan bisnismu.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Desain & Coding</h3>
+      <p>Kami rakit secepat kilat dengan desain modern.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Review Bebas Pusing</h3>
+      <p>Revisi tanpa istilah teknis rumit. Cukup bilang suka atau nggak.</p>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <h3>Go Live! 🚀</h3>
+      <p>Websitemu siap menyapa pelanggan dunia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. CTA ===== -->
+<div class="wf-cta">
+  <span class="section-label">6 — CTA (Gradient Dark)</span>
+  <h2>Siap Bawa Bisnismu ke Level Berikutnya?</h2>
+  <p>Konsultasi sekarang, gratis! Kami bantu wujudkan website impianmu tanpa pusing.</p>
+  <button class="cta-wa">
+    <span class="wa-icon">💬</span>
+    Hubungi via WhatsApp
+  </button>
+</div>
+
+<!-- ===== 7. FOOTER ===== -->
+<div class="wf-footer">
+  <span class="section-label">7 — Footer (Dark)</span>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Cozybytes <span>Media</span></div>
+      <p class="footer-tagline">Cepat. Nyaman. Solusi Web untuk Bisnismu.<br>Agensi web development yang fokus memberikan pengalaman terbaik untuk klien lokal Indonesia.</p>
+    </div>
+    <div>
+      <h4>Tautan Cepat</h4>
+      <ul>
+        <li>Beranda</li>
+        <li>Layanan</li>
+        <li>Portofolio</li>
+        <li>Syarat & Ketentuan</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontak</h4>
+      <ul>
+        <li>hello@cozybytes.id</li>
+        <li>+62 812-3456-7890</li>
+        <li>Instagram • LinkedIn</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Cozybytes Media. Dibuat dengan nyaman di Indonesia. 🇮🇩
+  </div>
+</div>
+
+<!-- ===== LEGEND ===== -->
+<div class="legend">
+  <h3>📐 Wireframe Notes</h3>
+  <div class="items">
+    <div class="item">
+      <div class="dot" style="background:var(--primary-dark);"></div>
+      <div><strong>Dark sections:</strong> Hero (#2), CTA (#6), Footer (#7) — background #0D1B3D</div>
+    </div>
+    <div class="item">
+      <div class="dot" style="background:var(--light1);border:1px solid #ddd;"></div>
+      <div><strong>Light sections:</strong> Layanan (#3), Cara Kerja (#5) — background #F7F8FA</div>
+    </div>
+    <div class="item">
+      <div class="dot" style="background:var(--white);border:1px solid #ddd;"></div>
+      <div><strong>White sections:</strong> Portofolio (#4) — background #FFFFFF</div>
+    </div>
+    <div class="item">
+      <div class="dot" style="background:var(--cyan);"></div>
+      <div><strong>Aksen cyan #00FFFF:</strong> Tombol, highlight text, ikon, hover states</div>
+    </div>
+    <div class="item">
+      <div class="dot" style="background:var(--secondary-dark);"></div>
+      <div><strong>CTA gradient:</strong> #1E2A78 → #0D1B3D untuk section Call-to-Action</div>
+    </div>
+    <div class="item">
+      <div class="dot" style="background:linear-gradient(to right,#aaa,#ddd);border:1px solid #ccc;"></div>
+      <div><strong>Animasi:</strong> Fade-in-up saat scroll, hover transitions pada card & button</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
