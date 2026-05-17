@@ -52,7 +52,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.2 }}
-            className="text-zinc-400 text-lg sm:text-xl max-w-md mt-8 leading-relaxed font-light"
+            className="text-white/90 text-lg sm:text-xl max-w-md mt-8 leading-relaxed font-normal drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
           >
             Calon pelanggan sering ragu jika bisnis Anda tidak memiliki tampilan digital yang meyakinkan. Cozybytes membantu Anda membangun website yang profesional dan cepat diakses, tanpa perlu repot mengurus teknis. Semua selesai dalam 3 hari.
           </motion.p>
