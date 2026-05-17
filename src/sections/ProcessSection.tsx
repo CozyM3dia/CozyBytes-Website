@@ -196,28 +196,6 @@ export default function ProcessSection() {
         }}
       />
 
-      {/* Ambient background glows */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <motion.div
-          animate={{
-            x: [0, 50, 0, -50, 0],
-            y: [0, -50, 50, 0, 0],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full mix-blend-screen opacity-[0.08]"
-          style={{ background: 'radial-gradient(circle, #00FFFF, transparent 70%)', filter: 'blur(80px)' }}
-        />
-        <motion.div
-          animate={{
-            x: [0, -60, 0, 60, 0],
-            y: [0, 60, -60, 0, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[20%] right-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full mix-blend-screen opacity-[0.05]"
-          style={{ background: 'radial-gradient(circle, #00BFFF, transparent 70%)', filter: 'blur(100px)' }}
-        />
-      </div>
-
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div

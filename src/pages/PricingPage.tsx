@@ -185,12 +185,17 @@ function PricingCard({
         scale: tier.highlighted ? 1.055 : 1.015,
         transition: { duration: 0.24, ease: 'easeOut' },
       }}
-      className={`group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] border p-1 ${
+      className={`group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] ${
         tier.highlighted
-          ? 'border-[#F8D16A]/28 bg-[linear-gradient(145deg,rgba(248,209,106,0.24),rgba(0,255,255,0.08)_34%,rgba(255,255,255,0.025))] shadow-[0_0_70px_rgba(248,209,106,0.16),0_0_90px_rgba(0,255,255,0.09)] md:-translate-y-3'
-          : 'border-white/10 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]'
+          ? 'p-[2px] bg-[#050507] shadow-[0_0_70px_rgba(248,209,106,0.16),0_0_90px_rgba(0,255,255,0.09)] md:-translate-y-3'
+          : 'border border-white/10 p-1 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]'
       }`}
     >
+      {tier.highlighted && (
+        <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
+             style={{ background: 'conic-gradient(from 0deg, transparent 70%, #F8D16A 100%)' }}
+        />
+      )}
       <div
         className={`pointer-events-none absolute inset-x-8 top-0 h-px ${
           tier.highlighted
@@ -203,7 +208,9 @@ function PricingCard({
         <div className="absolute -bottom-20 left-8 h-52 w-52 rounded-full bg-[#F8D16A]/10 blur-3xl" />
       </div>
 
-      <div className="relative flex flex-1 flex-col rounded-[24px] bg-[#050507]/88 px-6 py-7 backdrop-blur-xl md:px-7">
+      <div className={`relative flex flex-1 flex-col rounded-[24px] px-6 py-7 md:px-7 ${
+        tier.highlighted ? 'bg-[#050507]' : 'bg-[#050507]/88 backdrop-blur-xl'
+      }`}>
         <div className="mb-5 flex min-h-9 flex-wrap items-center justify-between gap-2">
           <span className={`rounded-full border px-3 py-1 text-xs font-bold tracking-widest ${discountClasses[tier.discountTone]}`}>
             {tier.discount}
