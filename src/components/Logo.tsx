@@ -7,7 +7,7 @@ export function CozybytesLogo({ size = 'md' }: LogoFullProps) {
 
   return (
     <img
-      src="/logo.png"
+      src="/logo.png?v=2"
       alt="Cozybytes Media"
       height={h}
       style={{ height: h, width: 'auto', objectFit: 'contain' }}
