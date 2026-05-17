@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useInView } from 'framer-motion'
 import {
   HoverSlider,
@@ -46,6 +46,55 @@ const SERVICES = [
     imageUrl: '/services/uiux.png',
   },
 ]
+
+function AutoPlayManager({ total, interval }: { total: number, interval: number }) {
+  const { activeSlide, changeSlide } = useHoverSliderContext()
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      changeSlide((activeSlide + 1) % total)
+    }, interval)
+    return () => clearInterval(timer)
+  }, [activeSlide, total, interval, changeSlide])
+
+  return null
+}
+
+function ServiceItem({ svc, index }: { svc: typeof SERVICES[0], index: number }) {
+  const { activeSlide } = useHoverSliderContext()
+  const isActive = activeSlide === index
+
+  return (
+    <div className="group flex flex-col py-3 border-b border-white/8 last:border-0 relative">
+      <div className="flex items-center gap-4 relative z-10">
+        <span className="text-[#00FFFF]/40 text-xs font-mono w-6 flex-shrink-0">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <TextStaggerHover
+          index={index}
+          text={svc.title}
+          className="cursor-pointer text-2xl md:text-3xl font-bold text-white tracking-tight"
+          style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+        />
+        <span className="ml-auto text-xs text-white/30 group-hover:text-[#00FFFF]/60 transition-colors hidden sm:block">
+          {svc.tag}
+        </span>
+      </div>
+      
+      {/* Progress Bar Container */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 overflow-hidden">
+        {isActive && (
+          <div 
+            className="h-full bg-[#00FFFF] origin-left"
+            style={{ 
+              animation: 'progress 4s linear forwards'
+            }}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
 
 function ServiceDescription({ services }: { services: typeof SERVICES }) {
   const { activeSlide } = useHoverSliderContext()
@@ -99,23 +148,12 @@ export default function ServicesSection() {
 
         {/* Hover Slideshow */}
         <HoverSlider className="flex flex-col md:flex-row gap-10 lg:gap-12 items-start md:items-center">
+          <AutoPlayManager total={SERVICES.length} interval={4000} />
+          
           {/* Text list */}
-          <div className="flex flex-col gap-1 flex-shrink-0">
+          <div className="flex flex-col gap-1 flex-shrink-0 w-full md:w-auto">
             {SERVICES.map((svc, index) => (
-              <div key={svc.id} className="group flex items-center gap-4 py-3 border-b border-white/8 last:border-0">
-                <span className="text-[#00FFFF]/40 text-xs font-mono w-6 flex-shrink-0">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <TextStaggerHover
-                  index={index}
-                  text={svc.title}
-                  className="cursor-pointer text-2xl md:text-3xl font-bold text-white tracking-tight"
-                  style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
-                />
-                <span className="ml-auto text-xs text-white/30 group-hover:text-[#00FFFF]/60 transition-colors hidden sm:block">
-                  {svc.tag}
-                </span>
-              </div>
+              <ServiceItem key={svc.id} svc={svc} index={index} />
             ))}
           </div>
 

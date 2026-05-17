@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion'
 import { MessageCircle, Palette, CheckCircle, Rocket } from 'lucide-react'
 
 const steps = [
@@ -67,6 +67,14 @@ function StepCard({
 }) {
   const isLeft = index % 2 === 0
   const Icon = step.icon
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect()
+    mouseX.set(clientX - left)
+    mouseY.set(clientY - top)
+  }
 
   return (
     <motion.div
@@ -104,7 +112,10 @@ function StepCard({
           isLeft ? 'md:mr-auto' : 'md:ml-auto'
         }`}
       >
-        <div className="liquid-glass rounded-2xl p-7 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 cursor-default">
+        <div 
+          className="liquid-glass rounded-2xl p-7 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 cursor-default"
+          onMouseMove={handleMouseMove}
+        >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,255,255,0.08),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.035),transparent_42%)] opacity-80" />
           {/* Giant watermark number */}
           <div
@@ -119,12 +130,17 @@ function StepCard({
             {step.num}
           </div>
 
-          {/* Hover glow */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+          {/* Interactive Mouse Spotlight Hover */}
+          <motion.div
+            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 z-0"
             style={{
-              background:
-                'radial-gradient(circle at 50% 50%, rgba(0,255,255,0.06) 0%, transparent 70%)',
+              background: useMotionTemplate`
+                radial-gradient(
+                  400px circle at ${mouseX}px ${mouseY}px,
+                  rgba(0, 255, 255, 0.15),
+                  transparent 80%
+                )
+              `,
             }}
           />
 
@@ -179,6 +195,28 @@ export default function ProcessSection() {
           maskImage: 'radial-gradient(ellipse 90% 90% at 50% 50%, black 10%, transparent 90%)',
         }}
       />
+
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <motion.div
+          animate={{
+            x: [0, 50, 0, -50, 0],
+            y: [0, -50, 50, 0, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full mix-blend-screen opacity-[0.08]"
+          style={{ background: 'radial-gradient(circle, #00FFFF, transparent 70%)', filter: 'blur(80px)' }}
+        />
+        <motion.div
+          animate={{
+            x: [0, -60, 0, 60, 0],
+            y: [0, 60, -60, 0, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[20%] right-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full mix-blend-screen opacity-[0.05]"
+          style={{ background: 'radial-gradient(circle, #00BFFF, transparent 70%)', filter: 'blur(100px)' }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Header */}
