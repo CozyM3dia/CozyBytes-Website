@@ -155,7 +155,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black">
+    <footer className="border-t border-white/10 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-6 py-14">
         {/* FAQ Section */}
         <div className="mb-20 max-w-3xl">

@@ -127,7 +127,7 @@ function MockBrowserContent({
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-zinc-950 min-h-screen">
       <Navbar />
 
       {/* Header */}

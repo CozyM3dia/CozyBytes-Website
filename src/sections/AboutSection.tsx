@@ -81,7 +81,7 @@ export default function AboutSection() {
                 background: 'linear-gradient(135deg, rgba(0,255,255,0.3), rgba(0,255,255,0.05), rgba(0,255,255,0.15))',
               }}
             >
-              <div className="relative rounded-2xl bg-black/80 backdrop-blur-xl px-6 py-8 text-center overflow-hidden">
+              <div className="relative rounded-2xl bg-zinc-950/80 backdrop-blur-xl px-6 py-8 text-center overflow-hidden">
                 {/* Background glow */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"

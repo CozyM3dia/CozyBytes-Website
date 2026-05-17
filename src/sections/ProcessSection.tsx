@@ -168,7 +168,7 @@ export default function ProcessSection() {
       className="py-28 relative overflow-hidden"
     >
       <div
-        className="absolute inset-0 pointer-events-none bg-black"
+        className="absolute inset-0 pointer-events-none bg-zinc-950"
         aria-hidden="true"
       />
       <div
@@ -200,7 +200,7 @@ export default function ProcessSection() {
         </motion.div>
 
         {/* Timeline container */}
-        <div className="relative rounded-[32px] border border-white/[0.04] bg-black/20 p-3 md:p-8 shadow-[0_30px_100px_rgba(0,0,0,0.35)]">
+        <div className="relative rounded-[32px] border border-white/[0.04] bg-zinc-950/20 p-3 md:p-8 shadow-[0_30px_100px_rgba(0,0,0,0.35)]">
           <div
             className="pointer-events-none absolute inset-0 rounded-[32px]"
             aria-hidden="true"

@@ -26,7 +26,7 @@ const teamMembers = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-black min-h-screen text-white/90">
+    <div className="bg-zinc-950 min-h-screen text-white/90">
       <Navbar />
 
       {/* Hero / Header Section */}

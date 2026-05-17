@@ -8,7 +8,7 @@ import CTASection from '../sections/CTASection'
 
 export default function HomePage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-zinc-950 min-h-screen">
       <Navbar />
       <HeroSection />
       <AboutSection />

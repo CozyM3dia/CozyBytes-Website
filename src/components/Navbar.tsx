@@ -129,9 +129,9 @@ export default function Navbar() {
 
       {/* Mobile menu overlay */}
       {menuOpen && (
-        <div className="md:hidden fixed inset-0 top-[72px] z-40 bg-black/80 backdrop-blur-sm" onClick={() => setMenuOpen(false)}>
+        <div className="md:hidden fixed inset-0 top-[72px] z-40 bg-zinc-950/80 backdrop-blur-sm" onClick={() => setMenuOpen(false)}>
           <div
-            className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl mx-4 mt-2 px-5 py-5 flex flex-col gap-1"
+            className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl mx-4 mt-2 px-5 py-5 flex flex-col gap-1"
             onClick={(e) => e.stopPropagation()}
           >
             {links.map((l) => {

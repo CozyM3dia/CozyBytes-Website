@@ -274,7 +274,7 @@ export default function PricingPage() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-zinc-950">
       <Navbar />
 
       <section
