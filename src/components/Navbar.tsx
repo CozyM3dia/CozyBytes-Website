@@ -83,7 +83,7 @@ export default function Navbar() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`w-full max-w-5xl rounded-full transition-all duration-300 ${
-          scrolled ? 'bg-zinc-950/50 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.4)]' : 'bg-transparent border border-transparent'
+          scrolled ? 'bg-zinc-950/30 backdrop-blur-md border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.2)]' : 'bg-transparent border border-transparent'
         }`}
       >
         <div className="flex items-center justify-between px-4 py-3">
