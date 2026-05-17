@@ -79,8 +79,8 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
       <motion.nav
-        initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`w-full max-w-5xl rounded-full transition-all duration-300 ${
           scrolled ? 'liquid-glass' : 'bg-transparent'
@@ -131,9 +131,9 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -10, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -10, filter: 'blur(8px)' }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden fixed inset-0 top-[72px] z-40 bg-zinc-950/80 backdrop-blur-sm" 
             onClick={() => setMenuOpen(false)}

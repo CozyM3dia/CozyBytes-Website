@@ -193,7 +193,7 @@ function PricingCard({
     >
       {tier.highlighted && (
         <div className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
-             style={{ background: 'conic-gradient(from 0deg, transparent 50%, rgba(248,209,106, 0.15) 75%, #F8D16A 100%)' }}
+             style={{ background: 'conic-gradient(from 0deg, transparent 75%, rgba(248,209,106, 0.15) 85%, #F8D16A 96%, transparent 100%)' }}
         />
       )}
       <div
