@@ -3,6 +3,8 @@ import Footer from '../components/Footer'
 import { motion } from 'framer-motion'
 import CTASection from '../sections/CTASection'
 
+import { CozybytesLogo } from '../components/Logo'
+
 const teamMembers = [
   {
     role: 'Founder',
@@ -41,6 +43,9 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <div className="flex justify-center mb-8">
+              <CozybytesLogo size="md" />
+            </div>
             <h1 
               className="text-3xl sm:text-5xl md:text-7xl mb-6 leading-tight"
               style={{ fontFamily: '"Instrument Serif", serif' }}
