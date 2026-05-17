@@ -1,13 +1,5 @@
 import { motion } from 'framer-motion'
-import { Zap, Smile, Monitor, MapPin } from 'lucide-react'
 import FluidFlowBackground from '../components/FluidFlowBackground'
-
-const features = [
-  { icon: Zap, label: 'Super Cepat', desc: '3 hari rata-rata' },
-  { icon: Smile, label: 'Proses Nyaman', desc: 'Tanpa ribet' },
-  { icon: Monitor, label: 'Responsif & Modern', desc: 'Mobile-first' },
-  { icon: MapPin, label: 'Fokus Lokal', desc: 'Tim Indonesia' },
-]
 
 export default function HeroSection() {
   return (
