@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { CozybytesLogo } from './Logo'
 
 const links = [
@@ -79,9 +79,9 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
       <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`w-full max-w-5xl rounded-full transition-all duration-300 ${
           scrolled ? 'liquid-glass' : 'bg-transparent'
         }`}
@@ -128,9 +128,17 @@ export default function Navbar() {
       </motion.nav>
 
       {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div className="md:hidden fixed inset-0 top-[72px] z-40 bg-zinc-950/80 backdrop-blur-sm" onClick={() => setMenuOpen(false)}>
-          <div
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -10, filter: 'blur(8px)' }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden fixed inset-0 top-[72px] z-40 bg-zinc-950/80 backdrop-blur-sm" 
+            onClick={() => setMenuOpen(false)}
+          >
+            <div
             className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl mx-4 mt-2 px-5 py-5 flex flex-col gap-1"
             onClick={(e) => e.stopPropagation()}
           >
@@ -172,8 +180,9 @@ export default function Navbar() {
               Konsultasi Gratis
             </a>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

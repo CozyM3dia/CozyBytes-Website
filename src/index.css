@@ -88,6 +88,9 @@
   .btn-primary:hover {
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(0, 255, 255, 0.3);
   }
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
 
   .btn-secondary {
     @apply liquid-glass rounded-full px-6 py-3 text-white inline-flex items-center gap-2;
