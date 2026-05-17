@@ -51,9 +51,9 @@ export default function HeroSection() {
             className="text-[3.2rem] leading-[1.05] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.2rem] font-serif text-white tracking-tight"
             style={{ fontFamily: '"Instrument Serif", serif' }}
           >
-            Seni <br className="hidden lg:block"/>
-            Membangun <br/>
-            <span className="text-[#00FFFF] italic pr-4">Website.</span>
+            Website <br className="hidden lg:block"/>
+            Profesional. <br/>
+            <span className="text-[#00FFFF] italic pr-4">Tanpa Pusing.</span>
           </motion.h1>
 
           <motion.p
@@ -62,27 +62,33 @@ export default function HeroSection() {
             transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.2 }}
             className="text-zinc-400 text-lg sm:text-xl max-w-md mt-8 leading-relaxed font-light"
           >
-            Meninggalkan kerumitan. Kami merancang presisi digital untuk bisnis lokal yang menuntut kecepatan, estetika, dan performa modern.
+            Calon pelanggan sering ragu jika bisnis Anda tidak memiliki tampilan digital yang meyakinkan. Cozybytes membantu Anda membangun website yang profesional dan cepat diakses, tanpa perlu repot mengurus teknis. Semua selesai dalam 3 hari.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.3 }}
-            className="mt-12 flex flex-wrap items-center gap-6"
+            className="mt-12 flex flex-col items-start gap-4"
           >
-            <a
-              href="https://wa.me/6285894514719"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-sm tracking-wide shadow-[0_0_40px_rgba(0,255,255,0.3)] hover:shadow-[0_0_60px_rgba(0,255,255,0.5)]"
-            >
-              Mulai Konsultasi
-            </a>
-            <a href="#layanan" className="text-zinc-300 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase group flex items-center gap-2">
-              Lihat Layanan 
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+            <div className="flex flex-wrap items-center gap-6">
+              <a
+                href="https://wa.me/6285894514719"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-sm tracking-wide shadow-[0_0_40px_rgba(0,255,255,0.3)] hover:shadow-[0_0_60px_rgba(0,255,255,0.5)]"
+              >
+                Mulai Konsultasi
+              </a>
+              <a href="#layanan" className="text-zinc-300 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase group flex items-center gap-2">
+                Lihat Layanan 
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            </div>
+            <div className="text-zinc-500 text-xs font-medium tracking-wide flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              15+ Bisnis telah beralih ke Cozybytes bulan ini
+            </div>
           </motion.div>
         </div>
 

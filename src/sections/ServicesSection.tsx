@@ -14,7 +14,7 @@ const SERVICES = [
     id: 'landing-page',
     title: 'Landing Page',
     tag: 'Konversi Tinggi',
-    description: 'Tingkatkan konversi bisnis Anda dengan Landing Page yang dirancang khusus untuk menarik perhatian dan mengarahkan pengunjung menjadi pelanggan setia.',
+    description: 'Satu halaman khusus untuk mendatangkan pelanggan. Sangat cocok jika Anda sedang menjalankan iklan di media sosial.',
     imageUrl: '/services/landing.png',
   },
   {
@@ -28,21 +28,21 @@ const SERVICES = [
     id: 'toko-online',
     title: 'Toko Online',
     tag: 'E-Commerce',
-    description: 'Perluas jangkauan pasar dengan platform e-commerce yang aman, mudah digunakan, dan terintegrasi dengan berbagai metode pembayaran.',
+    description: 'Sistem e-commerce yang mempermudah pelanggan memilih barang dan membayar secara otomatis. Anda tidak perlu lagi mencatat pesanan satu per satu.',
     imageUrl: '/services/ecommerce.png',
   },
   {
     id: 'custom-website',
     title: 'Custom Website',
     tag: 'Full Custom',
-    description: 'Wujudkan website impian bisnis Anda dari nol — desain unik, fitur spesifik, dan arsitektur yang dibangun sepenuhnya sesuai kebutuhan Anda tanpa batasan template.',
+    description: 'Desain dan fitur dibuat khusus dari nol sesuai kebutuhan unik bisnis Anda, tanpa menggunakan template pasaran.',
     imageUrl: '/services/custom.png',
   },
   {
     id: 'ui-ux',
     title: 'UI/UX Redesign',
     tag: 'Modern',
-    description: 'Tampilan website lama terasa ketinggalan zaman? Kami redesign ulang UI/UX-nya agar lebih modern, intuitif, dan sesuai identitas brand Anda — tanpa harus bangun dari nol.',
+    description: 'Tampilan website lama terasa ketinggalan zaman? Kami mendesain ulang antarmukanya agar lebih modern, rapi, dan sesuai dengan identitas bisnis Anda saat ini.',
     imageUrl: '/services/uiux.png',
   },
 ]

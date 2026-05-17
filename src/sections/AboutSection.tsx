@@ -53,13 +53,13 @@ export default function AboutSection() {
             className="text-4xl md:text-5xl mb-6 leading-tight"
             style={{ fontFamily: '"Instrument Serif", serif' }}
           >
-            Kami percaya website bukan{' '}
-            <em className="text-white/30 italic">sekadar</em> tampilan —{' '}
-            <em className="text-[#00FFFF] italic">tapi aset bisnis</em> yang bekerja 24 jam.
+            Kami Memahami{' '}
+            <em className="text-white/30 italic">Kesulitan</em> Mencari{' '}
+            <em className="text-[#00FFFF] italic">Jasa Web</em> yang Dapat Diandalkan.
           </h2>
 
           <p className="text-white/60 text-base leading-relaxed max-w-2xl mb-12">
-            Cozybytes Media adalah agensi web development yang fokus membantu UMKM dan bisnis lokal Indonesia untuk hadir secara profesional di dunia digital, dengan proses yang mudah dan harga yang terjangkau.
+            Banyak pemilik usaha kecewa karena mendapat website lambat dengan desain seadanya. Di Cozybytes, kami mengerjakan proyek Anda secara serius. Tampilannya rapi, loading cepat, dan strukturnya jelas agar pengunjung langsung memahami layanan yang Anda jual.
           </p>
         </motion.div>
 
