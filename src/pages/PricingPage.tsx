@@ -187,14 +187,27 @@ function PricingCard({
       }}
       className={`group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] ${
         tier.highlighted
-          ? 'p-[1.5px] bg-white/10 shadow-[0_0_80px_rgba(248,209,106,0.12),0_0_90px_rgba(0,255,255,0.06)] md:-translate-y-3'
+          ? 'p-[1.5px] bg-[#F8D16A]/[0.06] shadow-[0_0_80px_rgba(248,209,106,0.12),0_0_90px_rgba(0,255,255,0.06)] md:-translate-y-3'
           : 'border border-white/10 p-1 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]'
       }`}
     >
       {tier.highlighted && (
-        <div className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_4s_linear_infinite]"
-             style={{ background: 'conic-gradient(from 0deg, transparent 75%, rgba(248,209,106, 0.15) 85%, #F8D16A 96%, transparent 100%)' }}
-        />
+        <>
+          <div
+            className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
+            style={{
+              background: 'conic-gradient(from 0deg, transparent 60%, rgba(248,209,106,0.3) 80%, #F8D16A 88%, transparent 100%)',
+              filter: 'blur(6px)',
+              opacity: 0.6,
+            }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
+            style={{
+              background: 'conic-gradient(from 0deg, transparent 55%, rgba(248,209,106,0.2) 70%, rgba(248,209,106,0.7) 82%, #F8D16A 88%, rgba(248,209,106,0.7) 93%, transparent 100%)',
+            }}
+          />
+        </>
       )}
       <div
         className={`pointer-events-none absolute inset-x-8 top-0 h-px ${

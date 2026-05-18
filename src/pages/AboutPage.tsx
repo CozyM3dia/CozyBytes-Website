@@ -100,8 +100,8 @@ export default function AboutPage() {
             >
               <div className="aspect-[4/5] rounded-3xl overflow-hidden liquid-glass relative z-10 p-2">
                 <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Tim Cozybytes Media Lampung" 
+                  src="/about_story.png" 
+                  alt="Tim Cozybytes Media" 
                   className="w-full h-full object-cover rounded-2xl opacity-80"
                 />
               </div>
