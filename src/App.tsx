@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import PricingPage from './pages/PricingPage'
@@ -27,6 +28,7 @@ function App() {
           <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Routes>
+        <Analytics />
       </BrowserRouter>
     </MotionConfig>
   )
