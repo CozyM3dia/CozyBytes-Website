@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion, useInView, useMotionValue, useMotionTemplate } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { Rocket, Clock, Heart } from 'lucide-react'
 
 const stats = [
-  { value: 15, suffix: '+', label: 'Proyek Selesai', icon: Rocket, color: '#00FFFF' },
-  { value: 3, suffix: ' Hari', label: 'Rata-rata Delivery', icon: Clock, color: '#00FFFF' },
-  { value: 100, suffix: '%', label: 'Klien Puas', icon: Heart, color: '#00FFFF' },
+  { value: 15, suffix: '+', label: 'Proyek Selesai', icon: Rocket },
+  { value: 3, suffix: ' Hari', label: 'Rata-rata Delivery', icon: Clock },
+  { value: 100, suffix: '%', label: 'Klien Puas', icon: Heart },
 ]
 
 function AnimatedCounter({ target, suffix, started }: { target: number; suffix: string; started: boolean }) {
@@ -29,109 +29,29 @@ function AnimatedCounter({ target, suffix, started }: { target: number; suffix: 
   return <>{count}{suffix}</>
 }
 
-function StatCard({ value, suffix, label, icon: Icon, i, inView }: { value: number; suffix: string; label: string; icon: any; i: number; inView: boolean }) {
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect()
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
-  }
-
-  return (
-    <motion.div
-      key={label}
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 + i * 0.15, type: 'spring', bounce: 0.3 }}
-      onMouseMove={onMouseMove}
-      whileHover={{
-        scale: 1.03,
-        y: -4,
-        boxShadow: '0 20px 40px rgba(0,255,255,0.15), 0 0 20px rgba(0,255,255,0.05)',
-      }}
-      className="group relative rounded-2xl cursor-pointer overflow-hidden"
-      style={{ padding: '1.5px' }}
-    >
-      {/* Rotating Light Trail Border */}
-      <div className="absolute inset-0 z-0 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          style={{
-            background: 'conic-gradient(from 0deg, #00FFFF, transparent 30%, #00FFFF)',
-            width: '200%',
-            height: '200%',
-            left: '-50%',
-            top: '-50%',
-            position: 'absolute'
-          }}
-        />
-      </div>
-
-      {/* Spotlight overlay */}
-      <motion.div
-        className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: useMotionTemplate`radial-gradient(350px circle at ${mouseX}px ${mouseY}px, rgba(0,255,255,0.15), transparent 80%)`,
-        }}
-      />
-      
-      <div className="relative z-20 rounded-2xl bg-zinc-950/95 backdrop-blur-xl px-6 py-10 text-center overflow-hidden h-full flex flex-col justify-between min-h-[220px]">
-        {/* Background glow base */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: 'radial-gradient(circle at 50% 30%, rgba(0,255,255,0.1) 0%, transparent 70%)',
-          }}
-        />
-
-        {/* Icon */}
-        <motion.div
-          className="relative mx-auto mb-4 w-14 h-14 rounded-2xl flex items-center justify-center"
-          style={{ background: 'rgba(0,255,255,0.06)', border: '1px solid rgba(0,255,255,0.2)' }}
-          whileHover={{ rotate: 12, scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <Icon className="w-6 h-6 text-[#00FFFF]" />
-        </motion.div>
-
-        <div>
-          {/* Number */}
-          <div className="relative text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-[#00FFFF] mb-3 tracking-tight">
-            <AnimatedCounter target={value} suffix={suffix} started={inView} />
-          </div>
-
-          {/* Label */}
-          <div className="relative text-white/50 text-xs font-semibold tracking-widest uppercase">
-            {label}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function AboutSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
     <section
       id="tentang"
       ref={ref}
-      className="relative py-24 overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,255,255,0.04) 0%, transparent 70%)' }}
+      className="relative py-28 md:py-36 overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Top border accent */}
-        <div className="h-px mb-12" style={{ background: 'linear-gradient(to right, transparent, rgba(0,255,255,0.2), transparent)' }} />
+      {/* Atmospheric background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 55% 45% at 50% 65%, rgba(0,255,255,0.05) 0%, transparent 70%)' }}
+      />
 
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
+          className="mb-16 md:mb-24"
         >
           <h2
             className="text-4xl md:text-5xl mb-6 leading-tight"
@@ -141,17 +61,72 @@ export default function AboutSection() {
             <em className="text-white/30 italic">Kesulitan</em> Mencari{' '}
             <em className="text-[#00FFFF] italic">Jasa Web</em> yang Dapat Diandalkan.
           </h2>
-
-          <p className="text-white/60 text-base leading-relaxed max-w-2xl mb-12">
-            Banyak pemilik usaha kecewa karena mendapat website lambat dengan desain seadanya. Di Cozybytes, kami mengerjakan proyek Anda secara serius. Tampilannya rapi, loading cepat, dan strukturnya jelas agar pengunjung langsung memahami layanan yang Anda jual.
+          <p className="text-white/60 text-base leading-relaxed max-w-2xl">
+            Banyak pemilik usaha kecewa karena mendapat website lambat dengan desain seadanya.
+            Di Cozybytes, kami mengerjakan proyek Anda secara serius. Tampilannya rapi, loading cepat,
+            dan strukturnya jelas agar pengunjung langsung memahami layanan yang Anda jual.
           </p>
         </motion.div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat, i) => (
-            <StatCard key={stat.label} {...stat} i={i} inView={inView} />
-          ))}
+        {/* Stats strip */}
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {stats.map((stat, i) => {
+            const Icon = stat.icon
+            return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
+                whileHover={{ y: -3 }}
+                className={`relative text-center py-10 md:py-0 md:px-6 cursor-default ${
+                  i > 0 ? 'border-t md:border-t-0 md:border-l border-white/[0.06]' : ''
+                }`}
+              >
+                {/* Category label */}
+                <div className="flex items-center justify-center gap-2 mb-5">
+                  <Icon className="w-3.5 h-3.5 text-[#00FFFF]/50" strokeWidth={1.5} />
+                  <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/35">
+                    {stat.label}
+                  </span>
+                </div>
+
+                {/* The number */}
+                <div className="relative">
+                  <span
+                    className="text-[5rem] sm:text-[6rem] md:text-[5rem] lg:text-[7rem] leading-[0.9] tracking-tight inline-block"
+                    style={{
+                      fontFamily: '"Instrument Serif", serif',
+                      background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 20%, rgba(0,255,255,0.7) 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} started={inView} />
+                  </span>
+
+                  {/* Entry glow pulse */}
+                  {inView && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.3 }}
+                      animate={{ opacity: [0, 0.25, 0], scale: [0.3, 1.8, 2.5] }}
+                      transition={{ duration: 2, delay: 0.4 + i * 0.15, ease: 'easeOut' }}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[#00FFFF] blur-3xl pointer-events-none"
+                    />
+                  )}
+                </div>
+
+                {/* Accent underline */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={inView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.5 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  className="mx-auto mt-6 h-px w-16 origin-center"
+                  style={{ background: 'linear-gradient(to right, transparent, rgba(0,255,255,0.4), transparent)' }}
+                />
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
