@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useMotionValue, useMotionTemplate } from 'framer-motion'
 import { Rocket, Clock, Heart } from 'lucide-react'
 
 const stats = [
@@ -27,6 +27,76 @@ function AnimatedCounter({ target, suffix, started }: { target: number; suffix: 
   }, [started, target])
 
   return <>{count}{suffix}</>
+}
+
+function StatCard({ value, suffix, label, icon: Icon, i, inView }: { value: number; suffix: string; label: string; icon: any; i: number; inView: boolean }) {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect()
+    mouseX.set(clientX - left)
+    mouseY.set(clientY - top)
+  }
+
+  return (
+    <motion.div
+      key={label}
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.6, delay: 0.2 + i * 0.15, type: 'spring', bounce: 0.3 }}
+      onMouseMove={onMouseMove}
+      whileHover={{
+        scale: 1.03,
+        y: -4,
+        boxShadow: '0 20px 40px rgba(0,255,255,0.1), 0 0 20px rgba(0,255,255,0.05)',
+      }}
+      className="group relative rounded-2xl p-px cursor-pointer overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, rgba(0,255,255,0.4), rgba(0,255,255,0.05), rgba(0,255,255,0.2))',
+      }}
+    >
+      {/* Spotlight overlay */}
+      <motion.div
+        className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: useMotionTemplate`radial-gradient(350px circle at ${mouseX}px ${mouseY}px, rgba(0,255,255,0.15), transparent 80%)`,
+        }}
+      />
+      
+      <div className="relative z-10 rounded-2xl bg-zinc-950/90 backdrop-blur-xl px-6 py-10 text-center overflow-hidden h-full flex flex-col justify-between min-h-[220px]">
+        {/* Background glow base */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: 'radial-gradient(circle at 50% 30%, rgba(0,255,255,0.1) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Icon */}
+        <motion.div
+          className="relative mx-auto mb-4 w-14 h-14 rounded-2xl flex items-center justify-center"
+          style={{ background: 'rgba(0,255,255,0.06)', border: '1px solid rgba(0,255,255,0.2)' }}
+          whileHover={{ rotate: 12, scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <Icon className="w-6 h-6 text-[#00FFFF]" />
+        </motion.div>
+
+        <div>
+          {/* Number */}
+          <div className="relative text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-[#00FFFF] mb-3 tracking-tight">
+            <AnimatedCounter target={value} suffix={suffix} started={inView} />
+          </div>
+
+          {/* Label */}
+          <div className="relative text-white/50 text-xs font-semibold tracking-widest uppercase">
+            {label}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
 }
 
 export default function AboutSection() {
@@ -64,52 +134,9 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {stats.map(({ value, suffix, label, icon: Icon }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.15, type: 'spring', bounce: 0.3 }}
-              whileHover={{
-                scale: 1.05,
-                y: -4,
-                boxShadow: '0 12px 40px rgba(0,255,255,0.2), 0 0 20px rgba(0,255,255,0.1)',
-              }}
-              className="group relative rounded-2xl p-px cursor-pointer overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, rgba(0,255,255,0.3), rgba(0,255,255,0.05), rgba(0,255,255,0.15))',
-              }}
-            >
-              <div className="relative rounded-2xl bg-zinc-950/80 backdrop-blur-xl px-6 py-8 text-center overflow-hidden">
-                {/* Background glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: 'radial-gradient(circle at 50% 30%, rgba(0,255,255,0.08) 0%, transparent 70%)',
-                  }}
-                />
-
-                {/* Icon */}
-                <motion.div
-                  className="relative mx-auto mb-4 w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: 'rgba(0,255,255,0.08)', border: '1px solid rgba(0,255,255,0.15)' }}
-                  whileHover={{ rotate: 8 }}
-                >
-                  <Icon className="w-5 h-5 text-[#00FFFF]" />
-                </motion.div>
-
-                {/* Number */}
-                <div className="relative text-4xl md:text-5xl font-bold text-[#00FFFF] mb-2 tracking-tight">
-                  <AnimatedCounter target={value} suffix={suffix} started={inView} />
-                </div>
-
-                {/* Label */}
-                <div className="relative text-white/50 text-sm font-medium tracking-wide uppercase">
-                  {label}
-                </div>
-              </div>
-            </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {stats.map((stat, i) => (
+            <StatCard key={stat.label} {...stat} i={i} inView={inView} />
           ))}
         </div>
       </div>
