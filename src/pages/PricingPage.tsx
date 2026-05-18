@@ -175,40 +175,8 @@ function PricingCard({
   index: number
   inView: boolean
 }) {
-  const card = (
-    <motion.article
-      initial={{ opacity: 0, y: 46, scale: tier.highlighted ? 1.02 : 0.98 }}
-      animate={inView ? { opacity: 1, y: 0, scale: tier.highlighted ? 1.04 : 1 } : {}}
-      transition={{ duration: 0.65, delay: 0.12 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{
-        y: tier.highlighted ? -10 : -7,
-        scale: tier.highlighted ? 1.055 : 1.015,
-        transition: { duration: 0.24, ease: 'easeOut' },
-      }}
-      className={`group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] ${
-        tier.highlighted
-          ? 'p-[1.5px] bg-[#F8D16A]/[0.06] shadow-[0_0_80px_rgba(248,209,106,0.12),0_0_90px_rgba(0,255,255,0.06)] md:-translate-y-3'
-          : 'border border-white/10 p-1 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]'
-      }`}
-    >
-      {tier.highlighted && (
-        <>
-          <div
-            className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
-            style={{
-              background: 'conic-gradient(from 0deg, transparent 60%, rgba(248,209,106,0.3) 80%, #F8D16A 88%, transparent 100%)',
-              filter: 'blur(6px)',
-              opacity: 0.6,
-            }}
-          />
-          <div
-            className="absolute left-1/2 top-1/2 z-0 h-[2000px] w-[2000px] -translate-x-1/2 -translate-y-1/2 animate-[spin_3s_linear_infinite]"
-            style={{
-              background: 'conic-gradient(from 0deg, transparent 55%, rgba(248,209,106,0.2) 70%, rgba(248,209,106,0.7) 82%, #F8D16A 88%, rgba(248,209,106,0.7) 93%, transparent 100%)',
-            }}
-          />
-        </>
-      )}
+  const cardInner = (
+    <>
       <div
         className={`pointer-events-none absolute inset-x-8 top-0 h-px ${
           tier.highlighted
@@ -283,10 +251,97 @@ function PricingCard({
           ))}
         </ul>
       </div>
-    </motion.article>
+    </>
   )
 
-  return card
+  if (tier.highlighted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 46, scale: 1.02 }}
+        animate={inView ? { opacity: 1, y: 0, scale: 1.04 } : {}}
+        transition={{ duration: 0.65, delay: 0.12 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{
+          y: -10,
+          scale: 1.055,
+          transition: { duration: 0.24, ease: 'easeOut' },
+        }}
+        className="group relative flex h-full w-full min-h-full flex-col md:-translate-y-3"
+      >
+        {/* SVG border trail — outside overflow:hidden so it traces the actual rect border */}
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          style={{ zIndex: 20, overflow: 'visible' }}
+          fill="none"
+        >
+          {/* Dim base border always visible */}
+          <rect
+            style={{
+              width: 'calc(100% - 2px)',
+              height: 'calc(100% - 2px)',
+              x: '1px',
+              y: '1px',
+              rx: '27px',
+              fill: 'none',
+              stroke: 'rgba(248,209,106,0.14)',
+              strokeWidth: '1.5',
+            }}
+          />
+          {/* Glow halo layer */}
+          <rect
+            style={{
+              width: 'calc(100% - 2px)',
+              height: 'calc(100% - 2px)',
+              x: '1px',
+              y: '1px',
+              rx: '27px',
+              fill: 'none',
+              stroke: 'rgba(248,209,106,0.55)',
+              strokeWidth: '7',
+              strokeLinecap: 'round',
+              strokeDasharray: '80 2920',
+              animation: 'svgBorderTrail 4s linear infinite',
+              filter: 'blur(5px)',
+            }}
+          />
+          {/* Sharp trail */}
+          <rect
+            style={{
+              width: 'calc(100% - 2px)',
+              height: 'calc(100% - 2px)',
+              x: '1px',
+              y: '1px',
+              rx: '27px',
+              fill: 'none',
+              stroke: '#F8D16A',
+              strokeWidth: '2',
+              strokeLinecap: 'round',
+              strokeDasharray: '80 2920',
+              animation: 'svgBorderTrail 4s linear infinite',
+            }}
+          />
+        </svg>
+        <article className="relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] bg-[#050507] shadow-[0_0_80px_rgba(248,209,106,0.12),0_0_90px_rgba(0,255,255,0.06)]">
+          {cardInner}
+        </article>
+      </motion.div>
+    )
+  }
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 46, scale: 0.98 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.65, delay: 0.12 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{
+        y: -7,
+        scale: 1.015,
+        transition: { duration: 0.24, ease: 'easeOut' },
+      }}
+      className="group relative flex h-full w-full min-h-full flex-col overflow-hidden rounded-[28px] border border-white/10 p-1 bg-white/[0.018] shadow-[0_26px_70px_rgba(0,0,0,0.28)]"
+    >
+      {cardInner}
+    </motion.article>
+  )
 }
 
 export default function PricingPage() {

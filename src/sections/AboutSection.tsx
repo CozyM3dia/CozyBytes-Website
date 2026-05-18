@@ -49,22 +49,36 @@ function StatCard({ value, suffix, label, icon: Icon, i, inView }: { value: numb
       whileHover={{
         scale: 1.03,
         y: -4,
-        boxShadow: '0 20px 40px rgba(0,255,255,0.1), 0 0 20px rgba(0,255,255,0.05)',
+        boxShadow: '0 20px 40px rgba(0,255,255,0.15), 0 0 20px rgba(0,255,255,0.05)',
       }}
-      className="group relative rounded-2xl p-px cursor-pointer overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, rgba(0,255,255,0.4), rgba(0,255,255,0.05), rgba(0,255,255,0.2))',
-      }}
+      className="group relative rounded-2xl cursor-pointer overflow-hidden"
+      style={{ padding: '1.5px' }}
     >
+      {/* Rotating Light Trail Border */}
+      <div className="absolute inset-0 z-0 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          style={{
+            background: 'conic-gradient(from 0deg, #00FFFF, transparent 30%, #00FFFF)',
+            width: '200%',
+            height: '200%',
+            left: '-50%',
+            top: '-50%',
+            position: 'absolute'
+          }}
+        />
+      </div>
+
       {/* Spotlight overlay */}
       <motion.div
-        className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background: useMotionTemplate`radial-gradient(350px circle at ${mouseX}px ${mouseY}px, rgba(0,255,255,0.15), transparent 80%)`,
         }}
       />
       
-      <div className="relative z-10 rounded-2xl bg-zinc-950/90 backdrop-blur-xl px-6 py-10 text-center overflow-hidden h-full flex flex-col justify-between min-h-[220px]">
+      <div className="relative z-20 rounded-2xl bg-zinc-950/95 backdrop-blur-xl px-6 py-10 text-center overflow-hidden h-full flex flex-col justify-between min-h-[220px]">
         {/* Background glow base */}
         <div
           className="absolute inset-0 opacity-20"
