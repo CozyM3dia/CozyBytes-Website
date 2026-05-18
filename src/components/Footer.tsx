@@ -34,7 +34,7 @@ function TikTokIcon() {
 
 const socialLinks = [
   {
-    href: 'https://www.instagram.com/cozybytemedia/',
+    href: 'https://www.instagram.com/cozybytesmedia/',
     label: 'Instagram',
     Icon: InstagramIcon,
     bg: 'linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)',
