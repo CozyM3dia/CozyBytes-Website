@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Blog agent (API keys & Python artifacts)
+blog-agent/.env
+blog-agent/__pycache__/
+*.pyc
+.env
