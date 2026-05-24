@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Check, MessageCircle, Star, X } from 'lucide-react'
+import { Check, MessageCircle, Star, X, ArrowUpRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
@@ -14,8 +14,8 @@ type PricingTier = {
   name: string
   subtitle: string
   tagline: string
-  oldPrice: string
-  savings: string
+  oldPrice?: string
+  savings?: string
   price: string
   period: string
   discount: string
@@ -89,10 +89,10 @@ const tiers: PricingTier[] = [
     subtitle: 'Paket',
     tagline: 'Untuk bisnis yang ingin tampil beda dan siap tumbuh lebih jauh.',
     oldPrice: 'Rp 9.000.000',
-    savings: 'Hemat Rp 4 juta',
-    price: 'Rp 5.000.000',
+    savings: 'Hemat Rp 4.2 juta',
+    price: 'Rp 4.799.000',
     period: 'Bayar sekali, website selamanya',
-    discount: '45% OFF',
+    discount: '47% OFF',
     discountTone: 'violet',
     cta: 'Pilih Paket Premium',
     buttonTone: 'dark',
@@ -112,6 +112,73 @@ const tiers: PricingTier[] = [
         badges: ['1 TAHUN', 'PRIORITY'],
       },
       { available: true, label: <><strong>Unlimited</strong> revisi</> },
+    ],
+  },
+]
+
+const landingTiers: PricingTier[] = [
+  {
+    name: 'Bulanan',
+    subtitle: 'Sewa',
+    tagline: 'Mulai hadir online tanpa komitmen panjang.',
+    price: 'Rp 99rb',
+    period: '/ bulan',
+    discount: 'Sewa bulanan',
+    discountTone: 'gold',
+    cta: 'Pilih Bulanan',
+    buttonTone: 'cyan',
+    features: [
+      { available: true, label: '1 halaman landing page' },
+      { available: true, label: 'Free domain .my.id / .biz.id / .web.id' },
+      { available: true, label: 'Mobile friendly' },
+      { available: true, label: 'Integrasi WhatsApp' },
+      { available: false, label: 'Tidak termasuk SEO' },
+      { available: false, label: 'Tidak termasuk ownership' },
+      { available: false, label: 'Website offline jika berhenti sewa' },
+    ],
+  },
+  {
+    name: 'Tahunan',
+    subtitle: 'Sewa',
+    tagline: 'Setahun penuh, pelanggan baru terus datang.',
+    oldPrice: 'Rp 1.188.000',
+    savings: 'Hemat Rp 238rb',
+    price: 'Rp 950rb',
+    period: '/ tahun',
+    discount: 'Hemat 20%',
+    discountTone: 'gold',
+    cta: 'Pilih Tahunan',
+    highlighted: true,
+    specialBadge: 'Paling hemat',
+    buttonTone: 'gold',
+    features: [
+      { available: true, label: '1 halaman landing page' },
+      { available: true, label: 'Free domain .my.id / .biz.id / .web.id' },
+      { available: true, label: 'Mobile friendly' },
+      { available: true, label: 'Integrasi WhatsApp' },
+      { available: true, label: 'Priority maintenance & support' },
+      { available: false, label: 'Tidak termasuk SEO' },
+      { available: false, label: 'Tidak termasuk ownership' },
+      { available: false, label: 'Website offline jika berhenti sewa' },
+    ],
+  },
+  {
+    name: 'Ownership',
+    subtitle: 'Beli',
+    tagline: 'Bayar sekali, website milik kamu selamanya.',
+    price: 'Rp 1.299rb',
+    period: 'sekali bayar',
+    discount: 'Milik selamanya',
+    discountTone: 'violet',
+    cta: 'Pilih Ownership',
+    buttonTone: 'dark',
+    features: [
+      { available: true, label: '1 halaman landing page' },
+      { available: true, label: 'Free domain .my.id / .biz.id / .web.id' },
+      { available: true, label: 'Mobile friendly' },
+      { available: true, label: 'Integrasi WhatsApp' },
+      { available: true, label: 'Akses penuh (ownership)' },
+      { available: true, label: 'Tutorial kelola website' },
     ],
   },
 ]
@@ -222,13 +289,17 @@ function PricingCard({
         </div>
 
         <div className="mb-7 rounded-2xl border border-white/8 bg-white/[0.025] p-4">
-          <div className="flex flex-wrap items-center gap-2 text-sm">
-            <span className="text-white/34 line-through">{tier.oldPrice}</span>
-            <span className="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs font-bold text-emerald-300">
-              {tier.savings}
-            </span>
-          </div>
-          <div className="mt-2 text-3xl font-black tracking-tight text-white md:text-[2.35rem]">
+          {tier.oldPrice && (
+            <div className="flex flex-wrap items-center gap-2 text-sm">
+              <span className="text-white/34 line-through">{tier.oldPrice}</span>
+              {tier.savings && (
+                <span className="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs font-bold text-emerald-300">
+                  {tier.savings}
+                </span>
+              )}
+            </div>
+          )}
+          <div className={`${tier.oldPrice ? 'mt-2' : ''} text-3xl font-black tracking-tight text-white md:text-[2.35rem]`}>
             {tier.price}
           </div>
           <p className="mt-2 text-xs font-medium text-white/40">{tier.period}</p>
@@ -347,6 +418,8 @@ function PricingCard({
 export default function PricingPage() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const landingRef = useRef(null)
+  const landingInView = useInView(landingRef, { once: true, margin: '-60px' })
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -410,6 +483,121 @@ export default function PricingPage() {
               Konsultasi gratis via WhatsApp
             </a>
           </motion.p>
+        </div>
+      </section>
+
+      {/* Landing Page Pricing Section */}
+      <section
+        ref={landingRef}
+        className="relative overflow-hidden py-24 md:py-32"
+        style={{
+          background:
+            'radial-gradient(ellipse 72% 38% at 50% 0%, rgba(0,255,255,0.08) 0%, transparent 62%), #09090B',
+        }}
+      >
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={landingInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mb-14 max-w-2xl text-center"
+          >
+            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
+              Landing Page
+            </span>
+            <h2
+              className="mb-4 text-3xl sm:text-5xl leading-tight md:text-7xl"
+              style={{ fontFamily: '"Instrument Serif", serif' }}
+            >
+              Paket <em className="text-[#00FFFF] italic">Landing Page</em>
+            </h2>
+            <p className="mx-auto max-w-xl text-base leading-relaxed text-white/52">
+              Mulai hadir online dengan landing page profesional.
+              Pilih model pembayaran yang paling cocok untuk bisnis Anda.
+            </p>
+          </motion.div>
+
+          <div className="grid items-stretch gap-6 lg:grid-cols-3 lg:gap-5 xl:gap-7">
+            {landingTiers.map((tier, i) => (
+              <PricingCard key={tier.name} tier={tier} index={i} inView={landingInView} />
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={landingInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.55, duration: 0.5 }}
+            className="mx-auto mt-12 max-w-xl text-center text-sm leading-relaxed text-white/35"
+          >
+            Butuh bantuan memilih?{' '}
+            <a
+              href="https://wa.me/6285894514719"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#00FFFF] hover:underline"
+            >
+              Chat kami via WhatsApp
+            </a>
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Custom Project CTA */}
+      <section className="relative py-20 md:py-28 overflow-hidden bg-zinc-950">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,255,255,0.06) 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-8 md:p-12 text-center"
+          >
+            {/* Top accent line */}
+            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFFF]/40 to-transparent" />
+
+            {/* Ambient glow */}
+            <div className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-40 w-80 rounded-full bg-[#00FFFF]/8 blur-3xl" />
+
+            <span className="mb-4 inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-white/35">
+              Custom Project
+            </span>
+
+            <h2
+              className="mb-4 text-3xl sm:text-4xl md:text-5xl leading-tight"
+              style={{ fontFamily: '"Instrument Serif", serif' }}
+            >
+              Butuh <em className="text-[#00FFFF] italic">Sesuatu</em> yang Berbeda?
+            </h2>
+
+            <p className="mx-auto mb-8 max-w-lg text-base leading-relaxed text-white/50">
+              Website e-commerce, sistem custom, portal bisnis, atau kebutuhan digital lainnya —
+              ceritakan ide Anda, kami bantu wujudkan dengan standar terbaik.
+            </p>
+
+            <motion.a
+              href="https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20untuk%20konsultasi%20project%20custom."
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-primary inline-flex items-center gap-2 text-sm font-bold px-8 py-4"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Konsultasi Project Custom
+              <ArrowUpRight className="h-4 w-4" />
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
