@@ -57,7 +57,7 @@ def estimate_read_time(content: str) -> str:
     return f"{max(1, round(len(content.split()) / 200))} menit"
 
 
-def call_gemini(prompt: str, system_instruction: str = "", retries: int = 4) -> str:
+def call_gemini(prompt: str, system_instruction: str = "", retries: int = 5) -> str:
     """Call Gemini 2.5 Flash API with retry logic."""
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -428,10 +428,11 @@ def run_illustrator(content: str, plan: str, slug: str, category: str, skip_imag
     placeholders = re.findall(r"\{+IMG_SECTION_(\d+)\}+", content)
     unique_sections = sorted(set(placeholders), key=int)
 
-    # Generate hero image
+    # Generate hero image — illustrate the actual topic, not abstract theme
+    hero_desc = illust_matches[0] if illust_matches else slug.replace('-', ' ')
     hero_prompt = (
-        f"minimalist abstract concept art, {illust_matches[0] if illust_matches else f'blog about {slug.replace('-', ' ')}'}, "
-        f"{accent} accent glow on dark background, modern tech aesthetic, cinematic, clean"
+        f"digital illustration, {hero_desc}, "
+        f"realistic concept art, professional, detailed, modern style, clean composition, high quality"
     )
     hero_path = generate_leonardo_image(hero_prompt, f"{slug}.jpg")
 
@@ -447,8 +448,8 @@ def run_illustrator(content: str, plan: str, slug: str, category: str, skip_imag
             img_prompt = alt_match.group(1) if alt_match else f"illustration for section {sec_num}"
 
         img_prompt = (
-            f"minimalist illustration, {img_prompt}, "
-            f"{accent} accent on dark background, modern flat design, clean composition"
+            f"digital illustration depicting: {img_prompt}, "
+            f"realistic concept art, professional, detailed, modern style, clean composition"
         )
         filename = f"{slug}-{sec_num}.jpg"
         img_path = generate_leonardo_image(img_prompt, filename, width=1024, height=576)
@@ -564,11 +565,16 @@ def main():
     plan = run_planner(topic)
 
     # Delay between calls to avoid rate limit
-    time.sleep(3)
+    time.sleep(10)
     draft = run_writer(topic, plan)
 
-    time.sleep(3)
+    time.sleep(10)
     final = run_editor(topic, draft)
+
+    # Fallback: if editor returned empty, use writer draft
+    if len(final.strip()) < 100 and len(draft.strip()) > 100:
+        print("  ⚠ Editor output too short, using writer draft as final")
+        final = draft
 
     # --- Extract metadata ---
     metadata = extract_metadata(plan, final)
