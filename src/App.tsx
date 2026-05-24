@@ -6,6 +6,8 @@ import AboutPage from './pages/AboutPage'
 import PricingPage from './pages/PricingPage'
 import SyaratKetentuanPage from './pages/SyaratKetentuanPage'
 import PortfolioPage from './pages/PortfolioPage'
+import BlogPage from './pages/BlogPage'
+import BlogPostPage from './pages/BlogPostPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -26,6 +28,8 @@ function App() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
         </Routes>
       </BrowserRouter>
     </MotionConfig>

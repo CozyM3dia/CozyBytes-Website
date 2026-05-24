@@ -8,6 +8,7 @@ const links = [
   { label: 'Layanan', href: '/#layanan' },
   { label: 'Tentang Kami', href: '/about' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Cara Kerja', href: '/#cara-kerja' },
 ]
 

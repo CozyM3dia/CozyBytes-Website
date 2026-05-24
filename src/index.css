@@ -118,4 +118,60 @@
     from { stroke-dashoffset: 0; }
     to { stroke-dashoffset: -3000; }
   }
+
+  /* Blog prose styling */
+  .prose-cozybytes {
+    @apply text-white/70 text-base leading-relaxed;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .prose-cozybytes h1,
+  .prose-cozybytes h2,
+  .prose-cozybytes h3 {
+    @apply text-white font-normal mt-10 mb-4;
+    font-family: 'Instrument Serif', serif;
+  }
+  .prose-cozybytes h2 {
+    @apply text-2xl md:text-3xl;
+  }
+  .prose-cozybytes h3 {
+    @apply text-xl md:text-2xl;
+  }
+  .prose-cozybytes p {
+    @apply mb-5;
+  }
+  .prose-cozybytes strong {
+    @apply text-white/90 font-semibold;
+  }
+  .prose-cozybytes a {
+    @apply text-[#00FFFF] underline underline-offset-2;
+  }
+  .prose-cozybytes ul,
+  .prose-cozybytes ol {
+    @apply mb-5 pl-5 flex flex-col gap-2;
+  }
+  .prose-cozybytes li {
+    @apply text-white/65;
+  }
+  .prose-cozybytes li::marker {
+    @apply text-[#00FFFF]/50;
+  }
+  .prose-cozybytes blockquote {
+    @apply border-l-2 border-[#00FFFF]/30 pl-5 my-6 italic text-white/50;
+  }
+  .prose-cozybytes code {
+    @apply bg-white/[0.06] text-[#00FFFF] px-1.5 py-0.5 rounded text-sm;
+  }
+  .prose-cozybytes pre {
+    @apply bg-[#0a0a0c] border border-white/[0.06] rounded-xl p-4 overflow-x-auto mb-5;
+  }
+  .prose-cozybytes pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-cozybytes hr {
+    @apply border-0 h-px my-10;
+    background: linear-gradient(to right, transparent, rgba(0,255,255,0.3), transparent);
+  }
+  .prose-cozybytes img {
+    @apply rounded-xl my-6;
+  }
 }
