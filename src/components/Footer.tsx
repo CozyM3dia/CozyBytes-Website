@@ -40,7 +40,7 @@ const socialLinks = [
     bg: 'linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)',
   },
   {
-    href: 'https://tiktok.com/@cozybytes.media',
+    href: 'https://www.tiktok.com/@cozybytesmedia?_r=1&_t=ZS-96czKJHRDMr',
     label: 'TikTok',
     Icon: TikTokIcon,
     bg: 'linear-gradient(135deg, #25F4EE, #FE2C55)',
