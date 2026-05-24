@@ -581,8 +581,8 @@ export default function PricingPage() {
             </h2>
 
             <p className="mx-auto mb-8 max-w-lg text-base leading-relaxed text-white/50">
-              Website e-commerce, sistem custom, portal bisnis, atau kebutuhan digital lainnya —
-              ceritakan ide Anda, kami bantu wujudkan dengan standar terbaik.
+              Mau bikin toko online, sistem custom, atau portal bisnis?
+              Ceritakan ide Anda, kami bantu wujudkan sesuai kebutuhan.
             </p>
 
             <motion.a
