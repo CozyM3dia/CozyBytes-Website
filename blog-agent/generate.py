@@ -194,7 +194,7 @@ def find_seo_topic() -> str:
     print("\n🎯 Agent 0: SEO TOPIC FINDER...")
 
     # Search what people look for
-    search1 = search_web("jasa pembuatan website 2025 tren")
+    search1 = search_web("jasa pembuatan website 2026 tren")
     search2 = search_web("tips digital marketing UMKM Indonesia")
     search3 = search_web("biaya pembuatan website bisnis kecil")
 
@@ -249,7 +249,7 @@ def run_planner(topic: str) -> str:
     """Research topic and create content plan with illustration suggestions."""
     print("\n🔍 Agent 1: PLANNER — Researching & planning...")
 
-    search_results = search_web(f"{topic} Indonesia 2025")
+    search_results = search_web(f"{topic} Indonesia 2026")
     search_trends = search_web(f"{topic} tips tren terbaru")
 
     prompt = f"""Kamu Content Planner untuk Cozybytes Media (agensi web development & digital marketing Indonesia).
