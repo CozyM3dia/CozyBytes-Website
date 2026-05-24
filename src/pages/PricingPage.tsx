@@ -29,7 +29,7 @@ type PricingTier = {
 
 const tiers: PricingTier[] = [
   {
-    name: 'UMKM',
+    name: 'Basic',
     subtitle: 'Paket',
     tagline: 'Mulai jejak digitalmu. Simpel, cepat, langsung aktif.',
     oldPrice: 'Rp 2.998.000',
@@ -38,7 +38,7 @@ const tiers: PricingTier[] = [
     period: 'Bayar sekali, website selamanya',
     discount: '50% OFF',
     discountTone: 'cyan',
-    cta: 'Pilih Paket UMKM',
+    cta: 'Pilih Paket Basic',
     buttonTone: 'cyan',
     features: [
       { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
@@ -46,8 +46,8 @@ const tiers: PricingTier[] = [
       { available: true, label: 'SEO basic' },
       { available: true, label: 'Akses penuh (ownership)' },
       { available: true, label: 'Tutorial kelola website' },
-      { available: true, label: <><strong>1 halaman</strong> landing page</> },
-      { available: true, label: 'Support teknis 6 bulan' },
+      { available: true, label: <><strong>Hingga 3 halaman</strong></> },
+      { available: true, label: 'Support teknis 3 bulan' },
       { available: true, label: <>Maks <strong>3x</strong> revisi</> },
       { available: false, label: 'Konsultasi branding' },
       { available: false, label: 'Free maintenance 1 tahun' },
@@ -447,22 +447,22 @@ export default function PricingPage() {
             className="mx-auto mb-14 max-w-2xl text-center"
           >
             <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Pricing Table
+              Landing Page
             </span>
             <h1
               className="mb-4 text-3xl sm:text-5xl leading-tight md:text-7xl"
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
-              Pilih Paket <em className="text-[#00FFFF] italic">Terbaik</em>
+              Paket <em className="text-[#00FFFF] italic">Landing Page</em>
             </h1>
             <p className="mx-auto max-w-xl text-base leading-relaxed text-white/52">
-              Tiga pilihan harga yang jelas untuk membawa bisnis Anda tampil
-              profesional, cepat aktif, dan siap menerima pelanggan baru.
+              Mulai hadir online dengan landing page profesional.
+              Pilih model pembayaran yang paling cocok untuk bisnis Anda.
             </p>
           </motion.div>
 
           <div className="grid items-stretch gap-6 lg:grid-cols-3 lg:gap-5 xl:gap-7">
-            {tiers.map((tier, i) => (
+            {landingTiers.map((tier, i) => (
               <PricingCard key={tier.name} tier={tier} index={i} inView={inView} />
             ))}
           </div>
@@ -505,22 +505,22 @@ export default function PricingPage() {
             className="mx-auto mb-14 max-w-2xl text-center"
           >
             <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Landing Page
+              Website Lengkap
             </span>
             <h2
               className="mb-4 text-3xl sm:text-5xl leading-tight md:text-7xl"
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
-              Paket <em className="text-[#00FFFF] italic">Landing Page</em>
+              Paket <em className="text-[#00FFFF] italic">Website</em>
             </h2>
             <p className="mx-auto max-w-xl text-base leading-relaxed text-white/52">
-              Mulai hadir online dengan landing page profesional.
-              Pilih model pembayaran yang paling cocok untuk bisnis Anda.
+              Tiga pilihan harga yang jelas untuk membawa bisnis Anda tampil
+              profesional, cepat aktif, dan siap menerima pelanggan baru.
             </p>
           </motion.div>
 
           <div className="grid items-stretch gap-6 lg:grid-cols-3 lg:gap-5 xl:gap-7">
-            {landingTiers.map((tier, i) => (
+            {tiers.map((tier, i) => (
               <PricingCard key={tier.name} tier={tier} index={i} inView={landingInView} />
             ))}
           </div>
