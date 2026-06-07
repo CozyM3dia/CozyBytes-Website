@@ -12,7 +12,7 @@ const links = [
 ]
 
 const serviceLinks = [
-  { label: 'Website', href: '/layanan/website', desc: 'Website profesional untuk bisnis' },
+  { label: 'Company Profile', href: '/layanan/website', desc: 'Tampilan profesional bisnis Anda' },
   { label: 'Landing Page', href: '/layanan/landing-page', desc: 'Konversi tinggi untuk iklan' },
   { label: 'E-Commerce', href: '/layanan/ecommerce', desc: 'Toko online mudah dikelola' },
   { label: 'UI/UX Design', href: '/layanan/uiux', desc: 'Desain modern & user-friendly' },

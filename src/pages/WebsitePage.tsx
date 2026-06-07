@@ -1,18 +1,19 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 import { Globe, Smartphone, Zap, Search, Shield, Headphones, MessageCircle, ArrowUpRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PricingCard } from '../components/ServicePricingCard'
 import type { PricingTier } from '../components/ServicePricingCard'
 
-const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20pembuatan%20website.'
+const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20company%20profile.'
 
 const tiers: PricingTier[] = [
   {
     name: 'Basic',
     subtitle: 'Paket',
-    tagline: 'Mulai jejak digitalmu. Simpel, cepat, langsung aktif.',
+    tagline: 'Tampil profesional online. Company profile simpel, cepat, langsung aktif.',
     oldPrice: 'Rp 2.998.000',
     savings: 'Hemat Rp 1.499.000',
     price: 'Rp 1.499.000',
@@ -38,7 +39,7 @@ const tiers: PricingTier[] = [
   {
     name: 'Pro',
     subtitle: 'Paket',
-    tagline: 'Lengkap untuk tampil serius. Favorit para pemilik UMKM aktif.',
+    tagline: 'Company profile lengkap & serius. Favorit UMKM dan bisnis berkembang.',
     oldPrice: 'Rp 6.000.000',
     savings: 'Hemat Rp 3.001.000',
     price: 'Rp 2.999.000',
@@ -55,7 +56,6 @@ const tiers: PricingTier[] = [
       { available: true, label: 'Website mobile friendly' },
       { available: true, label: 'SEO friendly' },
       { available: true, label: 'Akses penuh (ownership)' },
-      { available: true, label: 'Free UI/UX design' },
       { available: true, label: 'Tutorial kelola website' },
       { available: true, label: <><strong>Hingga 5 halaman</strong></> },
       { available: true, label: 'Konsultasi branding & desain' },
@@ -66,7 +66,7 @@ const tiers: PricingTier[] = [
   {
     name: 'Premium',
     subtitle: 'Paket',
-    tagline: 'Untuk bisnis yang ingin tampil beda dan siap tumbuh lebih jauh.',
+    tagline: 'Company profile premium. Untuk bisnis yang ingin tampil beda dan siap tumbuh.',
     oldPrice: 'Rp 9.000.000',
     savings: 'Hemat Rp 4.2 juta',
     price: 'Rp 4.799.000',
@@ -81,7 +81,6 @@ const tiers: PricingTier[] = [
       { available: true, label: 'Website mobile friendly' },
       { available: true, label: 'SEO advanced + Google Analytics' },
       { available: true, label: 'Akses penuh (ownership)' },
-      { available: true, label: 'Free UI/UX design premium' },
       { available: true, label: 'Tutorial 1-on-1 via Zoom' },
       { available: true, label: <><strong>Hingga 10 halaman</strong> + Blog</> },
       { available: true, label: 'Konsultasi branding & desain' },
@@ -133,6 +132,16 @@ export default function WebsitePage() {
     <div className="min-h-screen bg-zinc-950">
       <Navbar />
 
+      <Helmet>
+        <title>Jasa Pembuatan Company Profile Website untuk Bisnis & UMKM | Cozybytes Media</title>
+        <meta name="description" content="Company profile website yang membangun kepercayaan calon klien sejak detik pertama. Custom design, SEO-ready, mobile-first. Domain & hosting gratis 1 tahun. Mulai Rp 1.499.000. Konsultasi gratis." />
+        <meta name="keywords" content="jasa company profile website, bikin company profile online, website company profile UMKM, jasa pembuatan company profile profesional, company profile bisnis Lampung, Cozybytes Media" />
+        <link rel="canonical" href="https://cozybytes.media/layanan/website" />
+        <meta property="og:title" content="Jasa Pembuatan Company Profile Website Profesional | Cozybytes Media" />
+        <meta property="og:description" content="Company profile website profesional. SEO-ready, mobile-first, domain & hosting gratis 1 tahun. Mulai Rp 1.499.000. Konsultasi gratis via WhatsApp." />
+        <meta property="og:url" content="https://cozybytes.media/layanan/website" />
+      </Helmet>
+
       {/* Hero */}
       <section
         className="relative pt-36 pb-24 overflow-hidden"
@@ -154,18 +163,26 @@ export default function WebsitePage() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Layanan Website
+              Jasa Company Profile
             </span>
             <h1
               className="mb-5 text-4xl sm:text-6xl md:text-7xl leading-tight"
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
-              Website Profesional <br />
-              <em className="text-[#00FFFF] italic">untuk Bisnis Anda</em>
+              Company profile yang bikin <br />
+              <em className="text-[#00FFFF] italic">calon klien langsung percaya.</em>
             </h1>
             <p className="mx-auto mb-8 max-w-xl text-base leading-relaxed text-white/55">
-              Tampil meyakinkan di dunia digital dengan website yang didesain khusus, cepat, dan siap mendatangkan pelanggan baru — tanpa ribet.
+              Tanpa company profile yang kuat, bisnis Anda terlihat tidak serius. Kami bangun company profile digital yang meyakinkan — desain profesional, SEO-ready, dan siap tayang dalam kurang dari 3 hari kerja.
             </p>
+            {/* Trust signals */}
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/40">
+              <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />15+ bisnis aktif</span>
+              <span>·</span>
+              <span>Selesai &lt; 3 hari kerja</span>
+              <span>·</span>
+              <span>Konsultasi gratis, tanpa komitmen</span>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <motion.a
                 href={WA_LINK}
@@ -202,7 +219,7 @@ export default function WebsitePage() {
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
               Semua yang Dibutuhkan <br />
-              <em className="text-[#00FFFF] italic">Website Bisnis Modern</em>
+              <em className="text-[#00FFFF] italic">Company Profile Modern</em>
             </h2>
           </div>
 
@@ -243,7 +260,7 @@ export default function WebsitePage() {
                   Proses Kami
                 </span>
                 <h2 className="mb-4 text-2xl md:text-3xl leading-snug" style={{ fontFamily: '"Instrument Serif", serif' }}>
-                  Dari konsep ke website live <em className="text-[#00FFFF] italic">dalam 7–14 hari</em>
+                  Dari konsep ke company profile live <em className="text-[#00FFFF] italic">dalam &lt; 3 hari kerja</em>
                 </h2>
                 <ul className="space-y-3">
                   {['Konsultasi & brief kebutuhan bisnis Anda', 'Desain UI/UX custom sesuai brand', 'Pengembangan & integrasi fitur', 'Review bersama + revisi', 'Go live & serah terima penuh'].map((step, i) => (
@@ -300,10 +317,10 @@ export default function WebsitePage() {
               className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl"
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
-              Pilih Paket <em className="text-[#00FFFF] italic">Website</em>
+              Pilih Paket <em className="text-[#00FFFF] italic">Company Profile</em>
             </h2>
             <p className="mx-auto max-w-xl text-base leading-relaxed text-white/52">
-              Tiga pilihan harga yang jelas. Bayar sekali, website milik Anda selamanya — tanpa biaya langganan tersembunyi.
+              Tiga pilihan harga yang jelas. Bayar sekali, company profile milik Anda selamanya — tanpa biaya langganan tersembunyi.
             </p>
           </motion.div>
 
