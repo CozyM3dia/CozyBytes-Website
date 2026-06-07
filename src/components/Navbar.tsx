@@ -1,16 +1,72 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import { CozybytesLogo } from './Logo'
 
 const links = [
   { label: 'Beranda', href: '/#beranda' },
-  { label: 'Layanan', href: '/#layanan' },
   { label: 'Tentang Kami', href: '/about' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'Cara Kerja', href: '/#cara-kerja' },
 ]
+
+const serviceLinks = [
+  { label: 'Website', href: '/layanan/website', desc: 'Website profesional untuk bisnis' },
+  { label: 'Landing Page', href: '/layanan/landing-page', desc: 'Konversi tinggi untuk iklan' },
+  { label: 'E-Commerce', href: '/layanan/ecommerce', desc: 'Toko online mudah dikelola' },
+  { label: 'UI/UX Design', href: '/layanan/uiux', desc: 'Desain modern & user-friendly' },
+]
+
+function ServicesDropdown() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button className="relative text-white/70 hover:text-white text-sm transition-colors py-1 flex items-center gap-1">
+        <span className="flex">
+          {'Layanan'.split('').map((char, i) => (
+            <span key={i} className="inline-block whitespace-pre wave-char" style={{ animationDelay: `${i * 0.05}s` }}>
+              {char}
+            </span>
+          ))}
+        </span>
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <div className={`absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left transition-transform duration-300 ease-out ${open ? 'scale-x-100' : 'scale-x-0'}`} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-60 z-50"
+          >
+            <div className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+              {serviceLinks.map((svc) => (
+                <Link
+                  key={svc.href}
+                  to={svc.href}
+                  onClick={() => setOpen(false)}
+                  className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors group/item"
+                >
+                  <span className="text-white text-sm font-medium group-hover/item:text-[#00FFFF] transition-colors">{svc.label}</span>
+                  <span className="text-white/35 text-xs mt-0.5">{svc.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 function NavLink({ href, label }: { href: string; label: string }) {
   const loc = useLocation()
@@ -95,7 +151,9 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-6">
-            {links.map((l) => (
+            <NavLink href="/#beranda" label="Beranda" />
+            <ServicesDropdown />
+            {links.slice(1).map((l) => (
               <NavLink key={l.label} href={l.href} label={l.label} />
             ))}
           </div>
@@ -143,7 +201,40 @@ export default function Navbar() {
             className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl mx-4 mt-2 px-5 py-5 flex flex-col gap-1"
             onClick={(e) => e.stopPropagation()}
           >
-            {links.map((l) => {
+            {/* Beranda */}
+            <Link
+              to="/#beranda"
+              onClick={(e) => {
+                e.preventDefault()
+                setMenuOpen(false)
+                if (window.location.pathname === '/') {
+                  setTimeout(() => document.getElementById('beranda')?.scrollIntoView({ behavior: 'smooth' }), 100)
+                } else {
+                  window.location.href = '/#beranda'
+                }
+              }}
+              className="text-white/80 hover:text-white text-sm py-2.5 border-b border-white/5"
+            >
+              Beranda
+            </Link>
+
+            {/* Layanan sub-items */}
+            <div className="border-b border-white/5">
+              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest pt-2.5 pb-1.5">Layanan</p>
+              {serviceLinks.map((svc) => (
+                <Link
+                  key={svc.href}
+                  to={svc.href}
+                  onClick={() => setTimeout(() => setMenuOpen(false), 150)}
+                  className="flex items-center gap-2 text-white/70 hover:text-white text-sm py-2 pl-2"
+                >
+                  <span className="h-1 w-1 rounded-full bg-[#00FFFF]/60 flex-shrink-0" />
+                  {svc.label}
+                </Link>
+              ))}
+            </div>
+
+            {links.slice(1).map((l) => {
               const handleMobileClick = (e: React.MouseEvent) => {
                 if (l.href.startsWith('/#')) {
                   e.preventDefault()

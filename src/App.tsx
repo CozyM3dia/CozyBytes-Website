@@ -8,6 +8,10 @@ import SyaratKetentuanPage from './pages/SyaratKetentuanPage'
 import PortfolioPage from './pages/PortfolioPage'
 import BlogPage from './pages/BlogPage'
 import BlogPostPage from './pages/BlogPostPage'
+import WebsitePage from './pages/WebsitePage'
+import LandingPageServicePage from './pages/LandingPageServicePage'
+import EcommercePage from './pages/EcommercePage'
+import UIUXPage from './pages/UIUXPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -30,6 +34,10 @@ function App() {
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/layanan/website" element={<WebsitePage />} />
+          <Route path="/layanan/landing-page" element={<LandingPageServicePage />} />
+          <Route path="/layanan/ecommerce" element={<EcommercePage />} />
+          <Route path="/layanan/uiux" element={<UIUXPage />} />
         </Routes>
       </BrowserRouter>
     </MotionConfig>
