@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
-import PricingPage from './pages/PricingPage'
 import SyaratKetentuanPage from './pages/SyaratKetentuanPage'
 import PortfolioPage from './pages/PortfolioPage'
 import BlogPage from './pages/BlogPage'
@@ -29,7 +28,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/blog" element={<BlogPage />} />

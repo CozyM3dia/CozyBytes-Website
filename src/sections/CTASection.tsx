@@ -79,31 +79,18 @@ export default function CTASection() {
             </p>
           </div>
 
-          {/* CTAs Wrapper */}
-          <div className="flex flex-col items-center gap-5">
-            <motion.a
-              href="/pricing"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#00FFFF]/40 bg-[#00FFFF]/10 text-[#00FFFF] text-sm font-bold shadow-[0_0_20px_rgba(0,255,255,0.2)] hover:bg-[#00FFFF]/20 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#00FFFF] animate-pulse" />
-              Cek Harga & Paket (Pricing) →
-            </motion.a>
-
-            {/* CTA WhatsApp */}
-            <motion.a
-              href="https://wa.me/6285894514719"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="btn-primary text-base px-8 py-4 inline-flex shadow-[0_0_30px_rgba(0,255,255,0.3)]"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Hubungi via WhatsApp
-            </motion.a>
-          </div>
+          {/* CTA WhatsApp */}
+          <motion.a
+            href="https://wa.me/6285894514719"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="btn-primary text-base px-8 py-4 inline-flex shadow-[0_0_30px_rgba(0,255,255,0.3)]"
+          >
+            <MessageCircle className="w-5 h-5" />
+            Hubungi via WhatsApp
+          </motion.a>
         </motion.div>
       </div>
     </section>

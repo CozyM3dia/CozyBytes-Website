@@ -1,95 +1,10 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ShoppingCart, CreditCard, Package, Smartphone, Search, Bell, MessageCircle, ArrowUpRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { PricingCard } from '../components/ServicePricingCard'
-import type { PricingTier } from '../components/ServicePricingCard'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20toko%20online.'
 
-const tiers: PricingTier[] = [
-  {
-    name: 'Starter',
-    subtitle: 'Paket',
-    tagline: 'Untuk kamu yang baru mulai berjualan online. Simpel dan langsung aktif.',
-    oldPrice: 'Rp 2.998.000',
-    savings: 'Hemat Rp 1.499.000',
-    price: 'Rp 1.499.000',
-    period: 'Bayar sekali, toko selamanya',
-    discount: '50% OFF',
-    discountTone: 'cyan',
-    cta: 'Pilih Paket Starter',
-    buttonTone: 'cyan',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
-      { available: true, label: 'Hingga 50 produk' },
-      { available: true, label: 'Mobile friendly' },
-      { available: true, label: 'Integrasi WhatsApp order' },
-      { available: true, label: 'SEO basic' },
-      { available: true, label: 'Akses penuh (ownership)' },
-      { available: true, label: <>Maks <strong>3x</strong> revisi</> },
-      { available: false, label: 'Payment gateway otomatis' },
-      { available: false, label: 'Dashboard admin custom' },
-      { available: false, label: 'Free maintenance 1 tahun' },
-    ],
-  },
-  {
-    name: 'Pro',
-    subtitle: 'Paket',
-    tagline: 'Toko online lengkap dengan sistem pembayaran otomatis. Favorit UMKM aktif.',
-    oldPrice: 'Rp 6.000.000',
-    savings: 'Hemat Rp 3 juta',
-    price: 'Rp 3.000.000',
-    period: 'Bayar sekali, toko selamanya',
-    discount: '50% OFF',
-    discountTone: 'gold',
-    cta: 'Pilih Paket Pro →',
-    highlighted: true,
-    specialBadge: 'Paling banyak dipilih',
-    buttonTone: 'gold',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
-      { available: true, label: 'Produk unlimited' },
-      { available: true, label: 'Mobile friendly' },
-      { available: true, label: 'Payment gateway (QRIS, transfer)' },
-      { available: true, label: 'Dashboard admin' },
-      { available: true, label: 'Manajemen pesanan' },
-      { available: true, label: 'SEO friendly' },
-      { available: true, label: 'Akses penuh (ownership)' },
-      { available: true, label: <><strong>Free</strong> Maintenance & support</>, badges: ['1 TAHUN'] },
-      { available: true, label: <>Maks <strong>5x</strong> revisi</> },
-    ],
-  },
-  {
-    name: 'Enterprise',
-    subtitle: 'Paket',
-    tagline: 'Solusi e-commerce penuh untuk bisnis yang serius tumbuh lebih jauh.',
-    oldPrice: 'Rp 9.000.000',
-    savings: 'Hemat Rp 4.2 juta',
-    price: 'Rp 4.799.000',
-    period: 'Bayar sekali, toko selamanya',
-    discount: '47% OFF',
-    discountTone: 'violet',
-    cta: 'Pilih Paket Enterprise',
-    buttonTone: 'dark',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
-      { available: true, label: 'Produk unlimited' },
-      { available: true, label: 'Mobile friendly + PWA' },
-      { available: true, label: 'Multi payment gateway' },
-      { available: true, label: 'Dashboard admin advanced' },
-      { available: true, label: 'Manajemen pesanan & inventory' },
-      { available: true, label: 'SEO advanced + Google Analytics' },
-      { available: true, label: 'WhatsApp chat widget' },
-      { available: true, label: <><strong>Free</strong> Maintenance & support</>, badges: ['1 TAHUN', 'PRIORITY'] },
-      { available: true, label: <><strong>Unlimited</strong> revisi</> },
-    ],
-  },
-]
 
 const features = [
   {
@@ -125,8 +40,6 @@ const features = [
 ]
 
 export default function EcommercePage() {
-  const pricingRef = useRef(null)
-  const inView = useInView(pricingRef, { once: true, margin: '-60px' })
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -177,13 +90,6 @@ export default function EcommercePage() {
                 <MessageCircle className="h-4 w-4" />
                 Konsultasi Gratis
               </motion.a>
-              <a
-                href="#harga"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/70 hover:text-white hover:border-white/30 transition-all"
-              >
-                Lihat Harga
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
             </div>
           </motion.div>
         </div>
@@ -280,44 +186,6 @@ export default function EcommercePage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="harga" ref={pricingRef} className="py-24 md:py-32 bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-5 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-14 max-w-2xl text-center"
-          >
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Harga Transparan
-            </span>
-            <h2
-              className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Pilih Paket <em className="text-[#00FFFF] italic">E-Commerce</em>
-            </h2>
-            <p className="mx-auto max-w-xl text-base leading-relaxed text-white/52">
-              Investasi sekali, toko online berjalan terus. Pilih paket sesuai skala bisnis Anda.
-            </p>
-          </motion.div>
-
-          <div className="grid items-stretch gap-6 lg:grid-cols-3 lg:gap-5 xl:gap-7">
-            {tiers.map((tier, i) => (
-              <PricingCard key={tier.name} tier={tier} index={i} inView={inView} />
-            ))}
-          </div>
-
-          <p className="mx-auto mt-12 max-w-xl text-center text-sm leading-relaxed text-white/35">
-            Butuh fitur khusus untuk toko Anda?{' '}
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00FFFF] hover:underline">
-              Konsultasi gratis via WhatsApp
-            </a>
-          </p>
         </div>
       </section>
 
