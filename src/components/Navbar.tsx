@@ -46,7 +46,7 @@ function ServicesDropdown() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-60 z-50"
+            className="absolute top-full left-0 pt-4 w-60 z-50"
           >
             <div className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
               {serviceLinks.map((svc) => (
