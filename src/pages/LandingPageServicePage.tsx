@@ -3,7 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { Target, MessageCircle, Rocket, BarChart2, Smartphone, RefreshCw, ArrowUpRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { PricingCard, PricingTier } from '../components/ServicePricingCard'
+import { PricingCard } from '../components/ServicePricingCard'
+import type { PricingTier } from '../components/ServicePricingCard'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20landing%20page.'
 
