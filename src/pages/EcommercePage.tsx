@@ -8,86 +8,20 @@ import {
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { PricingCard } from '../components/ServicePricingCard'
-import type { PricingTier } from '../components/ServicePricingCard'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20toko%20online.'
 
-const tiers: PricingTier[] = [
-  {
-    name: 'Starter',
-    subtitle: 'Paket',
-    tagline: 'Toko online dasar untuk UMKM yang baru mulai belajar berjualan mandiri di internet.',
-    oldPrice: 'Rp 4.998.000',
-    savings: 'Hemat Rp 2.499.000',
-    price: 'Rp 2.499.000',
-    period: 'Bayar sekali, website milik Anda selamanya',
-    discount: '50% OFF',
-    discountTone: 'cyan',
-    cta: 'Pilih Paket Starter',
-    buttonTone: 'cyan',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
-      { available: true, label: 'Katalog produk hingga 50 barang' },
-      { available: true, label: 'Website mobile friendly' },
-      { available: true, label: 'Form checkout dikirim langsung ke WhatsApp' },
-      { available: true, label: 'Optimasi SEO dasar' },
-      { available: true, label: 'Panduan lengkap cara memasukkan produk' },
-      { available: false, label: 'Integrasi Payment Gateway otomatis' },
-      { available: false, label: 'Hitung Ongkir Otomatis (RajaOngkir)' },
-    ],
-  },
-  {
-    name: 'Pro E-Com',
-    subtitle: 'Paket',
-    tagline: 'Toko online otomatis. Cocok untuk brand lokal yang ingin berjualan mandiri secara serius.',
-    oldPrice: 'Rp 10.000.000',
-    savings: 'Hemat Rp 5.001.000',
-    price: 'Rp 4.999.000',
-    period: 'Bayar sekali, website milik Anda selamanya',
-    discount: '50% OFF',
-    discountTone: 'gold',
-    cta: 'Pilih Paket Pro →',
-    highlighted: true,
-    specialBadge: 'Paling diminati',
-    buttonTone: 'gold',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting</> },
-      { available: true, label: 'Katalog produk hingga 500 barang' },
-      { available: true, label: 'Desain responsif khusus layar ponsel' },
-      { available: true, label: <><strong>Pembayaran otomatis</strong> (Midtrans/Xendit)</> },
-      { available: true, label: <><strong>Hitung Ongkir Otomatis</strong> (RajaOngkir)</> },
-      { available: true, label: 'Laporan Penjualan & Dashboard Admin' },
-      { available: true, label: <><strong>Free</strong> Maintenance & support</>, badges: ['1 TAHUN'] },
-      { available: true, label: 'Setup SEO dasar untuk semua produk' },
-    ],
-  },
-  {
-    name: 'Enterprise',
-    subtitle: 'Paket',
-    tagline: 'Toko online custom dengan kapasitas besar dan integrasi sistem stok internal.',
-    oldPrice: 'Rp 18.000.000',
-    savings: 'Hemat Rp 8.5 juta',
-    price: 'Rp 9.499.000',
-    period: 'Bayar sekali, website milik Anda selamanya',
-    discount: '47% OFF',
-    discountTone: 'violet',
-    cta: 'Hubungi Enterprise',
-    buttonTone: 'dark',
-    ctaHref: WA_LINK,
-    features: [
-      { available: true, label: <><strong>Gratis 1 Tahun</strong> Domain & Hosting VPS</> },
-      { available: true, label: 'Katalog produk tanpa batasan (unlimited)' },
-      { available: true, label: 'Desain visual khusus (Custom UI/UX)' },
-      { available: true, label: 'Payment Gateway + Custom Kurir / API Logistik' },
-      { available: true, label: 'Notifikasi otomatis WhatsApp & Email' },
-      { available: true, label: 'Koneksi dengan sistem stok barang (ERP) internal' },
-      { available: true, label: 'Keamanan ekstra (SSL Premium & anti DDoS)' },
-      { available: true, label: <><strong>Revisi desain</strong> sepuasnya</> },
-    ],
-  },
+const customFeatures = [
+  { id: 'domain', label: 'Domain & Hosting Premium (Gratis 1 Tahun)', group: 'Dasar', desc: 'Alamat web (.com/.id) & server penyimpanan file.' },
+  { id: 'katalog-std', label: 'Katalog Produk Standard (s.d 500 item)', group: 'Dasar', desc: 'Manajemen produk dengan kategori & varian dasar.' },
+  { id: 'katalog-unlimited', label: 'Katalog Unlimited / Skala Besar', group: 'Dasar', desc: 'Database produk berkapasitas ekstra tanpa batas.' },
+  { id: 'payment', label: 'Integrasi Payment Gateway Otomatis', group: 'Transaksi', desc: 'Bayar otomatis via QRIS, Virtual Account, & dompet digital.' },
+  { id: 'ongkir', label: 'Hitung Tarif Ongkir RajaOngkir', group: 'Transaksi', desc: 'Kalkulasi otomatis biaya kirim real-time ekspedisi nasional.' },
+  { id: 'notif-wa', label: 'Notifikasi Otomatis WhatsApp', group: 'Sistem', desc: 'Kirim invoice & update nomor resi pengiriman otomatis ke pembeli.' },
+  { id: 'dashboard', label: 'Dashboard Admin & Laporan Keuangan', group: 'Sistem', desc: 'Kelola stok barang, pantau data pesanan & grafik omzet harian.' },
+  { id: 'erp', label: 'Sinkronisasi Stok Internal (ERP API)', group: 'Sistem', desc: 'Koneksi database stok website dengan sistem gudang fisik Anda.' },
+  { id: 'custom-ui', label: 'Desain UI Kustom (Bukan Template)', group: 'Visual', desc: 'Tampilan toko online dirancang khusus sesuai identitas brand.' },
+  { id: 'membership', label: 'Sistem Membership & Poin Belanja', group: 'Fitur Lanjutan', desc: 'Fitur akun pembeli, riwayat pesanan, dan diskon loyalty point.' },
 ]
 
 const featuresList = [
@@ -211,6 +145,50 @@ export default function EcommercePage() {
   const [isPaid, setIsPaid] = useState<boolean>(false)
   const [showNotifications, setShowNotifications] = useState<boolean>(false)
 
+  // Custom Feature Configurator State
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([
+    'domain',
+    'katalog-std',
+    'payment',
+    'ongkir'
+  ])
+
+  const toggleFeature = (id: string) => {
+    if (id === 'katalog-std') {
+      setSelectedFeatures(prev => {
+        const filtered = prev.filter(item => item !== 'katalog-unlimited')
+        return filtered.includes(id) ? filtered.filter(item => item !== id) : [...filtered, id]
+      })
+    } else if (id === 'katalog-unlimited') {
+      setSelectedFeatures(prev => {
+        const filtered = prev.filter(item => item !== 'katalog-std')
+        return filtered.includes(id) ? filtered.filter(item => item !== id) : [...filtered, id]
+      })
+    } else {
+      setSelectedFeatures(prev =>
+        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+      )
+    }
+  }
+
+  const getComplexity = () => {
+    const count = selectedFeatures.length
+    if (count <= 3) return { label: 'Sederhana (Web Toko Dasar)', color: 'text-cyan-400', barColor: 'bg-cyan-500', width: '30%', desc: 'Cocok untuk katalog kecil yang ingin mulai transisi dari jualan via chat WA langsung.' }
+    if (count <= 7) return { label: 'Menengah (Toko Online Otomatis)', color: 'text-amber-400', barColor: 'bg-amber-500', width: '65%', desc: 'Sangat direkomendasikan untuk brand lokal berkembang yang ingin auto-checkout.' }
+    return { label: 'Kompleks (Sistem E-Commerce Enterprise)', color: 'text-violet-400', barColor: 'bg-violet-500', width: '100%', desc: 'Ideal untuk retail besar dengan integrasi database stok, WhatsApp OTP, & kustomisasi penuh.' }
+  }
+
+  const getWhatsAppUrl = () => {
+    const selectedLabels = customFeatures
+      .filter(f => selectedFeatures.includes(f.id))
+      .map((f, index) => `${index + 1}. ${f.label}`)
+      .join('%0A')
+    const complexity = getComplexity().label
+    
+    const text = `Halo Cozybytes, saya tertarik membuat website e-commerce dengan sistem custom. Berikut ringkasan fitur yang saya butuhkan:%0A%0A${selectedLabels}%0A%0ATingkat Kompleksitas: ${complexity}%0AMohon estimasi biaya pengerjaan dan jadwal konsultasinya. Terima kasih.`
+    return `https://wa.me/6285894514719?text=${text}`
+  }
+
   useEffect(() => {
     if (isPaid) {
       setShowNotifications(true)
@@ -307,7 +285,7 @@ export default function EcommercePage() {
                 href="#harga"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-white/75 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
               >
-                Lihat Paket Toko
+                Konsultasi Estimasi Biaya
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
@@ -692,42 +670,148 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="harga" ref={pricingRef} className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-5 md:px-6">
+      {/* Custom Feature Configurator Section */}
+      <section id="harga" ref={pricingRef} className="py-24 bg-zinc-950 relative overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#00FFFF]/5 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#F8D16A]/3 blur-[120px] pointer-events-none" />
+
+        <div className="mx-auto max-w-7xl px-5 md:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-16 max-w-2xl text-center"
+            className="mx-auto mb-16 max-w-3xl text-center"
           >
             <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Investasi Jelas
+              Desain Biaya Fleksibel
             </span>
             <h2
               className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl font-light"
               style={{ fontFamily: '"Instrument Serif", serif' }}
             >
-              Pilih Paket Pembuatan <br />
-              <em className="text-[#00FFFF] italic font-normal">Website Toko Online Anda</em>
+              Harganya Menyesuaikan <br />
+              <em className="text-[#00FFFF] italic font-normal">Kebutuhan Spesifik Toko Anda</em>
             </h2>
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-white/55">
-              Pilih investasi terjangkau yang sesuai dengan skala dan kapasitas katalog barang dagangan Anda.
+            <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/55">
+              Kami tidak memaksakan paket kaku. Anda hanya membayar apa yang bisnis Anda butuhkan. 
+              Gunakan simulator di bawah untuk merancang fitur toko online Anda dan kirimkan langsung ke WhatsApp kami untuk estimasi biaya.
             </p>
           </motion.div>
 
-          <div className="grid items-stretch gap-6 lg:grid-cols-3 lg:gap-5 xl:gap-7">
-            {tiers.map((tier, i) => (
-              <PricingCard key={tier.name} tier={tier} index={i} inView={inView} />
-            ))}
-          </div>
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Left Column: Feature Selection */}
+            <div className="lg:col-span-7 space-y-4">
+              <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-[#00FFFF]" />
+                1. Pilih Kebutuhan Sistem Anda:
+              </h3>
+              
+              <div className="grid sm:grid-cols-2 gap-3">
+                {customFeatures.map((feat) => {
+                  const isSelected = selectedFeatures.includes(feat.id)
+                  return (
+                    <button
+                      key={feat.id}
+                      onClick={() => toggleFeature(feat.id)}
+                      className={`text-left p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between h-28 group ${
+                        isSelected 
+                          ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-white' 
+                          : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.02] text-white/60'
+                      }`}
+                    >
+                      <div className="flex justify-between items-start w-full">
+                        <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
+                          isSelected ? 'bg-[#00FFFF]/20 text-[#00FFFF]' : 'bg-white/5 text-white/40'
+                        }`}>
+                          {feat.group}
+                        </span>
+                        <div className={`h-4.5 w-4.5 rounded-full border flex items-center justify-center transition-all ${
+                          isSelected ? 'border-[#00FFFF] bg-[#00FFFF] text-black' : 'border-white/25'
+                        }`}>
+                          {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className={`text-xs font-bold transition-all ${isSelected ? 'text-[#00FFFF]' : 'text-white/80 group-hover:text-white'}`}>
+                          {feat.label.replace(' (Gratis 1 Tahun)', '').replace(' Premium', '')}
+                        </h4>
+                        <p className="text-[10px] text-white/40 leading-normal mt-1 truncate">
+                          {feat.desc}
+                        </p>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
 
-          <p className="mx-auto mt-12 max-w-xl text-center text-sm leading-relaxed text-white/40">
-            Ingin membuat program loyalitas pembeli (point/membership), atau integrasi multi-gudang?{' '}
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00FFFF] hover:underline">
-              Bicarakan kebutuhan sistem custom Anda di WhatsApp
-            </a>
-          </p>
+            {/* Right Column: Dynamic Price Summary / Estimate Card */}
+            <div className="lg:col-span-5">
+              <div className="sticky top-24 rounded-2xl border border-white/10 bg-zinc-900/40 backdrop-blur-md p-6 md:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.6)] space-y-6">
+                <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                  <h3 className="text-base font-bold text-white">Ringkasan Konfigurasi</h3>
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-white/60">
+                    {selectedFeatures.length} Fitur Terpilih
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-xs text-white/40 block font-semibold mb-1">Skala Sistem & Kompleksitas</span>
+                    <span className={`text-sm font-bold block ${getComplexity().color}`}>
+                      {getComplexity().label}
+                    </span>
+                  </div>
+
+                  {/* Complexity gauge bar */}
+                  <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                    <motion.div 
+                      className={`h-full ${getComplexity().barColor}`} 
+                      initial={{ width: 0 }}
+                      animate={{ width: getComplexity().width }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+
+                  <p className="text-xs text-white/50 leading-relaxed">
+                    {getComplexity().desc}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-white/5 space-y-3">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <span className="text-xs text-white/40 block font-semibold">Estimasi Biaya</span>
+                      <span className="text-xs text-[#00FFFF] block mt-0.5">Custom / Menyesuaikan Kebutuhan</span>
+                    </div>
+                    <span className="text-2xl font-semibold text-white tracking-tight">Hubungi WA</span>
+                  </div>
+                  
+                  <p className="text-[11px] text-white/45 leading-relaxed bg-white/[0.02] p-3 rounded-lg border border-white/5">
+                    Halaman admin, payment gateway, dan hitung ongkir otomatis dikonfigurasi khusus tanpa ada biaya tersembunyi.
+                  </p>
+                </div>
+
+                <motion.a
+                  href={getWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full h-12 rounded-full bg-[#00FFFF] text-black font-black text-xs flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(0,255,255,0.2)] hover:shadow-[0_0_40px_rgba(0,255,255,0.35)] transition-all cursor-pointer"
+                >
+                  <MessageCircle className="h-4.5 w-4.5 fill-current" />
+                  Kirim Rincian Fitur ke WhatsApp
+                  <ArrowUpRight className="h-4 w-4" />
+                </motion.a>
+
+                <p className="text-[10px] text-center text-white/30">
+                  Konsultasi gratis. Tim developer Cozybytes akan merespon dengan rincian biaya pengerjaan sesuai fitur pilihan Anda.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
