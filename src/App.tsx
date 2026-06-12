@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
@@ -36,6 +36,7 @@ function App() {
           <Route path="/layanan/landing-page" element={<LandingPageServicePage />} />
           <Route path="/layanan/ecommerce" element={<EcommercePage />} />
           <Route path="/layanan/uiux" element={<UIUXPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </MotionConfig>

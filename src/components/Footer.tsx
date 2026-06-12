@@ -159,11 +159,8 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-14">
         {/* FAQ Section */}
         <div className="mb-20 max-w-3xl">
-          <h2
-            className="text-2xl font-bold text-white mb-6"
-            style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
-          >
-            Frequently Asked Questions (FAQ)
+          <h2 className="font-display text-2xl font-medium tracking-tight text-white mb-6">
+            Pertanyaan yang sering diajukan.
           </h2>
           <div className="flex flex-col">
             {faqs.map((faq, idx) => (

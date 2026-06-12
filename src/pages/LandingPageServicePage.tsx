@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { 
-  Target, MessageCircle, Rocket, BarChart2, Smartphone, 
-  RefreshCw, ArrowUpRight, Check, AlertCircle, 
-  ChevronDown, Cpu, Sparkles, MessageSquare
+import {
+  Target, MessageCircle, Rocket, BarChart2, Smartphone,
+  RefreshCw, ArrowUpRight, Check,
+  ChevronDown, MessageSquare
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -196,6 +196,16 @@ const faqs = [
   }
 ]
 
+const workflowSteps = [
+  { step: '01', title: 'Diskusi Awal', desc: 'Kami mengulas keunggulan produk Anda dan menentukan satu aksi utama yang diinginkan dari pembeli.' },
+  { step: '02', title: 'Draft Tulisan', desc: 'Copywriter kami menulis draf tulisan penawaran yang menarik minat dan memicu keputusan belanja.' },
+  { step: '03', title: 'Layout Visual', desc: 'Perancangan tata letak visual halaman web dengan memprioritaskan kenyamanan pengguna HP.' },
+  { step: '04', title: 'Penulisan Kode', desc: 'Proses coding landing page dan integrasi tools pelacak pixel untuk kebutuhan iklan Anda.' },
+  { step: '05', title: 'Serah Terima', desc: 'Halaman web online penuh, kami bantu uji coba alur pelacakan tombol chat WhatsApp Anda.' },
+]
+
+const techStack = ['Vite.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Cloudflare', 'Vercel', 'Meta Pixel', 'TikTok Pixel', 'Google Tag Manager', 'WhatsApp API', 'Git']
+
 export default function LandingPageServicePage() {
   const pricingRef = useRef(null)
   const inView = useInView(pricingRef, { once: true, margin: '-60px' })
@@ -235,7 +245,7 @@ export default function LandingPageServicePage() {
     proof: {
       title: 'Bukti Sosial (Testimoni)',
       desc: 'Pernyataan kepuasan dari pembeli nyata untuk meyakinkan calon pelanggan baru bahwa produk Anda terpercaya.',
-      mockText: '“Sangat terbantu! Penjualan online kami naik drastis sejak pakai landing page ini.” - Budi, Toko Sepatu Lokal'
+      mockText: '"Sangat terbantu! Penjualan online kami naik drastis sejak pakai landing page ini." - Budi, Toko Sepatu Lokal'
     }
   }
 
@@ -245,211 +255,216 @@ export default function LandingPageServicePage() {
 
       <Helmet>
         <title>Jasa Pembuatan Landing Page Konversi Tinggi & Ads-Ready | Cozybytes</title>
-        <meta name="description" content="Jasa pembuatan landing page iklan Facebook, TikTok & Google Ads dengan tingkat konversi tinggi. Cepat, mobile-first, integrasi tracking pixel lengkap. Sewa mulai Rp 99rb/bulan." />
-        <meta name="keywords" content="jasa landing page, landing page konversi tinggi, landing page iklan Facebook, landing page TikTok Ads, bikin landing page murah, landing page UMKM Lampung, cozybytes" />
+        <meta name="description" content="Landing page yang terbuka kurang dari 2 detik di HP, jadi budget iklan Anda tidak terbuang sia-sia. Meta Pixel, TikTok Pixel, dan tombol WhatsApp sudah terpasang. Sewa mulai Rp 99 ribu per bulan, atau beli putus." />
+        <meta name="keywords" content="jasa landing page, landing page iklan, landing page UMKM, cozybytes" />
         <link rel="canonical" href="https://cozybytes.media/layanan/landing-page" />
         <meta property="og:title" content="Jasa Pembuatan Landing Page Konversi Tinggi & Ads-Ready | Cozybytes" />
-        <meta property="og:description" content="Setiap klik iklan Anda sangat berharga. Ubah traffic iklan menjadi prospek penjualan dengan landing page berkinerja tinggi, responsif, dan terintegrasi pixel tracking." />
+        <meta property="og:description" content="Landing page yang terbuka kurang dari 2 detik di HP, jadi budget iklan Anda tidak terbuang. Pixel iklan dan tombol WhatsApp sudah terpasang. Sewa mulai Rp 99 ribu per bulan." />
         <meta property="og:url" content="https://cozybytes.media/layanan/landing-page" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((f) => ({
+              '@type': 'Question',
+              name: f.q,
+              acceptedAnswer: { '@type': 'Answer', text: f.a },
+            })),
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: 'Jasa Pembuatan Landing Page',
+            serviceType: 'Landing Page Development',
+            description: 'Landing page ringan untuk iklan Facebook, TikTok, dan Google Ads. Mobile-first, tracking pixel terpasang, integrasi WhatsApp.',
+            url: 'https://cozybytes.media/layanan/landing-page',
+            areaServed: 'Indonesia',
+            provider: { '@type': 'ProfessionalService', name: 'Cozybytes Media', url: 'https://cozybytes.media' },
+            offers: [
+              { '@type': 'Offer', name: 'Sewa Bulanan', price: '99000', priceCurrency: 'IDR' },
+              { '@type': 'Offer', name: 'Sewa Tahunan', price: '950000', priceCurrency: 'IDR' },
+              { '@type': 'Offer', name: 'Ownership', price: '1299000', priceCurrency: 'IDR' },
+            ],
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Beranda', item: 'https://cozybytes.media/' },
+              { '@type': 'ListItem', position: 2, name: 'Layanan Landing Page', item: 'https://cozybytes.media/layanan/landing-page' },
+            ],
+          })}
+        </script>
       </Helmet>
 
-      {/* Hero Section */}
-      <section
-        className="relative pt-40 pb-28 overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,255,0.15) 0%, transparent 65%), radial-gradient(ellipse 50% 35% at 50% 45%, rgba(248,209,106,0.08) 0%, transparent 70%), #000',
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-45">
-          <div className="absolute left-1/2 top-32 h-px w-[86vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00FFFF]/30 to-transparent" />
-          <div className="absolute left-[8%] top-48 h-64 w-64 rounded-full bg-[#00FFFF]/10 blur-3xl" />
-          <div className="absolute right-[10%] top-64 h-72 w-72 rounded-full bg-[#F8D16A]/8 blur-3xl" />
-        </div>
+      {/* ============ HERO: copy + anatomy controls left, phone mockup right ============ */}
+      <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 45% at 80% 35%, rgba(0,255,255,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 8% 85%, rgba(0,255,255,0.04) 0%, transparent 60%)',
+          }}
+        />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-5 md:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00FFFF]/30 bg-[#00FFFF]/5 px-4.5 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#00FFFF]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF] animate-pulse" />
-              Landing Page Konversi Tinggi
-            </span>
-            <h1
-              className="mb-6 text-4xl sm:text-6xl md:text-7xl leading-tight font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7"
             >
-              Ubah Klik Iklan Menjadi Penjualan dengan <br />
-              <em className="text-[#00FFFF] italic font-normal">Halaman Landing Page yang Ringan dan Cepat</em>
-            </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-base md:text-lg leading-relaxed text-white/60">
-              Jangan buang anggaran iklan Anda hanya karena halaman web lambat dimuat. Kami membuat landing page custom yang dioptimasi khusus untuk layar HP, terintegrasi pixel pelacak, dan dirancang mengarahkan pengunjung langsung bertransaksi.
-            </p>
-
-            {/* Trust Badges */}
-            <div className="mb-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/45">
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Meta Pixel & TikTok Ads Ready
+              <span className="mb-6 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+                Landing Page Konversi Tinggi
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Pengerjaan Cepat (3-5 Hari)
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Sewa Murah Mulai Rp 99rb/bln
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <motion.a
-                href={WA_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-primary inline-flex items-center gap-2 px-8 py-4 text-sm font-bold bg-[#00FFFF] text-black rounded-full shadow-[0_0_30px_rgba(0,255,255,0.25)]"
-              >
-                <MessageCircle className="h-4.5 w-4.5" />
-                Hubungi Tim Iklan Kami
-              </motion.a>
-              <a
-                href="#harga"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-white/75 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
-              >
-                Lihat Skema Harga
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Interactive Visual Showcase Section */}
-      <section className="py-20 bg-[#07070a] border-t border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-        <div className="mx-auto max-w-6xl px-5 md:px-6 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-xs font-semibold text-emerald-400">
-                <Sparkles className="h-3 w-3" /> Conversion Anatomizer
-              </span>
-              <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-                Anatomi Halaman yang <br />
-                <em className="text-[#00FFFF] italic font-normal">Memicu Klik Pembeli</em>
-              </h2>
-              <p className="text-sm leading-relaxed text-white/50">
-                Landing page yang sukses bukan soal desain ramai, tapi penempatan konten yang strategis. Klik bagian anatomi di bawah ini untuk melihat detail fungsinya.
+              <h1 className="font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-6xl lg:text-[4rem] font-medium">
+                Klik iklan masuk.
+                <br />
+                <span className="text-[#00FFFF]">Penjualan keluar.</span>
+              </h1>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-white/55">
+                Landing page custom yang ringan, dioptimasi untuk layar HP, dan terintegrasi pixel pelacak iklan.
               </p>
-              
-              <div className="flex flex-col gap-2.5">
-                {(Object.keys(hotspots) as Array<keyof typeof hotspots>).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => setActiveHotspot(key)}
-                    className={`text-left p-4 rounded-xl border transition-all ${
-                      activeHotspot === key 
-                        ? 'border-[#00FFFF]/30 bg-[#00FFFF]/5 shadow-[0_0_15px_rgba(0,255,255,0.05)]' 
-                        : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.02]'
-                    }`}
-                  >
-                    <span className={`text-sm font-bold block ${activeHotspot === key ? 'text-[#00FFFF]' : 'text-white'}`}>
-                      {hotspots[key].title}
-                    </span>
-                    <p className="text-xs text-white/40 mt-1">{hotspots[key].desc}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
 
-            <div className="lg:col-span-7 flex justify-center">
-              {/* Mobile Phone Mockup */}
-              <div className="rounded-[40px] border-[8px] border-zinc-800 bg-zinc-950 p-3 shadow-[0_30px_70px_rgba(0,0,0,0.6),0_0_50px_rgba(0,255,255,0.03)] w-[300px] h-[580px] relative flex flex-col overflow-hidden">
-                {/* Phone Speaker & Camera */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-5 w-32 bg-zinc-800 rounded-b-2xl z-30 flex items-center justify-center gap-1.5">
-                  <div className="w-12 h-1 rounded-full bg-zinc-700" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-900 border border-zinc-800" />
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <motion.a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-7 py-3.5 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Konsultasi via WhatsApp
+                </motion.a>
+                <a
+                  href="#harga"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/75 transition-all hover:border-white/30 hover:bg-white/5 hover:text-white"
+                >
+                  Lihat Skema Harga
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+
+              {/* Anatomy hotspot controls */}
+              <div className="mt-12 max-w-lg border-t border-white/10 pt-6">
+                <span className="mb-3 block text-xs font-semibold text-white/40">
+                  Anatomi halaman yang memicu klik pembeli. Pilih elemennya:
+                </span>
+                <div className="grid grid-cols-2 gap-2.5">
+                  {(Object.keys(hotspots) as Array<keyof typeof hotspots>).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => setActiveHotspot(key)}
+                      className={`rounded-xl border p-3 text-left transition-all ${
+                        activeHotspot === key
+                          ? 'border-[#00FFFF]/40 bg-[#00FFFF]/5'
+                          : 'border-white/5 bg-white/[0.01] hover:border-white/10'
+                      }`}
+                    >
+                      <span className={`block text-xs font-bold ${activeHotspot === key ? 'text-[#00FFFF]' : 'text-white/80'}`}>
+                        {hotspots[key].title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-3 min-h-[40px] text-xs leading-relaxed text-white/45">
+                  {hotspots[activeHotspot].desc}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Phone mockup */}
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="flex justify-center lg:col-span-5"
+            >
+              <div className="relative flex h-[580px] w-[300px] flex-col overflow-hidden rounded-[40px] border-[8px] border-zinc-800 bg-zinc-950 p-3 shadow-[0_30px_70px_rgba(0,0,0,0.6),0_0_50px_rgba(0,255,255,0.03)]">
+                <div className="absolute left-1/2 top-0 z-30 flex h-5 w-32 -translate-x-1/2 items-center justify-center gap-1.5 rounded-b-2xl bg-zinc-800">
+                  <div className="h-1 w-12 rounded-full bg-zinc-700" />
+                  <div className="h-2.5 w-2.5 rounded-full border border-zinc-800 bg-zinc-900" />
                 </div>
 
-                {/* Mobile Screen Content */}
-                <div className="flex-1 bg-[#060608] rounded-[30px] p-4 pt-8 flex flex-col justify-between overflow-hidden relative text-center">
-                  
-                  {/* Headline Hotspot */}
-                  <div className={`p-2.5 rounded-xl border transition-all relative ${
+                <div className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-[30px] bg-[#060608] p-4 pt-8 text-center">
+                  {/* Headline hotspot */}
+                  <div className={`relative rounded-xl border p-2.5 transition-all ${
                     activeHotspot === 'hook' ? 'border-[#00FFFF] bg-[#00FFFF]/5 shadow-[0_0_15px_rgba(0,255,255,0.1)]' : 'border-white/5'
                   }`}>
-                    <span className="text-[6px] font-bold text-[#00FFFF]/60 tracking-wider uppercase">★ Promo Terbatas</span>
-                    <h3 className="text-xs font-bold text-white mt-1 leading-snug">
+                    <span className="font-mono text-[6px] font-bold uppercase tracking-wider text-[#00FFFF]/60">Promo Terbatas</span>
+                    <h3 className="mt-1 text-xs font-bold leading-snug text-white">
                       {hotspots.hook.mockText}
                     </h3>
                   </div>
 
-                  {/* Varian Image Area */}
-                  <div className="my-2 p-2 rounded-xl border border-white/5 bg-white/[0.01] flex-1 flex flex-col justify-center items-center relative">
-                    <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-[#00FFFF]/10 to-[#F8D16A]/10 border border-white/10 flex items-center justify-center text-[10px] text-white/30 font-serif">
+                  {/* Product image area */}
+                  <div className="relative my-2 flex flex-1 flex-col items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] p-2">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-gradient-to-tr from-[#00FFFF]/10 to-[#F8D16A]/10 font-mono text-[10px] text-white/30">
                       Foto Produk
                     </div>
                     <div className="mt-2 h-2 w-3/4 rounded bg-white/5" />
-                    <div className="mt-1 h-2.5 w-1/2 rounded bg-[#00FFFF]/10 border border-[#00FFFF]/10" />
+                    <div className="mt-1 h-2.5 w-1/2 rounded border border-[#00FFFF]/10 bg-[#00FFFF]/10" />
                   </div>
 
-                  {/* Urgency Hotspot */}
-                  <div className={`p-2 rounded-lg border transition-all my-1.5 flex flex-col items-center justify-center gap-1 ${
+                  {/* Urgency hotspot */}
+                  <div className={`my-1.5 flex flex-col items-center justify-center gap-1 rounded-lg border p-2 transition-all ${
                     activeHotspot === 'urgency' ? 'border-[#F8D16A] bg-[#F8D16A]/5 shadow-[0_0_10px_rgba(248,209,106,0.1)]' : 'border-white/5'
                   }`}>
-                    <p className="text-[7px] text-[#F8D16A] font-semibold leading-relaxed">
+                    <p className="text-[7px] font-semibold leading-relaxed text-[#F8D16A]">
                       {hotspots.urgency.mockText}
                     </p>
-                    <span className="text-[9px] font-mono font-bold text-white bg-red-500/20 px-2 py-0.5 rounded border border-red-500/30">
+                    <span className="rounded border border-red-500/30 bg-red-500/20 px-2 py-0.5 font-mono text-[9px] font-bold text-white">
                       Sisa Waktu: {formatTime(timeLeft)}
                     </span>
                   </div>
 
-                  {/* Testimonial Hotspot */}
-                  <div className={`p-2.5 rounded-xl border transition-all my-1.5 ${
+                  {/* Testimonial hotspot */}
+                  <div className={`my-1.5 rounded-xl border p-2.5 transition-all ${
                     activeHotspot === 'proof' ? 'border-[#00FFFF] bg-[#00FFFF]/5' : 'border-white/5'
                   }`}>
-                    <p className="text-[7px] text-white/40 italic leading-snug">
+                    <p className="text-[7px] italic leading-snug text-white/40">
                       {hotspots.proof.mockText}
                     </p>
                   </div>
 
-                  {/* WhatsApp CTA Hotspot */}
+                  {/* WhatsApp CTA hotspot */}
                   <div className="relative">
-                    <div className={`p-2.5 rounded-xl border transition-all ${
+                    <div className={`rounded-xl border p-2.5 transition-all ${
                       activeHotspot === 'cta' ? 'border-[#00FFFF] bg-[#00FFFF]/5 shadow-[0_0_15px_rgba(0,255,255,0.1)]' : 'border-white/5'
                     }`}>
-                      <div className="h-8 rounded-full bg-[#00FFFF] text-black text-[9px] font-black flex items-center justify-center gap-1 shadow-[0_0_10px_rgba(0,255,255,0.2)]">
+                      <div className="flex h-8 items-center justify-center gap-1 rounded-full bg-[#00FFFF] text-[9px] font-black text-black shadow-[0_0_10px_rgba(0,255,255,0.2)]">
                         <MessageSquare className="h-3.5 w-3.5 fill-current" />
                         {hotspots.cta.mockText}
                       </div>
                     </div>
 
-                    {/* WhatsApp Simulator Chat Overlay */}
                     <AnimatePresence>
                       {activeHotspot === 'cta' && (
                         <motion.div
                           initial={{ opacity: 0, y: 30 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 30 }}
-                          className="absolute bottom-11 inset-x-0 mx-auto w-56 rounded-xl border border-emerald-500/20 bg-zinc-900 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-10 text-left text-[8px]"
+                          className="absolute inset-x-0 bottom-11 z-10 mx-auto w-56 overflow-hidden rounded-xl border border-emerald-500/20 bg-zinc-900 text-left text-[8px] shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
                         >
-                          {/* Chat Header */}
-                          <div className="bg-emerald-600 p-2 flex items-center gap-1.5 text-white">
-                            <div className="h-4 w-4 rounded-full bg-white/20 flex items-center justify-center font-bold text-[6px]">WA</div>
-                            <div className="flex-1 min-w-0">
-                              <h5 className="font-bold leading-none text-[8px]">Toko Online Anda</h5>
-                              <span className="text-[6px] text-emerald-100 leading-none">Online</span>
+                          <div className="flex items-center gap-1.5 bg-emerald-600 p-2 text-white">
+                            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-white/20 text-[6px] font-bold">WA</div>
+                            <div className="min-w-0 flex-1">
+                              <h5 className="text-[8px] font-bold leading-none">Toko Online Anda</h5>
+                              <span className="text-[6px] leading-none text-emerald-100">Online</span>
                             </div>
                           </div>
-                          {/* Chat Messages */}
-                          <div className="p-2 bg-[#0b141a] space-y-2 h-24 overflow-y-auto font-sans">
-                            <div className="bg-[#202c33] text-white p-1.5 rounded-r-lg rounded-bl-lg max-w-[80%] leading-normal">
+                          <div className="h-24 space-y-2 overflow-y-auto bg-[#0b141a] p-2 font-sans">
+                            <div className="max-w-[80%] rounded-r-lg rounded-bl-lg bg-[#202c33] p-1.5 leading-normal text-white">
                               Halo kak! Mau klaim promo landing page hari ini?
                             </div>
-                            <div className="bg-[#005c4b] text-[#e9edef] p-1.5 rounded-l-lg rounded-br-lg max-w-[80%] ml-auto leading-normal">
+                            <div className="ml-auto max-w-[80%] rounded-l-lg rounded-br-lg bg-[#005c4b] p-1.5 leading-normal text-[#e9edef]">
                               Halo, iya kak saya mau order mumpung diskon 50%!
                             </div>
                           </div>
@@ -457,99 +472,164 @@ export default function LandingPageServicePage() {
                       )}
                     </AnimatePresence>
                   </div>
-                  
                 </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ PAIN POINTS: sticky left + divide rows right ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+                  Anggaran iklan habis,
+                  <br />
+                  penjualan nihil?
+                </h2>
+                <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/50">
+                  Empat penyebab paling umum kenapa traffic iklan tidak berubah menjadi orderan.
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
+                {painPoints.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                    className="group flex gap-6 py-7"
+                  >
+                    <span className="font-mono text-sm font-bold text-[#00FFFF]/50">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <h3 className="text-base font-bold text-white transition-colors group-hover:text-[#00FFFF]">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-white/50">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pain Points Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Masalah Umum Pengiklan
+      {/* ============ FEATURES: bento 3-col with variety ============ */}
+      <section className="bg-zinc-950 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-16 max-w-2xl">
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Fitur Utama
             </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Kenapa Anggaran Iklan Media Sosial Anda <br />
-              <em className="text-[#F8D16A] italic font-normal">Sering Kali Habis Tanpa Hasil Penjualan?</em>
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Satu halaman. Satu tujuan.
             </h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {painPoints.map((item, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.015] p-6 hover:bg-white/[0.03] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-400">
-                    <AlertCircle className="h-5 w-5" />
-                  </div>
-                  <h3 className="mb-2 text-base font-bold text-white">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/50">{item.desc}</p>
-                </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {/* Cell 1: wide with gradient */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5 }}
+              className="relative overflow-hidden rounded-2xl border border-[#00FFFF]/15 p-7 md:col-span-2"
+              style={{ background: 'linear-gradient(135deg, rgba(0,255,255,0.08) 0%, rgba(0,255,255,0.01) 50%, transparent 100%)' }}
+            >
+              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#00FFFF]/10 blur-3xl" />
+              <Target className="mb-5 h-6 w-6 text-[#00FFFF]" />
+              <h3 className="font-display text-2xl font-medium text-white">{featuresList[0].title}</h3>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-white/55">{featuresList[0].desc}</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 transition-colors hover:border-[#00FFFF]/25"
+            >
+              <BarChart2 className="mb-5 h-6 w-6 text-[#00FFFF]" />
+              <h3 className="text-lg font-bold text-white">{featuresList[1].title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/50">{featuresList[1].desc}</p>
+            </motion.div>
+
+            {/* Cell 3: dot pattern */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5 }}
+              className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 transition-colors hover:border-[#00FFFF]/25"
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(0,255,255,0.12)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
+              <div className="relative">
+                <Smartphone className="mb-5 h-6 w-6 text-[#00FFFF]" />
+                <h3 className="text-lg font-bold text-white">{featuresList[2].title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/50">{featuresList[2].desc}</p>
               </div>
-            ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 transition-colors hover:border-[#00FFFF]/25"
+            >
+              <Rocket className="mb-5 h-6 w-6 text-[#00FFFF]" />
+              <h3 className="text-lg font-bold text-white">{featuresList[3].title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/50">{featuresList[3].desc}</p>
+            </motion.div>
+
+            {/* Cell 5+6: wide split */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: 0.16 }}
+              className="grid gap-5 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-transparent p-7 sm:grid-cols-2 md:col-span-2"
+            >
+              <div>
+                <MessageCircle className="mb-5 h-6 w-6 text-[#00FFFF]" />
+                <h3 className="text-lg font-bold text-white">{featuresList[4].title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/50">{featuresList[4].desc}</p>
+              </div>
+              <div className="border-t border-white/10 pt-5 sm:border-l sm:border-t-0 sm:pl-7 sm:pt-0">
+                <RefreshCw className="mb-5 h-6 w-6 text-[#00FFFF]" />
+                <h3 className="text-lg font-bold text-white">{featuresList[5].title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/50">{featuresList[5].desc}</p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Keunggulan Layanan
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Detail Fitur Landing Page yang <br />
-              <em className="text-[#00FFFF] italic font-normal">Membantu Mengoptimalkan Hasil Iklan</em>
+      {/* ============ COMPARISON ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-14 max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Dibanding SaaS, WordPress,
+              <br />
+              dan biolink instan.
             </h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuresList.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-[#00FFFF]/25 hover:bg-white/[0.04] transition-all group"
-              >
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#00FFFF]/10 group-hover:bg-[#00FFFF]/20 transition-all">
-                  <f.icon className="h-5.5 w-5.5 text-[#00FFFF]" />
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-white group-hover:text-[#00FFFF] transition-all">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-white/52">{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Komparasi Layanan
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Kenapa Landing Page Cozybytes Lebih Efisien <br />
-              <em className="text-[#F8D16A] italic font-normal">Dibanding Menggunakan Layanan Pihak Ketiga?</em>
-            </h2>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.01]">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+          <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.01]">
+            <table className="w-full min-w-[700px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
                   <th className="p-5 text-sm font-bold text-white/40">Kriteria Utama</th>
-                  <th className="p-5 text-sm font-bold text-[#00FFFF]">Cozybytes Landing Page</th>
+                  <th className="p-5 font-display text-sm font-semibold text-[#00FFFF]">Cozybytes Landing Page</th>
                   <th className="p-5 text-sm font-bold text-white/60">Platform SaaS Instan</th>
                   <th className="p-5 text-sm font-bold text-white/60">WordPress Landing Page</th>
                   <th className="p-5 text-sm font-bold text-white/60">Linktree / Biolink Instan</th>
@@ -557,9 +637,9 @@ export default function LandingPageServicePage() {
               </thead>
               <tbody>
                 {comparisons.map((row, index) => (
-                  <tr key={index} className="border-b border-white/5 hover:bg-white/[0.015] transition-all">
+                  <tr key={index} className="border-b border-white/5 transition-all last:border-0 hover:bg-white/[0.015]">
                     <td className="p-5 text-sm font-bold text-white/80">{row.aspect}</td>
-                    <td className="p-5 text-sm text-[#00FFFF] font-medium bg-[#00FFFF]/5 border-x border-[#00FFFF]/10">{row.cozy}</td>
+                    <td className="border-x border-[#00FFFF]/10 bg-[#00FFFF]/5 p-5 text-sm font-medium text-[#00FFFF]">{row.cozy}</td>
                     <td className="p-5 text-sm text-white/50">{row.saas}</td>
                     <td className="p-5 text-sm text-white/50">{row.wordpress}</td>
                     <td className="p-5 text-sm text-white/50">{row.biolink}</td>
@@ -571,92 +651,89 @@ export default function LandingPageServicePage() {
         </div>
       </section>
 
-      {/* Tech Stack Grid */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#00FFFF]/5 blur-[120px] pointer-events-none" />
-        <div className="mx-auto max-w-5xl px-5 md:px-6 relative z-10 text-center">
-          <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-            Teknologi yang Digunakan
-          </span>
-          <h2 className="mb-12 text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-            Infrastruktur Web yang <em className="text-[#00FFFF] italic font-normal">Ringan dan Siap Pasang Pixel</em>
+      {/* ============ TECH: pill cloud ============ */}
+      <section className="border-t border-white/5 bg-zinc-950 py-20">
+        <div className="mx-auto max-w-5xl px-5 md:px-8">
+          <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
+            Infrastruktur ringan, siap pasang pixel.
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
-            {['Vite.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Cloudflare', 'Vercel', 'Meta Pixel', 'TikTok Pixel', 'Google Tag Manager', 'WhatsApp API', 'Git'].map((tech) => (
-              <div 
-                key={tech} 
-                className="flex flex-col items-center justify-center p-4 rounded-xl border border-white/5 bg-[#0a0a0d] hover:border-[#00FFFF]/20 transition-all"
+          <div className="mt-8 flex flex-wrap gap-3">
+            {techStack.map((item, i) => (
+              <motion.span
+                key={item}
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.35, delay: i * 0.03 }}
+                className="rounded-full border border-white/[0.08] bg-white/[0.02] px-5 py-2.5 font-mono text-sm text-white/70 transition-colors hover:border-[#00FFFF]/30 hover:text-[#00FFFF]"
               >
-                <Cpu className="h-5 w-5 text-[#00FFFF] mb-2" />
-                <span className="text-xs font-semibold text-white/80">{tech}</span>
-              </div>
+                {item}
+              </motion.span>
             ))}
           </div>
-          <div className="mt-8 flex justify-center gap-6 text-xs text-white/40">
-            <span>✓ Kompresi Gambar Otomatis</span>
-            <span>✓ Jaringan Hosting Cloudflare</span>
-            <span>✓ Serverless Tanpa Database Berat</span>
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-xs text-white/40">
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Kompresi Gambar Otomatis</span>
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Jaringan Hosting Cloudflare</span>
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Serverless Tanpa Database Berat</span>
           </div>
         </div>
       </section>
 
-      {/* Workflow Section */}
-      <section className="py-24 bg-[#09090B] border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Tahapan Pembuatan
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Landing Page Anda Siap Digunakan <br />
-              <em className="text-[#F8D16A] italic font-normal">Hanya dalam 5 Langkah Singkat</em>
+      {/* ============ WORKFLOW: horizontal stepper ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-16 max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Lima langkah sampai live.
             </h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/50">
+              Landing page Anda siap menerima traffic iklan dalam 3 sampai 5 hari kerja.
+            </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-5">
-            {[
-              { step: '01', title: 'Diskusi Awal', desc: 'Kami mengulas keunggulan produk Anda dan menentukan satu aksi utama yang diinginkan dari pembeli.' },
-              { step: '02', title: 'Draft Tulisan', desc: 'Copywriter kami menulis draf tulisan penawaran yang menarik minat dan memicu keputusan belanja.' },
-              { step: '03', title: 'Layout Visual', desc: 'Perancangan tata letak visual halaman web dengan memprioritaskan kenyamanan pengguna HP.' },
-              { step: '04', title: 'Penulisan Kode', desc: 'Proses coding landing page dan integrasi tools pelacak pixel untuk kebutuhan iklan Anda.' },
-              { step: '05', title: 'Serah Terima', desc: 'Halaman web online penuh, kami bantu uji coba alur pelacakan tombol chat WhatsApp Anda.' }
-            ].map((step, i) => (
-              <div 
-                key={i} 
-                className="relative rounded-2xl border border-white/8 bg-white/[0.01] p-6 hover:bg-white/[0.02] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-3xl font-extrabold text-[#F8D16A]/20 block mb-4">{step.step}</span>
-                  <h3 className="mb-2 text-base font-bold text-white">{step.title}</h3>
-                  <p className="text-xs leading-relaxed text-white/45">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <div className="pointer-events-none absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-[#00FFFF]/40 via-white/10 to-transparent md:block" />
+            <div className="grid gap-10 md:grid-cols-5 md:gap-6">
+              {workflowSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative"
+                >
+                  <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#00FFFF]/30 bg-zinc-950 font-mono text-xs font-bold text-[#00FFFF]">
+                    {step.step}
+                  </div>
+                  <h3 className="font-display text-lg font-medium text-white">{step.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-white/45">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="harga" ref={pricingRef} className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-5 md:px-6">
+      {/* ============ PRICING ============ */}
+      <section id="harga" ref={pricingRef} className="bg-zinc-950 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-16 max-w-2xl text-center"
+            className="mb-16 max-w-2xl"
           >
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Pilihan Investasi
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Investasi
             </span>
-            <h2
-              className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Model Sewa & Beli Putus <br />
-              <em className="text-[#00FFFF] italic font-normal">Sesuai Kebutuhan Bisnis Anda</em>
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
+              Sewa untuk tes pasar.
+              <br />
+              Beli putus untuk jangka panjang.
             </h2>
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-white/50">
-              Gunakan skema sewa bulanan flat yang terjangkau untuk tes pasar, atau beli putus agar web jadi aset milik sendiri.
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/50">
+              Skema sewa bulanan flat yang terjangkau, atau beli putus agar web jadi aset milik sendiri.
             </p>
           </motion.div>
 
@@ -669,38 +746,29 @@ export default function LandingPageServicePage() {
           <p className="mx-auto mt-12 max-w-xl text-center text-sm leading-relaxed text-white/40">
             Ingin membuat beberapa varian landing page untuk uji coba produk (A/B testing)?{' '}
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00FFFF] hover:underline">
-              Tanyakan penawaran harga paket (bulk) di WhatsApp
+              Tanyakan penawaran harga paket (bulk)
             </a>
           </p>
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-4xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Pertanyaan Umum
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Jawaban Singkat Seputar <br />
-              <em className="text-[#F8D16A] italic font-normal">Pembuatan Landing Page</em>
-            </h2>
-          </div>
+      {/* ============ FAQ ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
+            Pertanyaan seputar landing page.
+          </h2>
 
-          <div className="space-y-4">
+          <div className="mt-12 divide-y divide-white/[0.08] border-t border-white/[0.08]">
             {faqs.map((faq, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.01] overflow-hidden transition-all"
-              >
+              <div key={i}>
                 <button
                   onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.015] transition-all"
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:text-[#00FFFF]"
                 >
-                  <span className="text-base font-bold text-white/90 pr-4">{faq.q}</span>
-                  <ChevronDown 
-                    className={`h-5 w-5 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#F8D16A]' : ''}`} 
+                  <span className="text-base font-semibold text-white/90">{faq.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#00FFFF]' : ''}`}
                   />
                 </button>
                 <AnimatePresence initial={false}>
@@ -710,10 +778,9 @@ export default function LandingPageServicePage() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm leading-relaxed text-white/50 border-t border-white/5 bg-[#050507]/20">
-                        {faq.a}
-                      </div>
+                      <p className="pb-7 pr-10 text-sm leading-relaxed text-white/50">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -723,27 +790,25 @@ export default function LandingPageServicePage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,255,255,0.08) 0%, transparent 70%)' }} />
-        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-6 text-center">
+      {/* ============ BOTTOM CTA ============ */}
+      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-[28px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-8 md:p-12 relative"
           >
-            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFFF]/45 to-transparent" />
-            <span className="mb-4 inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-white/35">
-              Optimasi Iklan
-            </span>
-            <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Hentikan Buang-Buang Anggaran Iklan <br />
-              <em className="text-[#00FFFF] italic font-normal">Ubah Pengunjung Menjadi Pembeli Mulai Hari Ini</em>
+            <h2 className="font-display text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
+              Berhenti membuang anggaran iklan.
+              <br />
+              <span className="text-[#00FFFF]">Mulai mengubahnya jadi pembeli.</span>
             </h2>
-            <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/50">
+            <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/50">
               Diskusikan produk jualan Anda dengan tim developer & copywriting kami untuk merancang alur konversi terbaik.
             </p>
             <motion.a
@@ -752,10 +817,10 @@ export default function LandingPageServicePage() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="btn-primary inline-flex items-center gap-2 text-sm font-bold px-8 py-4 bg-[#00FFFF] text-black rounded-full"
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-8 py-4 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
             >
-              <MessageCircle className="h-4.5 w-4.5" />
-              Mulai Konsultasi Landing Page
+              <MessageCircle className="h-4 w-4" />
+              Konsultasi via WhatsApp
               <ArrowUpRight className="h-4 w-4" />
             </motion.a>
           </motion.div>

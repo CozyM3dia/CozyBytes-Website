@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -23,7 +24,7 @@ export default function BlogPostPage() {
       <div className="min-h-screen bg-zinc-950">
         <Navbar />
         <div className="flex flex-col items-center justify-center py-40 px-6 text-center">
-          <h1 className="text-4xl text-white mb-4" style={{ fontFamily: '"Instrument Serif", serif' }}>
+          <h1 className="font-display text-4xl font-medium tracking-tight text-white mb-4">
             Artikel tidak ditemukan
           </h1>
           <Link to="/blog" className="text-[#00FFFF] hover:underline text-sm">
@@ -36,9 +37,39 @@ export default function BlogPostPage() {
   }
 
   const colors = colorMap[post.categoryColor]
+  const postUrl = `https://cozybytes.media/blog/${post.slug}`
 
   return (
     <div className="min-h-screen bg-zinc-950">
+      <Helmet>
+        <title>{`${post.title} | Cozybytes Media`}</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={postUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={postUrl} />
+        {post.image && <meta property="og:image" content={post.image} />}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            inLanguage: 'id',
+            url: postUrl,
+            image: post.image || 'https://cozybytes.media/og-image.png',
+            author: { '@type': 'Organization', name: post.author },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Cozybytes Media',
+              logo: { '@type': 'ImageObject', url: 'https://cozybytes.media/logo.png' },
+            },
+            mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+          })}
+        </script>
+      </Helmet>
       <Navbar />
 
       {/* Hero */}
@@ -87,10 +118,7 @@ export default function BlogPostPage() {
             </span>
 
             {/* Title */}
-            <h1
-              className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-6">
               {post.title}
             </h1>
 

@@ -11,11 +11,17 @@ export default {
       fontFamily: {
         serif: ['"Instrument Serif"', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"Clash Display"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
       },
       keyframes: {
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
         'border-beam': {
           '100%': {
             'offset-distance': '100%',

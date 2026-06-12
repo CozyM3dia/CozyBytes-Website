@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 import { MessageCircle } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -128,6 +129,14 @@ function MockBrowserContent({
 export default function PortfolioPage() {
   return (
     <div className="bg-zinc-950 min-h-screen">
+      <Helmet>
+        <title>Portfolio Proyek | Cozybytes Media</title>
+        <meta name="description" content="Lihat beberapa proyek website yang sudah kami kerjakan, dari landing page warung kopi sampai company profile klinik. Kebanyakan selesai dalam 2 sampai 5 hari." />
+        <link rel="canonical" href="https://cozybytes.media/portfolio" />
+        <meta property="og:title" content="Portfolio Proyek | Cozybytes Media" />
+        <meta property="og:description" content="Beberapa proyek website yang sudah kami kerjakan, dari landing page sampai company profile. Kebanyakan selesai dalam 2 sampai 5 hari." />
+        <meta property="og:url" content="https://cozybytes.media/portfolio" />
+      </Helmet>
       <Navbar />
 
       {/* Header */}
@@ -148,58 +157,27 @@ export default function PortfolioPage() {
             <span className="text-[#00FFFF] text-xs font-semibold tracking-widest uppercase mb-3 block">
               Portofolio
             </span>
-            <h1
-              className="text-5xl md:text-7xl lg:text-8xl leading-tight mb-4"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Semua <em className="text-[#00FFFF] italic">Karya</em> Kami
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight mb-4">
+              Semua <span className="text-[#00FFFF]">karya</span> kami.
             </h1>
             <p className="text-white/50 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
-              Dari landing page hingga toko online — setiap proyek dibuat
-              dengan dedikasi penuh.
+              Dari landing page hingga toko online, setiap proyek dibuat dengan dedikasi penuh.
             </p>
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="flex justify-center mt-10"
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{
-                duration: 1.8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-1.5"
-            >
-              <div className="w-1.5 h-2.5 rounded-full bg-[#00FFFF]/60" />
-            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Scroll showcase */}
       <section className="px-4 pt-10 md:px-6 md:pt-14">
-        {projects.map((project, i) => (
+        {projects.map((project) => (
           <ContainerScroll
             key={project.name}
             titleComponent={
               <div className="mb-12 md:mb-16 flex flex-col items-center">
                 <span className="text-[#00FFFF] text-xs md:text-sm font-semibold tracking-widest uppercase mb-4 block text-center">
                   {project.type}
-                  <span className="text-white/20 mx-3">—</span>
-                  <span className="text-white/30 font-mono">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
                 </span>
-                <h2
-                  className="text-5xl md:text-[5.25rem] lg:text-[7rem] font-bold text-white leading-[1.02] tracking-tight text-center"
-                  style={{ fontFamily: '"Instrument Serif", serif' }}
-                >
+                <h2 className="font-display text-5xl md:text-[5rem] lg:text-[6.5rem] font-medium text-white leading-[1.02] tracking-tight text-center">
                   {project.name}
                 </h2>
               </div>

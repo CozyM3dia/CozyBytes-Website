@@ -79,7 +79,7 @@ export function PricingCard({ tier, index, inView }: { tier: PricingTier; index:
 
         <div className="mb-6">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/38">{tier.subtitle}</p>
-          <h3 className={`mt-1 text-4xl leading-none md:text-5xl ${tier.highlighted ? 'text-[#F8D16A]' : 'text-white'}`} style={{ fontFamily: '"Instrument Serif", serif' }}>
+          <h3 className={`font-display mt-1 text-4xl font-medium leading-none tracking-tight md:text-5xl ${tier.highlighted ? 'text-[#F8D16A]' : 'text-white'}`}>
             {tier.name}
           </h3>
           <p className="mt-4 min-h-[3.25rem] text-sm leading-relaxed text-white/52">{tier.tagline}</p>

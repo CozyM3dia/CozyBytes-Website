@@ -40,12 +40,11 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.1 }}
-            className="text-[3.2rem] leading-[1.05] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.2rem] font-serif text-white tracking-tight"
-            style={{ fontFamily: '"Instrument Serif", serif' }}
+            className="font-display text-[2.7rem] leading-[1.02] sm:text-[3.6rem] md:text-[4.2rem] lg:text-[4.6rem] font-medium text-white tracking-tight"
           >
             Website <br className="hidden lg:block"/>
             Profesional. <br/>
-            <span className="text-[#00FFFF] italic pr-4">Tanpa Pusing.</span>
+            <span className="text-[#00FFFF]">Tanpa Pusing.</span>
           </motion.h1>
 
           <motion.p
@@ -54,7 +53,7 @@ export default function HeroSection() {
             transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.2 }}
             className="text-white/90 text-lg sm:text-xl max-w-md mt-8 leading-relaxed font-normal drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
           >
-            Calon pelanggan sering ragu jika bisnis Anda tidak memiliki tampilan digital yang meyakinkan. Cozybytes membantu Anda membangun website yang profesional dan cepat diakses, tanpa perlu repot mengurus teknis. Semua selesai dalam 3 hari.
+            Website yang cepat diakses dan meyakinkan calon pelanggan, tanpa Anda repot mengurus teknis. Kebanyakan selesai dalam 3 hari.
           </motion.p>
 
           <motion.div
@@ -77,9 +76,8 @@ export default function HeroSection() {
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </a>
             </div>
-            <div className="text-zinc-500 text-xs font-medium tracking-wide flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              15+ Bisnis telah beralih ke Cozybytes bulan ini
+            <div className="text-zinc-500 text-xs font-medium tracking-wide">
+              <span className="font-mono font-bold text-white/60">15+</span> bisnis telah beralih ke Cozybytes bulan ini
             </div>
           </motion.div>
         </div>

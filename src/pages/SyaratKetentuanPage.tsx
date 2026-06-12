@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 
@@ -52,6 +53,12 @@ export default function SyaratKetentuanPage() {
 
   return (
     <AnimatePresence>
+      <Helmet>
+        <title>Syarat & Ketentuan | Cozybytes Media</title>
+        <meta name="description" content="Syarat dan ketentuan layanan Cozybytes Media: lingkup layanan, sistem pembayaran, revisi, hak kekayaan intelektual, dan kebijakan lainnya." />
+        <link rel="canonical" href="https://cozybytes.media/syarat-ketentuan" />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <motion.div
         key="sk-overlay"
         initial={{ opacity: 0 }}

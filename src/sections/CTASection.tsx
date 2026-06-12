@@ -40,22 +40,18 @@ export default function CTASection() {
         >
           {/* Heading with rotating word */}
           <div className="flex flex-col gap-8">
-            <h2
-              className="text-3xl sm:text-5xl md:text-7xl tracking-tight text-center leading-tight"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
+            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-center leading-[1.08]">
               <span className="text-white">
-                Siap Bawa Bisnismu
+                Siap bawa bisnismu
                 <br />
-                ke Level
+                ke level
               </span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-sans font-bold text-[#00FFFF]"
-                    style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+                    className="font-display absolute font-semibold text-[#00FFFF]"
                     initial={{ opacity: 0, y: '-100' }}
                     transition={{ type: 'spring', stiffness: 50 }}
                     animate={

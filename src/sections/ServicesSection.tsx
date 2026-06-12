@@ -110,10 +110,7 @@ function ServiceDescription({ services }: { services: typeof SERVICES }) {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="w-full"
         >
-          <p 
-            className="text-3xl lg:text-[2.2rem] leading-[1.3] text-white/90 text-justify"
-            style={{ fontFamily: '"Instrument Serif", serif' }}
-          >
+          <p className="font-display text-2xl lg:text-[1.8rem] font-medium leading-[1.35] tracking-tight text-white/85">
             {services[activeSlide].description}
           </p>
         </motion.div>
@@ -134,15 +131,13 @@ export default function ServicesSection() {
           className="mb-12 transition-all duration-700"
           style={{ opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(24px)' }}
         >
-          <span className="text-[#00FFFF] text-xs font-semibold tracking-widest uppercase mb-3 block">
+          <span className="text-[#00FFFF] text-xs font-semibold tracking-[0.2em] uppercase mb-4 block">
             Layanan Kami
           </span>
-          <h2
-            className="text-4xl md:text-5xl leading-tight"
-            style={{ fontFamily: '"Instrument Serif", serif' }}
-          >
-            Solusi <em className="text-[#00FFFF] italic">Digital</em>
-            <br />untuk Bisnis Kamu
+          <h2 className="font-display text-4xl md:text-5xl font-medium leading-[1.08] tracking-tight">
+            Lima layanan.
+            <br />
+            <span className="text-[#00FFFF]">Satu standar kualitas.</span>
           </h2>
         </div>
 

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion, useInView } from 'framer-motion'
 import { Clock, ArrowRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
@@ -69,10 +70,7 @@ function BlogHero({ post }: { post: BlogPost }) {
       </span>
 
       {/* Title preview */}
-      <h3
-        className="relative z-10 text-xl leading-snug line-clamp-2"
-        style={{ fontFamily: '"Instrument Serif", serif' }}
-      >
+      <h3 className="font-display relative z-10 text-xl font-medium leading-snug tracking-tight line-clamp-2">
         {post.title}
       </h3>
     </div>
@@ -139,6 +137,14 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950">
+      <Helmet>
+        <title>Blog | Cozybytes Media</title>
+        <meta name="description" content="Tulisan kami seputar website untuk bisnis: cara memilih jasa pembuatan website, dasar SEO, tren desain, dan strategi digital untuk UMKM. Ditulis ringan, tanpa jargon berlebihan." />
+        <link rel="canonical" href="https://cozybytes.media/blog" />
+        <meta property="og:title" content="Blog | Cozybytes Media" />
+        <meta property="og:description" content="Tulisan seputar website untuk bisnis: SEO dasar, tren desain, dan strategi digital UMKM. Ditulis ringan, tanpa jargon berlebihan." />
+        <meta property="og:url" content="https://cozybytes.media/blog" />
+      </Helmet>
       <Navbar />
 
       <section
@@ -159,11 +165,8 @@ export default function BlogPage() {
             <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
               Blog
             </span>
-            <h1
-              className="mb-4 text-4xl sm:text-5xl md:text-6xl leading-tight"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Insight & <em className="text-[#00FFFF] italic">Tips</em>
+            <h1 className="font-display mb-4 text-4xl sm:text-5xl md:text-6xl font-medium leading-[1.05] tracking-tight">
+              Insight & <span className="text-[#00FFFF]">tips.</span>
             </h1>
             <p className="max-w-lg text-base leading-relaxed text-white/50">
               Artikel seputar website, digital marketing, dan tips mengembangkan bisnis di era digital.

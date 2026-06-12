@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { 
-  Users, Layout, Palette, Smartphone, FileText, 
-  Repeat, MessageCircle, ArrowUpRight, Check, AlertCircle, 
-  ChevronDown, Layers 
+import {
+  Users, Layout, Palette, Smartphone, FileText,
+  Repeat, MessageCircle, ArrowUpRight, Check,
+  ChevronDown
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -198,6 +198,16 @@ const faqs = [
   }
 ]
 
+const workflowSteps = [
+  { step: '01', title: 'Riset & Arah Visual', desc: 'Menganalisis web lama, riset kompetitor sejenis, dan menentukan gaya desain visual.' },
+  { step: '02', title: 'Sketsa Struktur', desc: 'Pembuatan wireframe hitam-putih untuk merencanakan posisi menu dan tombol halaman.' },
+  { step: '03', title: 'Desain Visual', desc: 'Membuat halaman utuh dengan menghias tombol, warna, jenis huruf, dan gambar.' },
+  { step: '04', title: 'Prototype Klik', desc: 'Menghubungkan tombol antar halaman agar Anda bisa mencoba langsung alur navigasi web.' },
+  { step: '05', title: 'Serah Terima', desc: 'Review akhir revisi desain, lalu penyerahan link visual & aset lengkap untuk programmer Anda.' },
+]
+
+const deliverables = ['Visual UI Design', 'Web Prototype', 'Flexbox / Grid', 'CSS Variables', 'Design Tokens', 'Adobe Photoshop', 'Adobe Illustrator', 'SVG Vector Assets', 'Google Web Fonts', 'Tailwind Config', 'Developer Handoff', 'UI Kits / Library']
+
 export default function UIUXPage() {
   const pricingRef = useRef(null)
   const inView = useInView(pricingRef, { once: true, margin: '-60px' })
@@ -210,273 +220,368 @@ export default function UIUXPage() {
 
       <Helmet>
         <title>Jasa Desain UI/UX & Redesign Website Profesional | Cozybytes</title>
-        <meta name="description" content="Jasa desain UI/UX website profesional & modern. Optimasi alur navigasi (UX), wireframe, simulasi halaman web interaktif, handoff developer siap pakai. Redesign mulai Rp 999.000." />
-        <meta name="keywords" content="jasa desain UI UX website, redesign website lama, UI UX designer Indonesia, jasa wireframe website, desain aplikasi mobile Lampung, cozybytes" />
+        <meta name="description" content="Website lama Anda kami tata ulang supaya rapi, nyaman dipakai pengunjung, dan sesuai warna brand. Lengkap dengan prototype interaktif yang bisa diklik dan aset siap diserahkan ke programmer. Mulai Rp 999.000." />
+        <meta name="keywords" content="jasa desain UI UX website, redesign website, wireframe, cozybytes" />
         <link rel="canonical" href="https://cozybytes.media/layanan/uiux" />
         <meta property="og:title" content="Jasa Desain UI/UX & Redesign Website Profesional | Cozybytes" />
-        <meta property="og:description" content="Tingkatkan konversi penjualan Anda dengan desain antarmuka website (UI/UX) yang modern, bersih, dan intuitif. Aset visual rapi & siap coding." />
+        <meta property="og:description" content="Website lama Anda kami tata ulang supaya rapi, nyaman dipakai pengunjung, dan sesuai warna brand. Lengkap dengan prototype interaktif dan aset siap coding." />
         <meta property="og:url" content="https://cozybytes.media/layanan/uiux" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((f) => ({
+              '@type': 'Question',
+              name: f.q,
+              acceptedAnswer: { '@type': 'Answer', text: f.a },
+            })),
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: 'Jasa Desain UI/UX & Redesign Website',
+            serviceType: 'UI/UX Design',
+            description: 'Desain ulang tampilan dan alur navigasi website. Wireframe, prototype interaktif, design system, dan handoff developer.',
+            url: 'https://cozybytes.media/layanan/uiux',
+            areaServed: 'Indonesia',
+            provider: { '@type': 'ProfessionalService', name: 'Cozybytes Media', url: 'https://cozybytes.media' },
+            offers: [
+              { '@type': 'Offer', name: 'Paket Basic', price: '999000', priceCurrency: 'IDR' },
+              { '@type': 'Offer', name: 'Paket Pro UX', price: '2499000', priceCurrency: 'IDR' },
+              { '@type': 'Offer', name: 'Paket Full Design', price: '3999000', priceCurrency: 'IDR' },
+            ],
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Beranda', item: 'https://cozybytes.media/' },
+              { '@type': 'ListItem', position: 2, name: 'Layanan Desain UI/UX', item: 'https://cozybytes.media/layanan/uiux' },
+            ],
+          })}
+        </script>
       </Helmet>
 
-      {/* Hero Section */}
-      <section
-        className="relative pt-40 pb-28 overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,255,0.15) 0%, transparent 65%), radial-gradient(ellipse 50% 35% at 50% 45%, rgba(248,209,106,0.08) 0%, transparent 70%), #000',
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-40">
-          <div className="absolute left-1/2 top-32 h-px w-[86vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00FFFF]/30 to-transparent" />
-          <div className="absolute left-[8%] top-48 h-64 w-64 rounded-full bg-[#00FFFF]/10 blur-3xl" />
-          <div className="absolute right-[10%] top-64 h-72 w-72 rounded-full bg-[#F8D16A]/8 blur-3xl" />
-        </div>
+      {/* ============ HERO: copy left + before/after slider right ============ */}
+      <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 45% at 80% 25%, rgba(0,255,255,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 5% 85%, rgba(0,255,255,0.04) 0%, transparent 60%)',
+          }}
+        />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-5 md:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00FFFF]/30 bg-[#00FFFF]/5 px-4.5 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#00FFFF]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF] animate-pulse" />
-              Desain UI/UX & Redesign
-            </span>
-            <h1
-              className="mb-6 text-4xl sm:text-6xl md:text-7xl leading-tight font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6"
             >
-              Website Terasa Jadul? Bikin Tampilannya <br />
-              <em className="text-[#00FFFF] italic font-normal">Lebih Segar dan Nyaman Dilihat</em>
-            </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-base md:text-lg leading-relaxed text-white/60">
-              Tampilan website yang acak-acakan bikin calon pembeli kabur sebelum sempat baca penawaran Anda. Kami bantu tata ulang struktur dan tampilan halaman biar rapi, gampang dipakai pengunjung, dan pas dengan warna logo brand Anda. Semuanya langsung kami buat dalam bentuk halaman prototipe web interaktif yang bisa diklik.
-            </p>
-
-            {/* Trust Badges */}
-            <div className="mb-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/45">
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Aset SVG & Layout Kode Diserahkan
+              <span className="mb-6 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+                Desain UI/UX & Redesign
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Simulasi Halaman Web Interaktif
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Handoff Developer Rapi
-              </span>
-            </div>
+              <h1 className="font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-6xl lg:text-[4rem] font-medium">
+                Website jadul?
+                <br />
+                <span className="text-[#00FFFF]">Tata ulang. Geser sendiri.</span>
+              </h1>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-white/55">
+                Kami tata ulang struktur dan tampilan website Anda agar rapi, nyaman dipakai pengunjung, dan sesuai warna brand.
+              </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <motion.a
-                href={WA_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-primary inline-flex items-center gap-2 px-8 py-4 text-sm font-bold bg-[#00FFFF] text-black rounded-full shadow-[0_0_30px_rgba(0,255,255,0.25)]"
-              >
-                <MessageCircle className="h-4.5 w-4.5" />
-                Mulai Diskusi Desain
-              </motion.a>
-              <a
-                href="#harga"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-white/75 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
-              >
-                Lihat Paket Desain
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Pain Points Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Dampak Desain Kaku
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Kenapa Tampilan Website yang Berantakan <br />
-              <em className="text-[#F8D16A] italic font-normal">Sering Kali Membuat Calon Pembeli Ragu?</em>
-            </h2>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {painPoints.map((item, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.015] p-6 hover:bg-white/[0.03] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-400">
-                    <AlertCircle className="h-5 w-5" />
-                  </div>
-                  <h3 className="mb-2 text-base font-bold text-white">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/50">{item.desc}</p>
-                </div>
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <motion.a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-7 py-3.5 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Konsultasi via WhatsApp
+                </motion.a>
+                <a
+                  href="#harga"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/75 transition-all hover:border-white/30 hover:bg-white/5 hover:text-white"
+                >
+                  Lihat Paket Desain
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
-            ))}
+
+              <div className="mt-12 grid max-w-md grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-6">
+                {[
+                  { num: 'SVG', label: 'Aset diserahkan' },
+                  { num: 'Klik', label: 'Prototype interaktif' },
+                  { num: 'CSS', label: 'Handoff developer' },
+                ].map((s) => (
+                  <div key={s.label} className="px-4 first:pl-0">
+                    <div className="font-mono text-xl font-bold text-white">{s.num}</div>
+                    <div className="mt-1 text-xs text-white/40">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Before/After slider */}
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6"
+            >
+              <div className="relative">
+                <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-[#00FFFF]/5 blur-2xl" />
+                <div className="relative aspect-[4/3] w-full select-none overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.6)]">
+                  {/* BEFORE layer: cluttered old-school light website (base) */}
+                  <div className="absolute inset-0 flex flex-col bg-[#dedad0] p-3.5 font-serif text-zinc-800">
+                    <span className="absolute right-3 top-3 z-10 rounded-sm bg-red-600 px-2 py-0.5 text-[8px] font-black tracking-[0.15em] text-white shadow">
+                      SEBELUM
+                    </span>
+
+                    {/* old-school nav */}
+                    <div className="flex items-center gap-2.5 border-b-2 border-zinc-500 bg-[#c7c1b2] px-2 py-1.5 text-[7px] font-bold">
+                      {['HOME', 'PROFIL', 'PRODUK', 'GALERI', 'BUKU TAMU', 'KONTAK'].map((m) => (
+                        <span key={m} className="text-blue-800 underline">{m}</span>
+                      ))}
+                    </div>
+
+                    {/* shouting banner */}
+                    <div className="mt-1.5 bg-yellow-300 px-2 py-1 text-center text-[8px] font-bold text-red-700">
+                      !!! SELAMAT DATANG DI WEBSITE KAMI ~ PROMO BESAR-BESARAN !!!
+                    </div>
+
+                    <h3 className="mt-1.5 text-center text-[13px] font-bold underline decoration-2">
+                      CV. MAJU JAYA BERSAMA
+                    </h3>
+
+                    <div className="mt-1.5 flex min-h-0 flex-1 gap-1.5">
+                      {/* main content: dense gray text walls */}
+                      <div className="flex-1 space-y-1 overflow-hidden border border-zinc-500 bg-white/80 p-2">
+                        <div className="h-1.5 w-full bg-zinc-400" />
+                        <div className="h-1.5 w-full bg-zinc-400" />
+                        <div className="h-1.5 w-5/6 bg-zinc-400" />
+                        <div className="h-1.5 w-full bg-zinc-400" />
+                        <div className="flex h-12 items-center justify-center border border-dashed border-zinc-500 bg-zinc-300 text-[7px] italic text-zinc-600">
+                          gambar_banner_01.jpg (587 KB)
+                        </div>
+                        <div className="h-1.5 w-full bg-zinc-400" />
+                        <div className="h-1.5 w-full bg-zinc-400" />
+                        <div className="h-1.5 w-3/4 bg-zinc-400" />
+                      </div>
+                      {/* cluttered sidebar */}
+                      <div className="flex w-[34%] flex-col gap-1.5 overflow-hidden border border-zinc-500 bg-[#efe8d8] p-1.5 text-[7px]">
+                        <div className="bg-blue-900 px-1.5 py-0.5 font-bold text-white">MENU SAMPING</div>
+                        <span className="text-blue-800 underline">&raquo; Daftar Harga</span>
+                        <span className="text-blue-800 underline">&raquo; Cara Order</span>
+                        <span className="text-blue-800 underline">&raquo; Testimoni</span>
+                        <div className="mt-auto border border-zinc-500 bg-white p-1 text-center leading-tight">
+                          Pengunjung ke:
+                          <br />
+                          <span className="font-mono text-[8px] font-bold">0048172</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* screaming CTA */}
+                    <div className="mt-1.5 flex h-7 items-center justify-center bg-red-600 text-[9px] font-black tracking-wide text-yellow-200">
+                      &gt;&gt;&gt; KLIK DISINI, BELI SEKARANG JUGA !!! &lt;&lt;&lt;
+                    </div>
+                  </div>
+
+                  {/* AFTER layer: cozybytes dark premium, clipped (no squeeze) */}
+                  <div
+                    className="absolute inset-0 flex flex-col bg-zinc-950 p-5"
+                    style={{ clipPath: `inset(0 ${100 - sliderVal}% 0 0)` }}
+                  >
+                    <div
+                      className="pointer-events-none absolute inset-0"
+                      style={{ background: 'radial-gradient(ellipse 70% 55% at 25% 20%, rgba(0,255,255,0.10) 0%, transparent 60%)' }}
+                    />
+                    <span className="absolute left-3 top-3 z-10 rounded-sm bg-[#00FFFF] px-2 py-0.5 text-[8px] font-black tracking-[0.15em] text-black shadow-[0_0_12px_rgba(0,255,255,0.4)]">
+                      SESUDAH
+                    </span>
+
+                    <div className="relative mt-6 flex items-center justify-between border-b border-white/10 pb-3">
+                      <span className="font-display text-xs font-semibold tracking-wide text-white">
+                        majujaya<span className="text-[#00FFFF]">.</span>co.id
+                      </span>
+                      <span className="rounded-full border border-[#00FFFF]/30 bg-[#00FFFF]/10 px-2 py-0.5 font-mono text-[8px] font-bold text-[#00FFFF]">
+                        99 PageSpeed
+                      </span>
+                    </div>
+
+                    <div className="relative flex min-h-0 flex-1 flex-col justify-center">
+                      <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-[#00FFFF]/70">
+                        CV. Maju Jaya Bersama
+                      </span>
+                      <h3 className="mt-1.5 font-display text-xl font-medium leading-[1.1] text-white sm:text-2xl">
+                        Partner konstruksi
+                        <br />
+                        <span className="text-[#00FFFF]">yang dipercaya.</span>
+                      </h3>
+                      <p className="mt-2 max-w-[230px] text-[9px] leading-relaxed text-white/50">
+                        Pengalaman 15 tahun menangani proyek komersial dan residensial di seluruh Sumatera.
+                      </p>
+                      <div className="mt-3.5 flex gap-2">
+                        <span className="flex h-8 items-center rounded-full bg-[#00FFFF] px-4 text-[9px] font-bold text-black shadow-[0_0_18px_rgba(0,255,255,0.35)]">
+                          Konsultasi Gratis
+                        </span>
+                        <span className="flex h-8 items-center rounded-full border border-white/15 px-4 text-[9px] font-semibold text-white/70">
+                          Lihat Proyek
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="relative grid grid-cols-3 gap-2 border-t border-white/10 pt-3">
+                      {[
+                        { num: '15+', label: 'Tahun berdiri' },
+                        { num: '120', label: 'Proyek selesai' },
+                        { num: '98%', label: 'Klien puas' },
+                      ].map((s) => (
+                        <div key={s.label}>
+                          <div className="font-mono text-sm font-bold text-[#00FFFF]">{s.num}</div>
+                          <div className="text-[7px] text-white/40">{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={sliderVal}
+                    onChange={(e) => setSliderVal(Number(e.target.value))}
+                    aria-label="Geser untuk membandingkan desain lama dan baru"
+                    className="absolute inset-0 z-20 h-full w-full cursor-ew-resize opacity-0"
+                  />
+
+                  {/* Divider + handle */}
+                  <div
+                    className="pointer-events-none absolute inset-y-0 z-10 w-[3px] -translate-x-1/2 bg-[#00FFFF] shadow-[0_0_20px_rgba(0,255,255,0.7)]"
+                    style={{ left: `${sliderVal}%` }}
+                  >
+                    <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-zinc-950 bg-[#00FFFF] shadow-[0_0_25px_rgba(0,255,255,0.8)]">
+                      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 1L1 6L5 11" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M11 1L15 6L11 11" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-4 text-center text-xs text-white/40">
+                  Geser handle untuk membandingkan tampilan lama dan hasil redesign.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Metodologi Kerja
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Cakupan Desain UI/UX yang Kami Kerjakan <br />
-              <em className="text-[#00FFFF] italic font-normal">Dari Riset Hingga Penyerahan Aset</em>
+      {/* ============ PAIN POINTS: full-width stacked rows ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Tampilan berantakan
+              <br />
+              membuat pembeli ragu.
             </h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuresList.map((f, i) => (
+          <div className="mt-14 divide-y divide-white/[0.08] border-y border-white/[0.08]">
+            {painPoints.map((item, i) => (
               <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-[#00FFFF]/25 hover:bg-white/[0.04] transition-all group"
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="group grid gap-3 py-8 md:grid-cols-12 md:items-baseline"
               >
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#00FFFF]/10 group-hover:bg-[#00FFFF]/20 transition-all">
-                  <f.icon className="h-5.5 w-5.5 text-[#00FFFF]" />
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-white group-hover:text-[#00FFFF] transition-all">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-white/52">{f.desc}</p>
+                <span className="font-mono text-sm font-bold text-[#00FFFF]/50 md:col-span-1">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="text-lg font-bold text-white transition-colors group-hover:text-[#00FFFF] md:col-span-4">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-white/50 md:col-span-7">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Before/After Section */}
-      <section className="py-20 bg-[#09090B] border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-                Perbandingan Tampilan
-              </span>
-              <h2 className="mb-6 text-3xl md:text-4xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-                Beri Penyegaran Visual pada Website <br />
-                <em className="text-[#00FFFF] italic font-normal">Tanpa Strukturnya Menjadi Berat</em>
-              </h2>
-              <p className="mb-6 text-sm leading-relaxed text-white/50">
-                Kami mengubah tata letak halaman yang tadinya kaku, penuh sesak dengan teks, dan navigasi membingungkan menjadi antarmuka modern yang bersih, seimbang, dan mengarahkan perhatian pengguna ke target CTA.
-              </p>
-              <ul className="space-y-3">
-                {['Menganalisis kelemahan tata letak visual', 'Penyusunan palet warna yang modern', 'Optimasi kontras font agar enak dibaca', 'Pemberian ruang kosong (white-space) agar web lega'].map((step, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-white/70">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#00FFFF]/10 text-[#00FFFF] text-[10px] font-bold">✓</span>
-                    {step}
-                  </li>
-                ))}
-              </ul>
+      {/* ============ FEATURES: sticky left header + rows right ============ */}
+      <section className="bg-zinc-950 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+                  Cakupan Layanan
+                </span>
+                <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
+                  Dari riset
+                  <br />
+                  sampai handoff.
+                </h2>
+                <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/50">
+                  Enam tahap kerja yang kami lakukan di setiap proyek desain, apa pun skala paketnya.
+                </p>
+              </div>
             </div>
-            <div className="relative aspect-[4/3] w-full rounded-2xl border border-white/10 overflow-hidden bg-zinc-950 select-none shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-              {/* Before Layer (WordPress) - fills the container */}
-              <div className="absolute inset-0 p-5 flex flex-col justify-between bg-zinc-900/40">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                    <span className="text-[9px] font-bold text-red-400 tracking-wider">WP TEMPLATE LAMA</span>
-                    <span className="text-[7px] text-white/30">Theme: Active24</span>
-                  </div>
-                  <div className="h-6 w-3/4 rounded bg-white/10 animate-pulse" />
-                  <div className="space-y-1">
-                    <div className="h-2.5 w-full rounded bg-white/5" />
-                    <div className="h-2.5 w-5/6 rounded bg-white/5" />
-                  </div>
-                </div>
-                <div className="h-28 rounded-xl bg-white/5 border border-white/5 flex flex-col items-center justify-center p-3 text-center">
-                  <span className="text-[8px] text-white/20 font-bold block mb-1">Banner Gambar Kaku</span>
-                  <div className="w-12 h-1 rounded bg-white/10" />
-                </div>
-                <div className="h-8 rounded bg-red-600/80 text-white flex items-center justify-center text-[10px] font-bold">
-                  Beli Sekarang (Order Manual)
-                </div>
-              </div>
 
-              {/* After Layer (Cozybytes Custom) - absolute overlay, width controlled by slider */}
-              <div 
-                className="absolute inset-y-0 left-0 overflow-hidden bg-zinc-950 border-r border-[#00FFFF] shadow-[0_0_20px_rgba(0,255,255,0.2)]"
-                style={{ width: `${sliderVal}%` }}
-              >
-                {/* We need an inner wrapper that has a fixed width equal to the container's width, so the content doesn't squeeze when sliding */}
-                <div className="absolute inset-y-0 left-0 w-[530px] p-5 flex flex-col justify-between bg-gradient-to-b from-[#00FFFF]/5 to-transparent">
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center pb-2 border-b border-[#00FFFF]/10">
-                      <span className="text-[9px] font-bold text-[#00FFFF] tracking-[0.2em] uppercase">Cozybytes Design</span>
-                      <span className="text-[7px] text-[#00FFFF]/60 font-semibold px-1.5 py-0.5 rounded-full bg-[#00FFFF]/10">99 Speed</span>
-                    </div>
-                    <div className="h-6 w-1/2 rounded bg-[#00FFFF]/20" />
-                    <div className="space-y-1">
-                      <div className="h-2.5 w-2/3 rounded bg-white/15" />
-                      <div className="h-2.5 w-1/2 rounded bg-white/15" />
-                    </div>
+            <div className="space-y-4 lg:col-span-7">
+              {featuresList.map((f, i) => (
+                <motion.div
+                  key={f.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.45, delay: i * 0.05 }}
+                  className="group flex gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 transition-colors hover:border-[#00FFFF]/25"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#00FFFF]/10 transition-colors group-hover:bg-[#00FFFF]/20">
+                    <f.icon className="h-5 w-5 text-[#00FFFF]" />
                   </div>
-                  <div className="h-28 rounded-xl bg-gradient-to-tr from-[#00FFFF]/10 to-[#F8D16A]/10 border border-[#00FFFF]/10 flex flex-col items-center justify-center p-3 text-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[#00FFFF]/2 blur-xl" />
-                    <span className="text-[9px] text-[#00FFFF] font-black tracking-wider block mb-1 relative z-10">Visual Estetis & Interaktif</span>
-                    <div className="w-16 h-1 rounded bg-[#00FFFF]/20 relative z-10" />
+                  <div>
+                    <h3 className="text-base font-bold text-white">{f.title}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-white/50">{f.desc}</p>
                   </div>
-                  <div className="h-8 rounded-full bg-[#00FFFF] text-black flex items-center justify-center text-[10px] font-black shadow-[0_0_15px_rgba(0,255,255,0.25)]">
-                    Dapatkan Penawaran →
-                  </div>
-                </div>
-              </div>
-
-              {/* Slider Input overlay covering the whole container */}
-              <input 
-                type="range" 
-                min="0" 
-                max="100" 
-                value={sliderVal} 
-                onChange={(e) => setSliderVal(Number(e.target.value))}
-                className="absolute inset-0 opacity-0 cursor-ew-resize z-20 w-full h-full"
-              />
-
-              {/* Glowing vertical slider handle indicator */}
-              <div 
-                className="absolute inset-y-0 pointer-events-none z-10 w-0.5 bg-[#00FFFF] flex items-center justify-center"
-                style={{ left: `${sliderVal}%` }}
-              >
-                <div className="h-7 w-7 rounded-full bg-[#00FFFF] text-black flex items-center justify-center text-[9px] font-bold shadow-[0_0_15px_rgba(0,255,255,0.5)] border-2 border-white animate-pulse">
-                  ↔
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Comparison Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Komparasi Layanan
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Keunggulan Cozybytes UI/UX <br />
-              <em className="text-[#F8D16A] italic font-normal">Dibanding Agensi Besar, Freelancer, & Template</em>
+      {/* ============ COMPARISON ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-14 max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Dibanding agensi besar,
+              <br />
+              freelancer, dan template.
             </h2>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.01]">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+          <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.01]">
+            <table className="w-full min-w-[700px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
                   <th className="p-5 text-sm font-bold text-white/40">Kriteria Desain</th>
-                  <th className="p-5 text-sm font-bold text-[#00FFFF]">Cozybytes UI/UX Design</th>
+                  <th className="p-5 font-display text-sm font-semibold text-[#00FFFF]">Cozybytes UI/UX Design</th>
                   <th className="p-5 text-sm font-bold text-white/60">Agensi Tradisional (Besar)</th>
                   <th className="p-5 text-sm font-bold text-white/60">Desainer Freelancer</th>
                   <th className="p-5 text-sm font-bold text-white/60">Tema/Template Instan</th>
@@ -484,9 +589,9 @@ export default function UIUXPage() {
               </thead>
               <tbody>
                 {comparisons.map((row, index) => (
-                  <tr key={index} className="border-b border-white/5 hover:bg-white/[0.015] transition-all">
+                  <tr key={index} className="border-b border-white/5 transition-all last:border-0 hover:bg-white/[0.015]">
                     <td className="p-5 text-sm font-bold text-white/80">{row.aspect}</td>
-                    <td className="p-5 text-sm text-[#00FFFF] font-medium bg-[#00FFFF]/5 border-x border-[#00FFFF]/10">{row.cozy}</td>
+                    <td className="border-x border-[#00FFFF]/10 bg-[#00FFFF]/5 p-5 text-sm font-medium text-[#00FFFF]">{row.cozy}</td>
                     <td className="p-5 text-sm text-white/50">{row.agency}</td>
                     <td className="p-5 text-sm text-white/50">{row.freelancer}</td>
                     <td className="p-5 text-sm text-white/50">{row.templates}</td>
@@ -498,92 +603,89 @@ export default function UIUXPage() {
         </div>
       </section>
 
-      {/* Tech Tools Grid */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#00FFFF]/5 blur-[120px] pointer-events-none" />
-        <div className="mx-auto max-w-5xl px-5 md:px-6 relative z-10 text-center">
-          <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-            Peralatan Kerja
-          </span>
-          <h2 className="mb-12 text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-            Susunan Aset Rapi untuk <em className="text-[#00FFFF] italic font-normal">Serah Terima IT Tanpa Kendala</em>
+      {/* ============ DELIVERABLES: pill cloud ============ */}
+      <section className="border-t border-white/5 bg-zinc-950 py-20">
+        <div className="mx-auto max-w-5xl px-5 md:px-8">
+          <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
+            Yang Anda terima saat serah terima.
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
-            {['Visual UI Design', 'Web Prototype', 'Flexbox / Grid', 'CSS Variables', 'Design Tokens', 'Adobe Photoshop', 'Adobe Illustrator', 'SVG Vector Assets', 'Google Web Fonts', 'Tailwind Config', 'Developer Handoff', 'UI Kits / Library'].map((tech) => (
-              <div 
-                key={tech} 
-                className="flex flex-col items-center justify-center p-4 rounded-xl border border-white/5 bg-[#0a0a0d] hover:border-[#00FFFF]/20 transition-all"
+          <div className="mt-8 flex flex-wrap gap-3">
+            {deliverables.map((item, i) => (
+              <motion.span
+                key={item}
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.35, delay: i * 0.03 }}
+                className="rounded-full border border-white/[0.08] bg-white/[0.02] px-5 py-2.5 font-mono text-sm text-white/70 transition-colors hover:border-[#00FFFF]/30 hover:text-[#00FFFF]"
               >
-                <Layers className="h-5 w-5 text-[#00FFFF] mb-2" />
-                <span className="text-xs font-semibold text-white/80">{tech}</span>
-              </div>
+                {item}
+              </motion.span>
             ))}
           </div>
-          <div className="mt-8 flex justify-center gap-6 text-xs text-white/40">
-            <span>✓ Aset Gambar & Ikon Rapi</span>
-            <span>✓ Komponen Fleksibel (Variants)</span>
-            <span>✓ Font Komersil Bebas Lisensi</span>
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-xs text-white/40">
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Aset Gambar & Ikon Rapi</span>
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Komponen Fleksibel (Variants)</span>
+            <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Font Komersil Bebas Lisensi</span>
           </div>
         </div>
       </section>
 
-      {/* Workflow Section */}
-      <section className="py-24 bg-[#09090B] border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Tahapan Desain
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Alur Pengerjaan Desain Kolaboratif <br />
-              <em className="text-[#F8D16A] italic font-normal">Dari Brainstorming Hingga Serah Terima Aset</em>
+      {/* ============ WORKFLOW: horizontal stepper ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-16 max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Alur kerja kolaboratif.
             </h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/50">
+              Dari brainstorming hingga serah terima aset, Anda terlibat di setiap fase.
+            </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-5">
-            {[
-              { step: '01', title: 'Riset & Arah Visual', desc: 'Menganalisis web lama, riset kompetitor sejenis, dan menentukan gaya desain visual.' },
-              { step: '02', title: 'Sketsa Struktur', desc: 'Pembuatan wireframe hitam-putih untuk merencanakan posisi menu dan tombol halaman.' },
-              { step: '03', title: 'Desain Visual', desc: 'Membuat halaman utuh dengan menghias tombol, warna, jenis huruf, dan gambar.' },
-              { step: '04', title: 'Prototype Klik', desc: 'Menghubungkan tombol antar halaman agar Anda bisa mencoba langsung alur navigasi web.' },
-              { step: '05', title: 'Serah Terima', desc: 'Review akhir revisi desain, lalu penyerahan link visual & aset lengkap untuk programmer Anda.' }
-            ].map((step, i) => (
-              <div 
-                key={i} 
-                className="relative rounded-2xl border border-white/8 bg-white/[0.01] p-6 hover:bg-white/[0.02] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-3xl font-extrabold text-[#F8D16A]/20 block mb-4">{step.step}</span>
-                  <h3 className="mb-2 text-base font-bold text-white">{step.title}</h3>
-                  <p className="text-xs leading-relaxed text-white/45">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <div className="pointer-events-none absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-[#00FFFF]/40 via-white/10 to-transparent md:block" />
+            <div className="grid gap-10 md:grid-cols-5 md:gap-6">
+              {workflowSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative"
+                >
+                  <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#00FFFF]/30 bg-zinc-950 font-mono text-xs font-bold text-[#00FFFF]">
+                    {step.step}
+                  </div>
+                  <h3 className="font-display text-lg font-medium text-white">{step.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-white/45">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="harga" ref={pricingRef} className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-5 md:px-6">
+      {/* ============ PRICING ============ */}
+      <section id="harga" ref={pricingRef} className="bg-zinc-950 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-16 max-w-2xl text-center"
+            className="mb-16 max-w-2xl"
           >
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Pilihan Paket
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Investasi
             </span>
-            <h2
-              className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Pilih Paket Desain <br />
-              <em className="text-[#00FFFF] italic font-normal">UI/UX Website Anda</em>
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
+              Pilih paket desain
+              <br />
+              UI/UX website Anda.
             </h2>
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-white/50">
-              Investasikan anggaran pada tampilan web yang meyakinkan calon pembeli. Pilih paket yang sesuai kebutuhan.
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/50">
+              Investasikan anggaran pada tampilan web yang meyakinkan calon pembeli.
             </p>
           </motion.div>
 
@@ -596,37 +698,29 @@ export default function UIUXPage() {
           <p className="mx-auto mt-12 max-w-xl text-center text-sm leading-relaxed text-white/40">
             Butuh desain UI/UX untuk aplikasi Android/iOS atau dashboard admin khusus?{' '}
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00FFFF] hover:underline">
-              Konsultasikan custom requirements Anda di WhatsApp
+              Konsultasikan custom requirements Anda
             </a>
           </p>
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-4xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Pertanyaan Seputar Desain
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Jawaban Singkat Seputar <br />
-              <em className="text-[#F8D16A] italic font-normal">Layanan Desain UI/UX & Struktur Visual</em>
-            </h2>
-          </div>
-          <div className="space-y-4">
+      {/* ============ FAQ ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
+            Pertanyaan seputar desain UI/UX.
+          </h2>
+
+          <div className="mt-12 divide-y divide-white/[0.08] border-t border-white/[0.08]">
             {faqs.map((faq, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.01] overflow-hidden transition-all"
-              >
+              <div key={i}>
                 <button
                   onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.015] transition-all"
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:text-[#00FFFF]"
                 >
-                  <span className="text-base font-bold text-white/90 pr-4">{faq.q}</span>
-                  <ChevronDown 
-                    className={`h-5 w-5 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#F8D16A]' : ''}`} 
+                  <span className="text-base font-semibold text-white/90">{faq.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#00FFFF]' : ''}`}
                   />
                 </button>
                 <AnimatePresence initial={false}>
@@ -636,10 +730,9 @@ export default function UIUXPage() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm leading-relaxed text-white/50 border-t border-white/5 bg-[#050507]/20">
-                        {faq.a}
-                      </div>
+                      <p className="pb-7 pr-10 text-sm leading-relaxed text-white/50">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -649,28 +742,26 @@ export default function UIUXPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,255,255,0.08) 0%, transparent 70%)' }} />
-        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-6 text-center">
+      {/* ============ BOTTOM CTA ============ */}
+      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-[28px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-8 md:p-12 relative"
           >
-            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFFF]/45 to-transparent" />
-            <span className="mb-4 inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-white/35">
-              Analisis Web Gratis
-            </span>
-            <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Bikin Tampilan Website Perusahaan Anda <br />
-              <em className="text-[#00FFFF] italic font-normal">Tampil Segar, Bersih, dan Lebih Menjual</em>
+            <h2 className="font-display text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
+              Kirim link website lama Anda.
+              <br />
+              <span className="text-[#00FFFF]">Kami audit visualnya, gratis.</span>
             </h2>
-            <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/50">
-              Kirimkan link website lama Anda dan kami bantu tunjukkan bagian visual yang menghambat konversi secara gratis.
+            <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/50">
+              Kami tunjukkan bagian visual yang menghambat konversi, tanpa komitmen apa pun.
             </p>
             <motion.a
               href={WA_LINK}
@@ -678,10 +769,10 @@ export default function UIUXPage() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="btn-primary inline-flex items-center gap-2 text-sm font-bold px-8 py-4 bg-[#00FFFF] text-black rounded-full"
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-8 py-4 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
             >
-              <MessageCircle className="h-4.5 w-4.5" />
-              Mulai Konsultasi Desain UI/UX
+              <MessageCircle className="h-4 w-4" />
+              Konsultasi via WhatsApp
               <ArrowUpRight className="h-4 w-4" />
             </motion.a>
           </motion.div>

@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { 
-  CreditCard, Package, Smartphone, Search, 
-  Bell, MessageCircle, ArrowUpRight, Check, AlertCircle, 
-  ChevronDown, Code, Truck, Sparkles, CheckCircle2, QrCode
+import {
+  CreditCard, Package, Smartphone, Search,
+  Bell, MessageCircle, ArrowUpRight, Check,
+  ChevronDown, Truck, CheckCircle2, QrCode
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -134,11 +134,21 @@ const faqs = [
   }
 ]
 
+const workflowSteps = [
+  { step: '01', title: 'Pemetaan Menu', desc: 'Menentukan kategori barang yang dijual, serta integrasi rekening bank penyedia payment gateway.' },
+  { step: '02', title: 'Desain Checkout', desc: 'Merancang alur keranjang belanja dan formulir checkout yang ringkas agar pembeli gampang mengisi data diri.' },
+  { step: '03', title: 'Penulisan Kode', desc: 'Menulis kode sistem basis data stok barang dan tampilan katalog utama website.' },
+  { step: '04', title: 'Uji Coba API', desc: 'Simulasi pengujian pembayaran digital otomatis dan kalkulasi hitung tarif ongkir RajaOngkir.' },
+  { step: '05', title: 'Serah Terima', desc: 'Deployment web ke server live, lalu penyerahan dashboard admin dan panduan kelola stok.' },
+]
+
+const techStack = ['Vite.js', 'React.js', 'Tailwind CSS', 'TypeScript', 'Midtrans API', 'RajaOngkir API', 'Node.js', 'Express.js', 'PostgreSQL', 'Supabase Auth', 'Cloudflare', 'Git']
+
 export default function EcommercePage() {
   const pricingRef = useRef(null)
   const inView = useInView(pricingRef, { once: true, margin: '-60px' })
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
-  
+
   // Checkout Simulator State
   const [payMethod, setPayMethod] = useState<'qris' | 'va'>('qris')
   const [shipping, setShipping] = useState<'jnt' | 'sicepat'>('jnt')
@@ -184,7 +194,7 @@ export default function EcommercePage() {
       .map((f, index) => `${index + 1}. ${f.label}`)
       .join('%0A')
     const complexity = getComplexity().label
-    
+
     const text = `Halo Cozybytes, saya tertarik membuat website e-commerce dengan sistem custom. Berikut ringkasan fitur yang saya butuhkan:%0A%0A${selectedLabels}%0A%0ATingkat Kompleksitas: ${complexity}%0AMohon estimasi biaya pengerjaan dan jadwal konsultasinya. Terima kasih.`
     return `https://wa.me/6285894514719?text=${text}`
   }
@@ -211,379 +221,410 @@ export default function EcommercePage() {
 
       <Helmet>
         <title>Jasa Pembuatan Toko Online E-Commerce Custom & Mandiri | Cozybytes</title>
-        <meta name="description" content="Jasa pembuatan website toko online profesional untuk UMKM & brand lokal. Integrasi payment gateway otomatis, ongkir otomatis, tanpa komisi penjualan. Mulai Rp 2.499.000." />
-        <meta name="keywords" content="jasa toko online, jasa e-commerce, bikin toko online profesional, website e-commerce UMKM, website payment gateway otomatis, developer e-commerce Lampung, cozybytes" />
+        <meta name="description" content="Toko online milik sendiri, tanpa potongan komisi marketplace. Pembayaran QRIS dan transfer terkonfirmasi otomatis, ongkir dihitung real-time, dan resi terkirim sendiri ke WhatsApp pembeli." />
+        <meta name="keywords" content="jasa toko online, website e-commerce UMKM, payment gateway otomatis, cozybytes" />
         <link rel="canonical" href="https://cozybytes.media/layanan/ecommerce" />
         <meta property="og:title" content="Jasa Pembuatan Toko Online E-Commerce Custom & Mandiri | Cozybytes" />
-        <meta property="og:description" content="Miliki toko online mandiri tanpa bergantung pada potongan komisi marketplace. Integrasi payment gateway otomatis, RajaOngkir, dashboard admin mudah, dan mobile-first." />
+        <meta property="og:description" content="Toko online milik sendiri, tanpa potongan komisi marketplace. Pembayaran terkonfirmasi otomatis, ongkir real-time, notifikasi WhatsApp ke pembeli." />
         <meta property="og:url" content="https://cozybytes.media/layanan/ecommerce" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((f) => ({
+              '@type': 'Question',
+              name: f.q,
+              acceptedAnswer: { '@type': 'Answer', text: f.a },
+            })),
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: 'Jasa Pembuatan Toko Online E-Commerce',
+            serviceType: 'E-Commerce Development',
+            description: 'Pembuatan toko online mandiri dengan payment gateway otomatis, kalkulasi ongkir real-time, dashboard admin, dan notifikasi WhatsApp. Tanpa komisi penjualan.',
+            url: 'https://cozybytes.media/layanan/ecommerce',
+            areaServed: 'Indonesia',
+            provider: { '@type': 'ProfessionalService', name: 'Cozybytes Media', url: 'https://cozybytes.media' },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Beranda', item: 'https://cozybytes.media/' },
+              { '@type': 'ListItem', position: 2, name: 'Layanan Toko Online', item: 'https://cozybytes.media/layanan/ecommerce' },
+            ],
+          })}
+        </script>
       </Helmet>
 
-      {/* Hero Section */}
-      <section
-        className="relative pt-40 pb-28 overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,255,0.15) 0%, transparent 65%), radial-gradient(ellipse 50% 35% at 50% 45%, rgba(248,209,106,0.08) 0%, transparent 70%), #000',
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-40">
-          <div className="absolute left-1/2 top-32 h-px w-[86vw] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00FFFF]/30 to-transparent" />
-          <div className="absolute left-[8%] top-48 h-64 w-64 rounded-full bg-[#00FFFF]/10 blur-3xl" />
-          <div className="absolute right-[10%] top-64 h-72 w-72 rounded-full bg-[#F8D16A]/8 blur-3xl" />
-        </div>
+      {/* ============ HERO: copy left + checkout simulator right ============ */}
+      <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 45% at 78% 30%, rgba(0,255,255,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 8% 90%, rgba(0,255,255,0.04) 0%, transparent 60%)',
+          }}
+        />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-5 md:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00FFFF]/30 bg-[#00FFFF]/5 px-4.5 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#00FFFF]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF] animate-pulse" />
-              Toko Online Mandiri
-            </span>
-            <h1
-              className="mb-6 text-4xl sm:text-6xl md:text-7xl leading-tight font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6"
             >
-              Bikin Toko Online Mandiri Tanpa Potongan <br />
-              <em className="text-[#00FFFF] italic font-normal">Komisi Transaksi dari Marketplace</em>
-            </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-base md:text-lg leading-relaxed text-white/60">
-              Mulai bangun brand produk Anda sendiri, simpan database kontak pelanggan seutuhnya, dan terima pembayaran otomatis 24 jam nonstop tanpa perlu khawatir perang banting harga di lapak yang sama.
-            </p>
-
-            {/* Trust Badges */}
-            <div className="mb-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/45">
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Midtrans & Xendit Verified
+              <span className="mb-6 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+                Toko Online Mandiri
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> 0% Komisi Transaksi Platform
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Integrasi RajaOngkir Logistik
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <motion.a
-                href={WA_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-primary inline-flex items-center gap-2 px-8 py-4 text-sm font-bold bg-[#00FFFF] text-black rounded-full shadow-[0_0_30px_rgba(0,255,255,0.25)]"
-              >
-                <MessageCircle className="h-4.5 w-4.5" />
-                Diskusikan Fitur Toko Anda
-              </motion.a>
-              <a
-                href="#harga"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-white/75 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
-              >
-                Konsultasi Estimasi Biaya
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Interactive Checkout Visual Showcase */}
-      <section className="py-20 bg-[#07070a] border-t border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-        <div className="mx-auto max-w-6xl px-5 md:px-6 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-xs font-semibold text-emerald-400">
-                <Sparkles className="h-3 w-3" /> Checkout Engine Simulator
-              </span>
-              <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-                Alur Pemesanan yang <br />
-                <em className="text-[#00FFFF] italic font-normal">Otomatis Tanpa Admin Manual</em>
-              </h2>
-              <p className="text-sm leading-relaxed text-white/50">
-                Uji coba checkout simulator di sebelah kanan. Pilih kurir pengiriman dan metode pembayaran, lalu saksikan bagaimana transaksi diselesaikan secara real-time.
+              <h1 className="font-display text-[2.6rem] leading-[1.02] tracking-tight sm:text-6xl lg:text-[4rem] font-medium">
+                Jualan tanpa potongan
+                <br />
+                <span className="text-[#00FFFF]">komisi marketplace.</span>
+              </h1>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-white/55">
+                Bangun brand sendiri, simpan database pelanggan seutuhnya, dan terima pembayaran otomatis 24 jam nonstop.
               </p>
 
-              {/* Controls Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <span className="text-xs text-white/40 block font-semibold">1. Pilih Kurir (RajaOngkir)</span>
-                  <div className="flex flex-col gap-1.5">
-                    <button 
-                      onClick={() => { setShipping('jnt'); setIsPaid(false); }}
-                      className={`text-xs p-2.5 rounded-lg border text-left transition-all ${shipping === 'jnt' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01]'}`}
-                    >
-                      J&T Regular (Rp 12k)
-                    </button>
-                    <button 
-                      onClick={() => { setShipping('sicepat'); setIsPaid(false); }}
-                      className={`text-xs p-2.5 rounded-lg border text-left transition-all ${shipping === 'sicepat' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01]'}`}
-                    >
-                      Sicepat BEST (Rp 24k)
-                    </button>
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <motion.a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-7 py-3.5 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Konsultasi via WhatsApp
+                </motion.a>
+                <a
+                  href="#harga"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/75 transition-all hover:border-white/30 hover:bg-white/5 hover:text-white"
+                >
+                  Rancang Fitur Toko
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+
+              <div className="mt-12 grid max-w-md grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-6">
+                {[
+                  { num: '0%', label: 'Komisi platform' },
+                  { num: '24/7', label: 'Bayar otomatis' },
+                  { num: 'API', label: 'Ongkir real-time' },
+                ].map((s) => (
+                  <div key={s.label} className="px-4 first:pl-0">
+                    <div className="font-mono text-2xl font-bold text-white">{s.num}</div>
+                    <div className="mt-1 text-xs text-white/40">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Checkout simulator */}
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6"
+            >
+              <div className="relative">
+                <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-[#00FFFF]/5 blur-2xl" />
+                <div className="relative flex aspect-[4/3] w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 shadow-[0_30px_70px_rgba(0,0,0,0.6)]">
+                  <div className="flex items-center gap-1.5 border-b border-white/[0.08] bg-zinc-950/80 px-4 py-3">
+                    <div className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
+                    <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
+                    <div className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
+                    <span className="ml-3 truncate font-mono text-[9px] text-white/30">cozybytes.id/checkout</span>
+                  </div>
+
+                  <div className="relative flex flex-1 flex-col justify-between overflow-hidden bg-[#060608] p-5 text-xs">
+                    <AnimatePresence>
+                      {isPaid && showNotifications && (
+                        <div className="pointer-events-none absolute inset-x-2 top-2 z-30 space-y-1.5">
+                          <motion.div
+                            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                            className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-[#202c33] p-2 shadow-lg"
+                          >
+                            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                              <MessageCircle className="h-3.5 w-3.5 fill-current" />
+                            </div>
+                            <div className="min-w-0 flex-1 text-[8px] text-white">
+                              <div className="flex justify-between font-bold">
+                                <span>WhatsApp Notification (Lunas)</span>
+                                <span className="text-[6px] text-white/30">now</span>
+                              </div>
+                              <p className="truncate leading-tight text-white/60">Halo Budi, order CB-9821 lunas! Resi pengiriman akan dikirim otomatis ke nomor ini.</p>
+                            </div>
+                          </motion.div>
+
+                          <motion.div
+                            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex items-center gap-2 rounded-lg border border-blue-500/20 bg-[#18181b] p-2 shadow-lg"
+                          >
+                            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white">
+                              <Truck className="h-3.5 w-3.5" />
+                            </div>
+                            <div className="min-w-0 flex-1 text-[8px] text-white">
+                              <div className="flex justify-between font-bold">
+                                <span>Email Invoice (CB-9821)</span>
+                                <span className="text-[6px] text-white/30">now</span>
+                              </div>
+                              <p className="truncate leading-tight text-white/60">Terima kasih atas pembayaran Anda. Invoice lunas & detail pengiriman...</p>
+                            </div>
+                          </motion.div>
+                        </div>
+                      )}
+                    </AnimatePresence>
+
+                    <AnimatePresence mode="wait">
+                      {!isPaid ? (
+                        <motion.div
+                          key="cart"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex h-full flex-col justify-between space-y-4"
+                        >
+                          <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
+                            <span className="font-bold text-white/80">Ringkasan Pembayaran</span>
+                            <span className="font-mono text-[10px] text-white/30">Order ID: CB-9821</span>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded border border-[#00FFFF]/20 bg-[#00FFFF]/10 font-mono text-[10px] text-[#00FFFF]">
+                              ITEM
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="text-[11px] font-bold text-white">Sepatu Sneakers Kulit Lokal</h4>
+                              <p className="text-[9px] text-white/40">Varian: Hitam, Ukuran 42</p>
+                            </div>
+                            <span className="font-mono font-bold text-white/80">Rp {getSubtotal().toLocaleString('id-ID')}</span>
+                          </div>
+
+                          <div className="space-y-1.5 border-t border-white/5 pt-2 text-[10px] text-white/55">
+                            <div className="flex justify-between">
+                              <span>Subtotal</span>
+                              <span className="font-mono">Rp {getSubtotal().toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Ongkos Kirim ({shipping.toUpperCase()})</span>
+                              <span className="font-mono">Rp {getShippingCost().toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex justify-between border-t border-white/5 pt-1.5 text-xs font-bold text-white">
+                              <span>Total Pembayaran</span>
+                              <span className="font-mono text-[#00FFFF]">Rp {getTotal().toLocaleString('id-ID')}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.01] p-3">
+                            <div className="space-y-0.5">
+                              <span className="block text-[9px] text-white/30">Metode Pembayaran</span>
+                              <span className="font-bold text-white/80">{payMethod === 'qris' ? 'QRIS (Gopay/OVO/Shopee)' : 'Virtual Account Bank'}</span>
+                            </div>
+                            {payMethod === 'qris' ? (
+                              <QrCode className="h-6 w-6 text-[#00FFFF]" />
+                            ) : (
+                              <span className="rounded bg-[#00FFFF]/10 px-2.5 py-1 font-mono text-[10px] font-semibold text-[#00FFFF]">8832 9182 3012</span>
+                            )}
+                          </div>
+
+                          <button
+                            onClick={() => setIsPaid(true)}
+                            className="flex h-9 w-full items-center justify-center rounded-lg bg-[#00FFFF] text-[10px] font-black text-black shadow-[0_0_15px_rgba(0,255,255,0.15)]"
+                          >
+                            Simulasikan Pembayaran Berhasil
+                          </button>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="success"
+                          initial={{ scale: 0.95, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.95, opacity: 0 }}
+                          className="flex h-full flex-col items-center justify-center space-y-3 text-center"
+                        >
+                          <CheckCircle2 className="h-12 w-12 animate-bounce text-emerald-400" />
+                          <h3 className="text-base font-bold text-white">Pembayaran Berhasil!</h3>
+                          <p className="max-w-xs text-[10px] leading-relaxed text-white/50">
+                            Sistem payment gateway otomatis mendeteksi transaksi Anda. Notifikasi konfirmasi dan resi telah otomatis dikirim ke nomor WhatsApp pembeli.
+                          </p>
+                          <button
+                            onClick={() => setIsPaid(false)}
+                            className="rounded-full border border-white/10 px-4 py-2 text-[9px] font-bold text-white/60 hover:bg-white/5 hover:text-white"
+                          >
+                            Ulangi Simulasi
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <span className="text-xs text-white/40 block font-semibold">2. Metode Pembayaran</span>
-                  <div className="flex flex-col gap-1.5">
-                    <button 
-                      onClick={() => { setPayMethod('qris'); setIsPaid(false); }}
-                      className={`text-xs p-2.5 rounded-lg border text-left transition-all ${payMethod === 'qris' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01]'}`}
-                    >
-                      QRIS / E-Wallet
-                    </button>
-                    <button 
-                      onClick={() => { setPayMethod('va'); setIsPaid(false); }}
-                      className={`text-xs p-2.5 rounded-lg border text-left transition-all ${payMethod === 'va' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01]'}`}
-                    >
-                      Virtual Account VA
-                    </button>
+
+                {/* Simulator controls */}
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <span className="block text-xs font-semibold text-white/40">Kurir (RajaOngkir)</span>
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => { setShipping('jnt'); setIsPaid(false); }}
+                        className={`flex-1 rounded-lg border p-2 text-left text-[11px] transition-all ${shipping === 'jnt' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01] text-white/60'}`}
+                      >
+                        J&T (Rp 12k)
+                      </button>
+                      <button
+                        onClick={() => { setShipping('sicepat'); setIsPaid(false); }}
+                        className={`flex-1 rounded-lg border p-2 text-left text-[11px] transition-all ${shipping === 'sicepat' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01] text-white/60'}`}
+                      >
+                        Sicepat (Rp 24k)
+                      </button>
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <span className="block text-xs font-semibold text-white/40">Metode Pembayaran</span>
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => { setPayMethod('qris'); setIsPaid(false); }}
+                        className={`flex-1 rounded-lg border p-2 text-left text-[11px] transition-all ${payMethod === 'qris' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01] text-white/60'}`}
+                      >
+                        QRIS
+                      </button>
+                      <button
+                        onClick={() => { setPayMethod('va'); setIsPaid(false); }}
+                        className={`flex-1 rounded-lg border p-2 text-left text-[11px] transition-all ${payMethod === 'va' ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-[#00FFFF]' : 'border-white/5 bg-white/[0.01] text-white/60'}`}
+                      >
+                        Virtual Account
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="lg:col-span-7 flex justify-center">
-              {/* Browser shell container */}
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/60 overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.6),0_0_50px_rgba(0,255,255,0.03)] w-full aspect-[4/3] relative flex flex-col">
-                <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/8 bg-zinc-950/80">
-                  <div className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
-                  <span className="ml-3 text-[9px] text-white/30 truncate">cozybytes.id/checkout</span>
-                </div>
-
-                <div className="flex-1 bg-[#060608] p-5 flex flex-col justify-between relative overflow-hidden text-xs">
-                  {/* Webhook notification toasts */}
-                  <AnimatePresence>
-                    {isPaid && showNotifications && (
-                      <div className="absolute top-2 inset-x-2 z-30 space-y-1.5 pointer-events-none">
-                        {/* WA Notif */}
-                        <motion.div
-                          initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                          className="bg-[#202c33] border border-emerald-500/20 rounded-lg p-2 flex items-center gap-2 shadow-lg"
-                        >
-                          <div className="h-6 w-6 rounded-full bg-emerald-500 flex flex-shrink-0 items-center justify-center text-white">
-                            <MessageCircle className="h-3.5 w-3.5 fill-current" />
-                          </div>
-                          <div className="flex-1 min-w-0 text-[8px] text-white">
-                            <div className="flex justify-between font-bold">
-                              <span>WhatsApp Notification (Lunas)</span>
-                              <span className="text-white/30 text-[6px]">now</span>
-                            </div>
-                            <p className="text-white/60 leading-tight truncate">Halo Budi, order CB-9821 lunas! Resi pengiriman akan dikirim otomatis ke nomor ini.</p>
-                          </div>
-                        </motion.div>
-
-                        {/* Email Notif */}
-                        <motion.div
-                          initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                          transition={{ delay: 0.5 }}
-                          className="bg-[#18181b] border border-blue-500/20 rounded-lg p-2 flex items-center gap-2 shadow-lg"
-                        >
-                          <div className="h-6 w-6 rounded-full bg-blue-500 flex flex-shrink-0 items-center justify-center text-white">
-                            <Truck className="h-3.5 w-3.5" />
-                          </div>
-                          <div className="flex-1 min-w-0 text-[8px] text-white">
-                            <div className="flex justify-between font-bold">
-                              <span>Email Invoice (CB-9821)</span>
-                              <span className="text-white/30 text-[6px]">now</span>
-                            </div>
-                            <p className="text-white/60 leading-tight truncate">Terima kasih atas pembayaran Anda. Invoice lunas & detail pengiriman...</p>
-                          </div>
-                        </motion.div>
-                      </div>
-                    )}
-                  </AnimatePresence>
-
-                  <AnimatePresence mode="wait">
-                    {!isPaid ? (
-                      <motion.div 
-                        key="cart"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="space-y-4 h-full flex flex-col justify-between"
-                      >
-                        {/* Cart Header */}
-                        <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                          <span className="font-bold text-white/80">Ringkasan Pembayaran</span>
-                          <span className="text-[10px] text-white/30">Order ID: CB-9821</span>
-                        </div>
-
-                        {/* Order Item */}
-                        <div className="flex gap-3 items-center">
-                          <div className="h-10 w-10 rounded bg-[#00FFFF]/10 border border-[#00FFFF]/20 flex items-center justify-center font-serif text-[10px] text-[#00FFFF]">
-                            ITEM
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-bold text-white text-[11px]">Sepatu Sneakers Kulit Lokal</h4>
-                            <p className="text-[9px] text-white/40">Varian: Hitam, Ukuran 42</p>
-                          </div>
-                          <span className="font-bold text-white/80">Rp {getSubtotal().toLocaleString('id-ID')}</span>
-                        </div>
-
-                        {/* Summary Details */}
-                        <div className="space-y-1.5 pt-2 border-t border-white/5 text-[10px] text-white/55">
-                          <div className="flex justify-between">
-                            <span>Subtotal</span>
-                            <span>Rp {getSubtotal().toLocaleString('id-ID')}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Ongkos Kirim ({shipping.toUpperCase()})</span>
-                            <span>Rp {getShippingCost().toLocaleString('id-ID')}</span>
-                          </div>
-                          <div className="flex justify-between text-white font-bold text-xs pt-1.5 border-t border-white/5">
-                            <span>Total Pembayaran</span>
-                            <span className="text-[#00FFFF]">Rp {getTotal().toLocaleString('id-ID')}</span>
-                          </div>
-                        </div>
-
-                        {/* Payment Box */}
-                        <div className="p-3 rounded-xl border border-white/5 bg-white/[0.01] flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <span className="text-[9px] text-white/30 block">Metode Pembayaran</span>
-                            <span className="font-bold text-white/80">{payMethod === 'qris' ? 'QRIS (Gopay/OVO/Shopee)' : 'Virtual Account Bank'}</span>
-                          </div>
-                          {payMethod === 'qris' ? (
-                            <QrCode className="h-6 w-6 text-[#00FFFF]" />
-                          ) : (
-                            <span className="text-[10px] px-2.5 py-1 rounded bg-[#00FFFF]/10 text-[#00FFFF] font-mono font-semibold">8832 9182 3012</span>
-                          )}
-                        </div>
-
-                        {/* Submit Button */}
-                        <button
-                          onClick={() => setIsPaid(true)}
-                          className="w-full h-9 rounded-lg bg-[#00FFFF] text-black font-black text-[10px] flex items-center justify-center shadow-[0_0_15px_rgba(0,255,255,0.15)]"
-                        >
-                          Simulasikan Pembayaran Berhasil
-                        </button>
-                      </motion.div>
-                    ) : (
-                      <motion.div 
-                        key="success"
-                        initial={{ scale: 0.95, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.95, opacity: 0 }}
-                        className="h-full flex flex-col items-center justify-center text-center space-y-3"
-                      >
-                        <CheckCircle2 className="h-12 w-12 text-emerald-400 animate-bounce" />
-                        <h3 className="text-base font-bold text-white">Pembayaran Berhasil!</h3>
-                        <p className="text-[10px] text-white/50 max-w-xs leading-relaxed">
-                          Sistem payment gateway otomatis mendeteksi transaksi Anda. Notifikasi konfirmasi dan resi telah otomatis dikirim ke nomor WhatsApp pembeli.
-                        </p>
-                        <button
-                          onClick={() => setIsPaid(false)}
-                          className="px-4 py-2 rounded-full border border-white/10 text-white/60 hover:text-white hover:bg-white/5 text-[9px] font-bold"
-                        >
-                          Ulangi Simulasi
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Pain Points Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Tantangan Retailer Modern
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Kenapa Tergantung Sepenuhnya pada Marketplace <br />
-              <em className="text-[#F8D16A] italic font-normal">Bisa Menghambat Perkembangan Brand Anda?</em>
+      {/* ============ PAIN POINTS: 4-col minimal top-border ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Bergantung penuh pada marketplace
+              <br />
+              menghambat brand Anda.
             </h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {painPoints.map((item, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.015] p-6 hover:bg-white/[0.03] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-400">
-                    <AlertCircle className="h-5 w-5" />
-                  </div>
-                  <h3 className="mb-2 text-base font-bold text-white">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/50">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-24 bg-zinc-950">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Keunggulan Toko Online
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Fitur Lengkap Toko Online Mandiri <br />
-              <em className="text-[#00FFFF] italic font-normal">yang Memudahkan Transaksi Pembeli</em>
-            </h2>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuresList.map((f, i) => (
               <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-[#00FFFF]/25 hover:bg-white/[0.04] transition-all group"
+                transition={{ duration: 0.5, delay: i * 0.07 }}
+                className="border-t-2 border-[#00FFFF]/30 pt-5"
               >
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#00FFFF]/10 group-hover:bg-[#00FFFF]/20 transition-all">
-                  <f.icon className="h-5.5 w-5.5 text-[#00FFFF]" />
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-white group-hover:text-[#00FFFF] transition-all">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-white/52">{f.desc}</p>
+                <span className="font-mono text-xs font-bold text-white/30">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="mt-2 text-base font-bold text-white">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/50">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Comparison Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Komparasi Solusi
+      {/* ============ FEATURES: 2-col list, large first item ============ */}
+      <section className="bg-zinc-950 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-16 max-w-2xl">
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Fitur Toko Online
             </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Bandingkan Cozybytes E-Commerce <br />
-              <em className="text-[#F8D16A] italic font-normal">dengan Marketplace, Shopify, & WooCommerce</em>
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Transaksi selesai sendiri,
+              <br />
+              tanpa admin manual.
             </h2>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.01]">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+          <div className="grid gap-5 md:grid-cols-2">
+            {/* First feature: full-width emphasis cell */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5 }}
+              className="relative overflow-hidden rounded-2xl border border-[#00FFFF]/15 p-8 md:col-span-2"
+              style={{ background: 'linear-gradient(120deg, rgba(0,255,255,0.07) 0%, rgba(0,255,255,0.01) 45%, transparent 100%)' }}
+            >
+              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#00FFFF]/10 blur-3xl" />
+              <div className="grid items-center gap-8 md:grid-cols-2">
+                <div>
+                  <CreditCard className="mb-5 h-7 w-7 text-[#00FFFF]" />
+                  <h3 className="font-display text-2xl font-medium text-white">{featuresList[0].title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/55">{featuresList[0].desc}</p>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  {['QRIS', 'GoPay', 'OVO', 'Dana', 'Virtual Account', 'Kartu Kredit'].map((m) => (
+                    <span key={m} className="rounded-full border border-[#00FFFF]/20 bg-[#00FFFF]/5 px-4 py-2 font-mono text-xs text-[#00FFFF]/80">
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {featuresList.slice(1).map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.08 }}
+                className="group flex gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 transition-colors hover:border-[#00FFFF]/25"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#00FFFF]/10 transition-colors group-hover:bg-[#00FFFF]/20">
+                  <f.icon className="h-5 w-5 text-[#00FFFF]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white">{f.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/50">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ COMPARISON ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-14 max-w-2xl">
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Dibanding marketplace,
+              <br />
+              Shopify, dan WooCommerce.
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.01]">
+            <table className="w-full min-w-[700px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
                   <th className="p-5 text-sm font-bold text-white/40">Faktor Evaluasi</th>
-                  <th className="p-5 text-sm font-bold text-[#00FFFF]">Cozybytes E-Commerce</th>
+                  <th className="p-5 font-display text-sm font-semibold text-[#00FFFF]">Cozybytes E-Commerce</th>
                   <th className="p-5 text-sm font-bold text-white/60">Marketplace (Hijau/Oranye)</th>
                   <th className="p-5 text-sm font-bold text-white/60">Shopify (SaaS)</th>
                   <th className="p-5 text-sm font-bold text-white/60">WooCommerce (Wordpress)</th>
@@ -591,9 +632,9 @@ export default function EcommercePage() {
               </thead>
               <tbody>
                 {comparisons.map((row, index) => (
-                  <tr key={index} className="border-b border-white/5 hover:bg-white/[0.015] transition-all">
+                  <tr key={index} className="border-b border-white/5 transition-all last:border-0 hover:bg-white/[0.015]">
                     <td className="p-5 text-sm font-bold text-white/80">{row.aspect}</td>
-                    <td className="p-5 text-sm text-[#00FFFF] font-medium bg-[#00FFFF]/5 border-x border-[#00FFFF]/10">{row.cozy}</td>
+                    <td className="border-x border-[#00FFFF]/10 bg-[#00FFFF]/5 p-5 text-sm font-medium text-[#00FFFF]">{row.cozy}</td>
                     <td className="p-5 text-sm text-white/50">{row.marketplace}</td>
                     <td className="p-5 text-sm text-white/50">{row.saas}</td>
                     <td className="p-5 text-sm text-white/50">{row.woocommerce}</td>
@@ -605,128 +646,123 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* Tech Stack Grid */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#00FFFF]/5 blur-[120px] pointer-events-none" />
-        <div className="mx-auto max-w-5xl px-5 md:px-6 relative z-10 text-center">
-          <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-            Teknologi yang Digunakan
-          </span>
-          <h2 className="mb-12 text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-            Kode Sumber Toko yang <em className="text-[#00FFFF] italic font-normal">Aman, Cepat, dan Skalabel</em>
+      {/* ============ TECH STACK: marquee ============ */}
+      <section className="overflow-hidden border-t border-white/5 bg-zinc-950 py-20">
+        <div className="mx-auto mb-10 max-w-6xl px-5 md:px-8">
+          <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
+            Fondasi teknis toko Anda.
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
-            {['Vite.js', 'React.js', 'Tailwind CSS', 'TypeScript', 'Midtrans API', 'RajaOngkir API', 'Node.js', 'Express.js', 'PostgreSQL', 'Supabase Auth', 'Cloudflare', 'Git'].map((tech) => (
-              <div 
-                key={tech} 
-                className="flex flex-col items-center justify-center p-4 rounded-xl border border-white/5 bg-[#0a0a0d] hover:border-[#00FFFF]/20 transition-all"
-              >
-                <Code className="h-5 w-5 text-[#00FFFF] mb-2" />
-                <span className="text-xs font-semibold text-white/80">{tech}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 flex justify-center gap-6 text-xs text-white/40">
-            <span>✓ Verifikasi Pembayaran Instan</span>
-            <span>✓ Cek Resi Logistik Nasional</span>
-            <span>✓ Infrastruktur Serverless Cepat</span>
-          </div>
         </div>
-      </section>
-
-      {/* Workflow Section */}
-      <section className="py-24 bg-[#09090B] border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              Tahapan Kerja
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Membangun Toko Online Mandiri Anda <br />
-              <em className="text-[#F8D16A] italic font-normal">Hingga Siap Menerima Orderan Pertama</em>
-            </h2>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-5">
-            {[
-              { step: '01', title: 'Pemetaan Menu', desc: 'Menentukan kategori barang yang dijual, serta integrasi rekening bank penyedia payment gateway.' },
-              { step: '02', title: 'Desain Checkout', desc: 'Merancang alur keranjang belanja dan formulir checkout yang ringkas agar pembeli gampang mengisi data diri.' },
-              { step: '03', title: 'Penulisan Kode', desc: 'Menulis kode sistem basis data stok barang dan tampilan katalog utama website.' },
-              { step: '04', title: 'Uji Coba API', desc: 'Simulasi pengujian pembayaran digital otomatis dan kalkulasi hitung tarif ongkir RajaOngkir.' },
-              { step: '05', title: 'Serah Terima', desc: 'Deployment web ke server live, lalu penyerahan dashboard admin dan panduan kelola stok.' }
-            ].map((step, i) => (
-              <div 
-                key={i} 
-                className="relative rounded-2xl border border-white/8 bg-white/[0.01] p-6 hover:bg-white/[0.02] transition-all flex flex-col justify-between"
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-zinc-950 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-zinc-950 to-transparent" />
+          <div className="flex w-max animate-[marquee_30s_linear_infinite] gap-4 motion-reduce:animate-none">
+            {[...techStack, ...techStack].map((tech, i) => (
+              <div
+                key={`${tech}-${i}`}
+                className="flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-6 py-3"
               >
-                <div>
-                  <span className="text-3xl font-extrabold text-[#F8D16A]/20 block mb-4">{step.step}</span>
-                  <h3 className="mb-2 text-base font-bold text-white">{step.title}</h3>
-                  <p className="text-xs leading-relaxed text-white/45">{step.desc}</p>
-                </div>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF]/60" />
+                <span className="whitespace-nowrap font-mono text-sm text-white/70">{tech}</span>
               </div>
             ))}
           </div>
         </div>
+        <div className="mx-auto mt-10 flex max-w-6xl flex-wrap gap-x-8 gap-y-2 px-5 text-xs text-white/40 md:px-8">
+          <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Verifikasi Pembayaran Instan</span>
+          <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Cek Resi Logistik Nasional</span>
+          <span className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-[#00FFFF]" /> Infrastruktur Serverless Cepat</span>
+        </div>
       </section>
 
-      {/* Custom Feature Configurator Section */}
-      <section id="harga" ref={pricingRef} className="py-24 bg-zinc-950 relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#00FFFF]/5 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#F8D16A]/3 blur-[120px] pointer-events-none" />
+      {/* ============ WORKFLOW: vertical timeline ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <div className="lg:sticky lg:top-32">
+                <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
+                  Sampai orderan
+                  <br />
+                  pertama masuk.
+                </h2>
+                <p className="mt-5 text-sm leading-relaxed text-white/50">
+                  Lima fase membangun toko online mandiri Anda dari nol hingga siap menerima pembeli.
+                </p>
+              </div>
+            </div>
 
-        <div className="mx-auto max-w-7xl px-5 md:px-6 relative z-10">
+            <div className="lg:col-span-8">
+              <div className="relative border-l border-white/10 pl-10 md:pl-14">
+                {workflowSteps.map((step, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.5, delay: i * 0.06 }}
+                    className="relative pb-12 last:pb-0"
+                  >
+                    <span className="absolute -left-10 top-1 flex h-px w-6 bg-[#00FFFF]/50 md:-left-14 md:w-9" />
+                    <span className="font-mono text-xs font-bold text-[#00FFFF]/60">{step.step}</span>
+                    <h3 className="mt-1.5 font-display text-xl font-medium text-white">{step.title}</h3>
+                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/50">{step.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FEATURE CONFIGURATOR (pricing) ============ */}
+      <section id="harga" ref={pricingRef} className="relative overflow-hidden bg-zinc-950 py-24 md:py-32">
+        <div className="pointer-events-none absolute left-1/4 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-[#00FFFF]/5 blur-[150px]" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-16 max-w-3xl text-center"
+            className="mb-16 max-w-2xl"
           >
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#00FFFF]">
-              Desain Biaya Fleksibel
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Investasi
             </span>
-            <h2
-              className="mb-4 text-3xl sm:text-5xl leading-tight md:text-6xl font-light"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Harganya Menyesuaikan <br />
-              <em className="text-[#00FFFF] italic font-normal">Kebutuhan Spesifik Toko Anda</em>
+            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
+              Rancang fitur toko Anda.
+              <br />
+              Bayar yang dibutuhkan saja.
             </h2>
-            <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/55">
-              Kami tidak memaksakan paket kaku. Anda hanya membayar apa yang bisnis Anda butuhkan. 
-              Gunakan simulator di bawah untuk merancang fitur toko online Anda dan kirimkan langsung ke WhatsApp kami untuk estimasi biaya.
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/55">
+              Kami tidak memaksakan paket kaku. Pilih fitur di bawah lalu kirimkan langsung ke WhatsApp kami untuk estimasi biaya.
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Feature Selection */}
-            <div className="lg:col-span-7 space-y-4">
-              <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-[#00FFFF]" />
-                1. Pilih Kebutuhan Sistem Anda:
-              </h3>
-              
-              <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid items-start gap-8 lg:grid-cols-12">
+            <div className="space-y-4 lg:col-span-7">
+              <h3 className="mb-2 text-lg font-bold text-white">Pilih kebutuhan sistem Anda</h3>
+
+              <div className="grid gap-3 sm:grid-cols-2">
                 {customFeatures.map((feat) => {
                   const isSelected = selectedFeatures.includes(feat.id)
                   return (
                     <button
                       key={feat.id}
                       onClick={() => toggleFeature(feat.id)}
-                      className={`text-left p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between h-28 group ${
-                        isSelected 
-                          ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-white' 
-                          : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.02] text-white/60'
+                      className={`group flex h-28 flex-col justify-between rounded-xl border p-4 text-left transition-all duration-200 ${
+                        isSelected
+                          ? 'border-[#00FFFF] bg-[#00FFFF]/5 text-white'
+                          : 'border-white/5 bg-white/[0.01] text-white/60 hover:border-white/10 hover:bg-white/[0.02]'
                       }`}
                     >
-                      <div className="flex justify-between items-start w-full">
-                        <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
+                      <div className="flex w-full items-start justify-between">
+                        <span className={`rounded px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${
                           isSelected ? 'bg-[#00FFFF]/20 text-[#00FFFF]' : 'bg-white/5 text-white/40'
                         }`}>
                           {feat.group}
                         </span>
-                        <div className={`h-4.5 w-4.5 rounded-full border flex items-center justify-center transition-all ${
+                        <div className={`flex h-4 w-4 items-center justify-center rounded-full border transition-all ${
                           isSelected ? 'border-[#00FFFF] bg-[#00FFFF] text-black' : 'border-white/25'
                         }`}>
                           {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
@@ -736,7 +772,7 @@ export default function EcommercePage() {
                         <h4 className={`text-xs font-bold transition-all ${isSelected ? 'text-[#00FFFF]' : 'text-white/80 group-hover:text-white'}`}>
                           {feat.label.replace(' (Gratis 1 Tahun)', '').replace(' Premium', '')}
                         </h4>
-                        <p className="text-[10px] text-white/40 leading-normal mt-1 truncate">
+                        <p className="mt-1 truncate text-[10px] leading-normal text-white/40">
                           {feat.desc}
                         </p>
                       </div>
@@ -746,49 +782,47 @@ export default function EcommercePage() {
               </div>
             </div>
 
-            {/* Right Column: Dynamic Price Summary / Estimate Card */}
             <div className="lg:col-span-5">
-              <div className="sticky top-24 rounded-2xl border border-white/10 bg-zinc-900/40 backdrop-blur-md p-6 md:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.6)] space-y-6">
-                <div className="flex justify-between items-center border-b border-white/5 pb-4">
+              <div className="sticky top-24 space-y-6 rounded-2xl border border-white/10 bg-zinc-900/40 p-6 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-8">
+                <div className="flex items-center justify-between border-b border-white/5 pb-4">
                   <h3 className="text-base font-bold text-white">Ringkasan Konfigurasi</h3>
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-white/60">
-                    {selectedFeatures.length} Fitur Terpilih
+                  <span className="rounded-full bg-white/5 px-2.5 py-1 font-mono text-xs text-white/60">
+                    {selectedFeatures.length} Fitur
                   </span>
                 </div>
 
                 <div className="space-y-4">
                   <div>
-                    <span className="text-xs text-white/40 block font-semibold mb-1">Skala Sistem & Kompleksitas</span>
-                    <span className={`text-sm font-bold block ${getComplexity().color}`}>
+                    <span className="mb-1 block text-xs font-semibold text-white/40">Skala Sistem & Kompleksitas</span>
+                    <span className={`block text-sm font-bold ${getComplexity().color}`}>
                       {getComplexity().label}
                     </span>
                   </div>
 
-                  {/* Complexity gauge bar */}
-                  <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
-                    <motion.div 
-                      className={`h-full ${getComplexity().barColor}`} 
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                    <motion.div
+                      className={`h-full ${getComplexity().barColor}`}
                       initial={{ width: 0 }}
                       animate={{ width: getComplexity().width }}
                       transition={{ duration: 0.3 }}
                     />
                   </div>
 
-                  <p className="text-xs text-white/50 leading-relaxed">
+                  <p className="text-xs leading-relaxed text-white/50">
                     {getComplexity().desc}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/5 space-y-3">
-                  <div className="flex justify-between items-end">
+                <div className="space-y-3 border-t border-white/5 pt-4">
+                  <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-xs text-white/40 block font-semibold">Estimasi Biaya</span>
-                      <span className="text-xs text-[#00FFFF] block mt-0.5">Custom / Menyesuaikan Kebutuhan</span>
+                      <span className="block text-xs font-semibold text-white/40">Estimasi Biaya</span>
+                      <span className="mt-0.5 block text-xs text-[#00FFFF]">Custom / Menyesuaikan Kebutuhan</span>
                     </div>
-                    <span className="text-2xl font-semibold text-white tracking-tight">Hubungi WA</span>
+                    <span className="font-display text-2xl font-medium tracking-tight text-white">Hubungi WA</span>
                   </div>
-                  
-                  <p className="text-[11px] text-white/45 leading-relaxed bg-white/[0.02] p-3 rounded-lg border border-white/5">
+
+                  <p className="rounded-lg border border-white/5 bg-white/[0.02] p-3 text-[11px] leading-relaxed text-white/45">
                     Halaman admin, payment gateway, dan hitung ongkir otomatis dikonfigurasi khusus tanpa ada biaya tersembunyi.
                   </p>
                 </div>
@@ -799,14 +833,14 @@ export default function EcommercePage() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full h-12 rounded-full bg-[#00FFFF] text-black font-black text-xs flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(0,255,255,0.2)] hover:shadow-[0_0_40px_rgba(0,255,255,0.35)] transition-all cursor-pointer"
+                  className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#00FFFF] text-xs font-black text-black shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all hover:shadow-[0_0_40px_rgba(0,255,255,0.35)]"
                 >
-                  <MessageCircle className="h-4.5 w-4.5 fill-current" />
-                  Kirim Rincian Fitur ke WhatsApp
+                  <MessageCircle className="h-4 w-4 fill-current" />
+                  Kirim Rincian ke WhatsApp
                   <ArrowUpRight className="h-4 w-4" />
                 </motion.a>
 
-                <p className="text-[10px] text-center text-white/30">
+                <p className="text-center text-[10px] text-white/30">
                   Konsultasi gratis. Tim developer Cozybytes akan merespon dengan rincian biaya pengerjaan sesuai fitur pilihan Anda.
                 </p>
               </div>
@@ -815,32 +849,23 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section className="py-24 border-t border-white/5 bg-[#09090B]">
-        <div className="mx-auto max-w-4xl px-5 md:px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-[#F8D16A]">
-              FAQ E-Commerce
-            </span>
-            <h2 className="text-3xl md:text-5xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Jawaban Singkat Seputar <br />
-              <em className="text-[#F8D16A] italic font-normal">Pembuatan Toko Online</em>
-            </h2>
-          </div>
+      {/* ============ FAQ ============ */}
+      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
+            Pertanyaan seputar toko online.
+          </h2>
 
-          <div className="space-y-4">
+          <div className="mt-12 divide-y divide-white/[0.08] border-t border-white/[0.08]">
             {faqs.map((faq, i) => (
-              <div 
-                key={i} 
-                className="rounded-2xl border border-white/8 bg-white/[0.01] overflow-hidden transition-all"
-              >
+              <div key={i}>
                 <button
                   onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.015] transition-all"
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:text-[#00FFFF]"
                 >
-                  <span className="text-base font-bold text-white/90 pr-4">{faq.q}</span>
-                  <ChevronDown 
-                    className={`h-5 w-5 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#F8D16A]' : ''}`} 
+                  <span className="text-base font-semibold text-white/90">{faq.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 ${activeFaq === i ? 'rotate-180 text-[#00FFFF]' : ''}`}
                   />
                 </button>
                 <AnimatePresence initial={false}>
@@ -850,10 +875,9 @@ export default function EcommercePage() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm leading-relaxed text-white/50 border-t border-white/5 bg-[#050507]/20">
-                        {faq.a}
-                      </div>
+                      <p className="pb-7 pr-10 text-sm leading-relaxed text-white/50">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -863,27 +887,25 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-20 bg-zinc-950 relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,255,255,0.08) 0%, transparent 70%)' }} />
-        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-6 text-center">
+      {/* ============ BOTTOM CTA ============ */}
+      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-[28px] border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-8 md:p-12 relative"
           >
-            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[#00FFFF]/45 to-transparent" />
-            <span className="mb-4 inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-white/35">
-              Mulai Jualan Mandiri
-            </span>
-            <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl leading-tight font-light" style={{ fontFamily: '"Instrument Serif", serif' }}>
-              Miliki Toko Online Sendiri & Terima Pembayaran <br />
-              <em className="text-[#00FFFF] italic font-normal">Otomatis 24 Jam Nonstop Tanpa Ribet</em>
+            <h2 className="font-display text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
+              Toko online milik Anda.
+              <br />
+              <span className="text-[#00FFFF]">Pembayaran otomatis 24 jam.</span>
             </h2>
-            <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/50">
+            <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/50">
               Hubungi tim kami untuk konsultasi alur checkout otomatis yang paling sesuai dengan jenis barang dagangan Anda.
             </p>
             <motion.a
@@ -892,10 +914,10 @@ export default function EcommercePage() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="btn-primary inline-flex items-center gap-2 text-sm font-bold px-8 py-4 bg-[#00FFFF] text-black rounded-full"
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-8 py-4 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,255,255,0.25)]"
             >
-              <MessageCircle className="h-4.5 w-4.5" />
-              Konsultasi Toko Online Gratis
+              <MessageCircle className="h-4 w-4" />
+              Konsultasi via WhatsApp
               <ArrowUpRight className="h-4 w-4" />
             </motion.a>
           </motion.div>

@@ -53,13 +53,10 @@ export default function AboutSection() {
           transition={{ duration: 0.7 }}
           className="mb-16 md:mb-24"
         >
-          <h2
-            className="text-4xl md:text-5xl mb-6 leading-tight"
-            style={{ fontFamily: '"Instrument Serif", serif' }}
-          >
-            Kami Memahami{' '}
-            <em className="text-white/30 italic">Kesulitan</em> Mencari{' '}
-            <em className="text-[#00FFFF] italic">Jasa Web</em> yang Dapat Diandalkan.
+          <h2 className="font-display text-4xl md:text-5xl mb-6 font-medium leading-[1.08] tracking-tight">
+            Kami paham susahnya mencari
+            <br />
+            <span className="text-[#00FFFF]">jasa web yang bisa diandalkan.</span>
           </h2>
           <p className="text-white/60 text-base leading-relaxed max-w-2xl">
             Banyak pemilik usaha kecewa karena mendapat website lambat dengan desain seadanya.
@@ -93,15 +90,7 @@ export default function AboutSection() {
 
                 {/* The number */}
                 <div className="relative">
-                  <span
-                    className="text-[5rem] sm:text-[6rem] md:text-[5rem] lg:text-[7rem] leading-[0.9] tracking-tight inline-block"
-                    style={{
-                      fontFamily: '"Instrument Serif", serif',
-                      background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 20%, rgba(0,255,255,0.7) 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >
+                  <span className="font-display inline-block text-[4.5rem] font-medium leading-[0.9] tracking-tight text-white sm:text-[5.5rem] md:text-[4.5rem] lg:text-[6rem]">
                     <AnimatedCounter target={stat.value} suffix={stat.suffix} started={inView} />
                   </span>
 

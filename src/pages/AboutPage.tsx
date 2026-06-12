@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { motion } from 'framer-motion'
@@ -29,6 +30,32 @@ const teamMembers = [
 export default function AboutPage() {
   return (
     <div className="bg-zinc-950 min-h-screen text-white/90">
+      <Helmet>
+        <title>Tentang Kami | Cozybytes Media</title>
+        <meta name="description" content="Kenalan dengan tim di balik Cozybytes Media. Kami studio web kecil dari Bandar Lampung yang membantu UMKM dan bisnis lokal tampil profesional di internet." />
+        <link rel="canonical" href="https://cozybytes.media/about" />
+        <meta property="og:title" content="Tentang Kami | Cozybytes Media" />
+        <meta property="og:description" content="Kenalan dengan tim di balik Cozybytes Media. Studio web dari Bandar Lampung yang membantu UMKM tampil profesional di internet." />
+        <meta property="og:url" content="https://cozybytes.media/about" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'AboutPage',
+            name: 'Tentang Cozybytes Media',
+            url: 'https://cozybytes.media/about',
+            mainEntity: {
+              '@type': 'Organization',
+              name: 'Cozybytes Media',
+              url: 'https://cozybytes.media',
+              member: teamMembers.map((m) => ({
+                '@type': 'Person',
+                name: m.name,
+                jobTitle: m.role,
+              })),
+            },
+          })}
+        </script>
+      </Helmet>
       <Navbar />
 
       {/* Hero / Header Section */}
@@ -46,12 +73,9 @@ export default function AboutPage() {
             <div className="flex justify-center mb-8">
               <CozybytesLogo size="md" />
             </div>
-            <h1 
-              className="text-3xl sm:text-5xl md:text-7xl mb-6 leading-tight"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
-              Tiga Kepala, Satu Visi.<br />
-              <em className="text-[#00FFFF] italic">Dari Lampung untuk Indonesia.</em>
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl mb-6 font-medium leading-[1.05] tracking-tight">
+              Tiga kepala, satu visi.<br />
+              <span className="text-[#00FFFF]">Dari Lampung untuk Indonesia.</span>
             </h1>
             <p className="text-base sm:text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed px-2">
               Kami adalah tim kecil dengan mimpi besar. Membantu UMKM dan bisnis merintis langkah percaya diri di era digital.
@@ -73,10 +97,7 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="space-y-6 text-white/70 text-lg leading-relaxed font-light"
             >
-              <h2 
-                className="text-4xl text-white mb-8"
-                style={{ fontFamily: '"Instrument Serif", serif' }}
-              >
+              <h2 className="font-display text-4xl font-medium tracking-tight text-white mb-8">
                 Cerita Kami
               </h2>
               <p>
@@ -122,10 +143,7 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-100px" }}
             className="mb-16"
           >
-            <h2 
-              className="text-4xl md:text-5xl mb-6"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
+            <h2 className="font-display text-4xl md:text-5xl mb-6 font-medium tracking-tight">
               Meet Our Team
             </h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto">
@@ -153,7 +171,7 @@ export default function AboutPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                 </div>
                 
-                <h3 className="text-2xl text-white font-medium mb-1" style={{ fontFamily: '"Instrument Serif", serif' }}>
+                <h3 className="font-display text-2xl text-white font-medium tracking-tight mb-1">
                   {member.name}
                 </h3>
                 <p className="text-[#00FFFF] text-sm font-semibold tracking-wide uppercase mb-4">
@@ -176,10 +194,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 
-              className="text-4xl md:text-5xl mb-12"
-              style={{ fontFamily: '"Instrument Serif", serif' }}
-            >
+            <h2 className="font-display text-4xl md:text-5xl mb-12 font-medium tracking-tight">
               Nilai yang Kami Pegang
             </h2>
             <div className="grid md:grid-cols-3 gap-8">

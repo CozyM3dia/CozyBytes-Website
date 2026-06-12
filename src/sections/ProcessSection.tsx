@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { MessageCircle, Palette, CheckCircle, Rocket } from 'lucide-react'
 
 const steps = [
@@ -29,140 +29,59 @@ const steps = [
   },
 ]
 
-function TimelineNode({ index }: { index: number }) {
-  return (
-    <div className="absolute left-5 md:left-1/2 -translate-x-1/2 z-10" style={{ top: 28 }}>
-      <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2, type: 'spring', stiffness: 200 }}
-      >
-        <div
-          className="w-4 h-4 rounded-full relative"
-          style={{
-            background: '#00FFFF',
-            boxShadow: '0 0 16px rgba(0,255,255,0.7), 0 0 40px rgba(0,255,255,0.3)',
-          }}
-        >
-          <div
-            className="absolute -inset-2 rounded-full animate-ping"
-            style={{
-              background: 'rgba(0,255,255,0.15)',
-              animationDuration: `${2 + index * 0.5}s`,
-            }}
-          />
-        </div>
-      </motion.div>
-    </div>
-  )
-}
-
-function StepCard({
-  step,
-  index,
-}: {
-  step: (typeof steps)[0]
-  index: number
-}) {
-  const isLeft = index % 2 === 0
+function StepCell({ step, index }: { step: (typeof steps)[0]; index: number }) {
   const Icon = step.icon
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect()
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
-  }
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: isLeft ? -60 : 60, y: 20 }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.1,
-      }}
-      className="relative"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex flex-col px-6 pb-10 pt-12 transition-colors duration-500 md:pb-14 md:pt-16 lg:px-9"
     >
-      <TimelineNode index={index} />
-
-      {/* Horizontal connector — desktop only */}
+      {/* Hover ignition */}
       <div
-        className={`hidden md:block absolute top-[34px] w-[calc(50%-3.5rem)] h-px ${
-          isLeft ? 'right-[50%] mr-2' : 'left-[50%] ml-2'
-        }`}
-      >
-        <div
-          className="w-full h-full"
-          style={{
-            background: `linear-gradient(${
-              isLeft ? 'to left' : 'to right'
-            }, rgba(0,255,255,0.35), rgba(0,255,255,0))`,
-          }}
-        />
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            'radial-gradient(ellipse 90% 60% at 50% 0%, rgba(0,255,255,0.09) 0%, transparent 65%)',
+        }}
+      />
+
+      {/* Node on the rail */}
+      <div className="absolute left-6 top-0 -translate-y-1/2 lg:left-9">
+        <div className="h-3 w-3 rounded-full border-2 border-zinc-950 bg-[#00FFFF] shadow-[0_0_14px_rgba(0,255,255,0.65)] transition-transform duration-500 group-hover:scale-125" />
       </div>
 
-      {/* Card — left-aligned on mobile, alternating on desktop */}
-      <div
-        className={`ml-14 md:ml-0 md:w-[calc(50%-3.5rem)] ${
-          isLeft ? 'md:mr-auto' : 'md:ml-auto'
-        }`}
+      {/* Ghost number */}
+      <span
+        className="font-display pointer-events-none select-none text-[5.5rem] font-semibold leading-none tracking-tight text-transparent transition-colors duration-500 md:text-[6.5rem]"
+        style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.13)' }}
       >
-        <div 
-          className="liquid-glass rounded-2xl p-7 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 cursor-default"
-          onMouseMove={handleMouseMove}
+        <span className="transition-opacity duration-500 group-hover:opacity-0">{step.num}</span>
+        <span
+          className="absolute left-6 top-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:top-16 lg:left-9"
+          style={{ WebkitTextStroke: '1.5px rgba(0,255,255,0.55)' }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,255,255,0.08),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.035),transparent_42%)] opacity-80" />
-          {/* Giant watermark number */}
-          <div
-            className="absolute -bottom-6 right-6 pointer-events-none select-none"
-            style={{
-              fontSize: 120,
-              color: 'rgba(0,255,255,0.035)',
-              fontFamily: '"Instrument Serif", serif',
-              lineHeight: 1,
-            }}
-          >
-            {step.num}
-          </div>
+          {step.num}
+        </span>
+      </span>
 
-          {/* Interactive Mouse Spotlight Hover */}
-          <motion.div
-            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 z-0"
-            style={{
-              background: useMotionTemplate`
-                radial-gradient(
-                  400px circle at ${mouseX}px ${mouseY}px,
-                  rgba(0, 255, 255, 0.15),
-                  transparent 80%
-                )
-              `,
-            }}
-          />
-
-          <div className="relative z-10">
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-              style={{
-                background: 'rgba(0,255,255,0.08)',
-                border: '1px solid rgba(0,255,255,0.2)',
-              }}
-            >
-              <Icon className="w-5 h-5 text-[#00FFFF]" />
-            </div>
-            <h3
-              className="text-white font-bold text-lg mb-2"
-              style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
-            >
-              {step.title}
-            </h3>
-            <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
-          </div>
+      <div className="relative mt-8 flex flex-1 flex-col">
+        <div
+          className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 group-hover:shadow-[0_0_22px_rgba(0,255,255,0.25)]"
+          style={{
+            background: 'rgba(0,255,255,0.08)',
+            border: '1px solid rgba(0,255,255,0.2)',
+          }}
+        >
+          <Icon className="h-5 w-5 text-[#00FFFF]" />
         </div>
+        <h3 className="font-display text-xl font-medium text-white transition-colors duration-300 group-hover:text-[#00FFFF]">
+          {step.title}
+        </h3>
+        <p className="mt-2.5 text-sm leading-relaxed text-white/50">{step.desc}</p>
       </div>
     </motion.div>
   )
@@ -170,78 +89,75 @@ function StepCard({
 
 export default function ProcessSection() {
   const sectionRef = useRef(null)
+  const railRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-80px' })
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start 70%', 'end 40%'],
+    target: railRef,
+    offset: ['start 85%', 'start 35%'],
   })
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <section
-      id="cara-kerja"
-      ref={sectionRef}
-      className="py-28 relative overflow-hidden"
-    >
+    <section id="cara-kerja" ref={sectionRef} className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
       <div
-        className="absolute inset-0 pointer-events-none bg-zinc-950"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.25]"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
-          backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,255,255,0.2), rgba(0,255,255,0.2) 1px, transparent 1px, transparent 16px)',
-          maskImage: 'radial-gradient(ellipse 90% 90% at 50% 50%, black 10%, transparent 90%)',
+          background:
+            'radial-gradient(ellipse 50% 40% at 85% 10%, rgba(0,255,255,0.05) 0%, transparent 60%)',
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 flex flex-wrap items-end justify-between gap-6 md:mb-20"
         >
-          <span className="text-[#00FFFF] text-xs font-semibold tracking-widest uppercase mb-3 block">
-            Cara Kerja
-          </span>
-          <h2
-            className="text-4xl md:text-5xl leading-tight"
-            style={{ fontFamily: '"Instrument Serif", serif' }}
-          >
-            Proses <em className="text-[#00FFFF] italic">Anti-Ribet</em>
-          </h2>
+          <div>
+            <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+              Cara Kerja
+            </span>
+            <h2 className="font-display text-4xl font-medium leading-[1.05] tracking-tight text-white md:text-5xl">
+              Empat langkah.
+              <br />
+              <span className="text-[#00FFFF]">Tanpa ribet.</span>
+            </h2>
+          </div>
+          <p className="max-w-xs text-sm leading-relaxed text-white/45">
+            Dari chat pertama sampai website tayang, kamu selalu tahu prosesnya sampai di mana.
+          </p>
         </motion.div>
 
-        {/* Timeline container */}
-        <div className="relative rounded-[32px] border border-white/[0.04] bg-zinc-950/20 p-3 md:p-8 shadow-[0_30px_100px_rgba(0,0,0,0.35)]">
-          <div
-            className="pointer-events-none absolute inset-0 rounded-[32px]"
-            aria-hidden="true"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(0,255,255,0.045), transparent 28%, transparent 72%, rgba(248,209,106,0.04))',
-            }}
-          />
-          {/* Background line */}
-          <div className="absolute left-8 md:left-1/2 -translate-x-px top-8 bottom-8 w-px bg-white/[0.06]" />
+        {/* Step rail */}
+        <div ref={railRef} className="relative">
+          {/* Base rail (desktop: horizontal top, mobile: vertical left) */}
+          <div className="absolute left-0 right-0 top-0 hidden h-px bg-white/[0.08] md:block" />
+          <div className="absolute bottom-0 left-0 top-0 w-px bg-white/[0.08] md:hidden" />
 
-          {/* Animated fill line */}
+          {/* Animated draw line */}
           <motion.div
-            className="absolute left-8 md:left-1/2 -translate-x-px top-8 w-px origin-top"
+            className="absolute left-0 right-0 top-0 hidden h-px origin-left md:block"
             style={{
-              height: lineHeight,
-              background:
-                'linear-gradient(to bottom, #00FFFF, rgba(0,255,255,0.2))',
-              boxShadow: '0 0 8px rgba(0,255,255,0.4)',
+              scaleX: lineScale,
+              background: 'linear-gradient(to right, #00FFFF, rgba(0,255,255,0.25))',
+              boxShadow: '0 0 10px rgba(0,255,255,0.5)',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 top-0 w-px origin-top md:hidden"
+            style={{
+              scaleY: lineScale,
+              background: 'linear-gradient(to bottom, #00FFFF, rgba(0,255,255,0.25))',
+              boxShadow: '0 0 10px rgba(0,255,255,0.5)',
             }}
           />
 
-          <div className="relative z-10 flex flex-col gap-16 py-5 md:gap-24 md:py-2">
+          <div className="grid md:grid-cols-4 md:divide-x md:divide-white/[0.07]">
             {steps.map((step, i) => (
-              <StepCard key={step.num} step={step} index={i} />
+              <StepCell key={step.num} step={step} index={i} />
             ))}
           </div>
         </div>
