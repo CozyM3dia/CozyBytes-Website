@@ -1,18 +1,41 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { Rocket, Clock, Heart } from 'lucide-react'
 
-const stats = [
-  { value: 15, suffix: '+', label: 'Proyek Selesai', icon: Rocket },
-  { value: 3, suffix: ' Hari', label: 'Rata-rata Delivery', icon: Clock },
-  { value: 100, suffix: '%', label: 'Klien Puas', icon: Heart },
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const metrics = [
+  {
+    value: 15,
+    suffix: '+',
+    label: 'Proyek Selesai',
+    proof: 'Landing page, company profile, toko online, sampai custom web.',
+    icon: Rocket,
+    featured: true,
+  },
+  {
+    value: 3,
+    suffix: ' Hari',
+    label: 'Rata-rata Delivery',
+    proof: 'Untuk paket Basic & Pro. Premium 10 sampai 14 hari.',
+    icon: Clock,
+  },
+  {
+    value: 100,
+    suffix: '%',
+    label: 'Klien Puas',
+    proof: 'Revisi jalan terus sampai kamu benar-benar oke.',
+    icon: Heart,
+  },
 ]
 
 function AnimatedCounter({ target, suffix, started }: { target: number; suffix: string; started: boolean }) {
-  const [count, setCount] = useState(0)
+  const reduce = useReducedMotion()
+  const [count, setCount] = useState(reduce ? target : 0)
 
   useEffect(() => {
     if (!started) return
+    if (reduce) { setCount(target); return }
     let frame: number
     const duration = 1500
     const start = performance.now()
@@ -24,98 +47,149 @@ function AnimatedCounter({ target, suffix, started }: { target: number; suffix: 
     }
     frame = requestAnimationFrame(step)
     return () => cancelAnimationFrame(frame)
-  }, [started, target])
+  }, [started, target, reduce])
 
   return <>{count}{suffix}</>
+}
+
+function MetricRow({
+  metric,
+  index,
+  started,
+}: {
+  metric: (typeof metrics)[number]
+  index: number
+  started: boolean
+}) {
+  const Icon = metric.icon
+  const [hovered, setHovered] = useState(false)
+  const reduce = useReducedMotion()
+  const showProof = hovered || reduce
+
+  return (
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: 24 }}
+      animate={started ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.25 + index * 0.12, ease: EASE }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      tabIndex={0}
+      className="group relative cursor-default rounded-2xl px-5 py-6 outline-none transition-colors duration-300 hover:bg-white/[0.02] focus-visible:bg-white/[0.02]"
+    >
+      <div className="flex items-center gap-2.5">
+        <Icon
+          className={`h-3.5 w-3.5 transition-colors duration-300 ${hovered ? 'text-[#00FFFF]' : 'text-[#00FFFF]/45'}`}
+          strokeWidth={1.5}
+        />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/35 transition-colors duration-300 group-hover:text-white/55">
+          {metric.label}
+        </span>
+      </div>
+
+      <div className="mt-3 flex items-end gap-4">
+        <motion.span
+          animate={hovered && !reduce ? { scale: 1.03 } : { scale: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+          className={`font-display inline-block origin-left font-medium leading-[0.85] tracking-tight text-white ${
+            metric.featured
+              ? 'text-[5.5rem] sm:text-[7rem] lg:text-[8.5rem]'
+              : 'text-[4rem] sm:text-[5rem] lg:text-[5.5rem]'
+          }`}
+        >
+          <AnimatedCounter target={metric.value} suffix={metric.suffix} started={started} />
+        </motion.span>
+      </div>
+
+      {/* Underline draws on hover */}
+      <div className="mt-3 h-px w-full bg-white/[0.07]">
+        <motion.div
+          className="h-full origin-left bg-[#00FFFF]"
+          style={{ boxShadow: '0 0 8px rgba(0,255,255,0.5)' }}
+          animate={{ scaleX: showProof ? 1 : 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        />
+      </div>
+
+      {/* Proof reveals on hover (grid-rows transition, no layout jank) */}
+      <div
+        className="grid transition-[grid-template-rows] duration-500 ease-out"
+        style={{ gridTemplateRows: showProof ? '1fr' : '0fr' }}
+      >
+        <div className="overflow-hidden">
+          <p className="pt-3 text-sm leading-relaxed text-white/55">{metric.proof}</p>
+        </div>
+      </div>
+    </motion.div>
+  )
 }
 
 export default function AboutSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const reduce = useReducedMotion()
 
   return (
-    <section
-      id="tentang"
-      ref={ref}
-      className="relative py-28 md:py-36 overflow-hidden"
-    >
-      {/* Atmospheric background */}
+    <section id="tentang" ref={ref} className="relative overflow-hidden py-28 md:py-36">
+      {/* Atmosphere */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 55% 45% at 50% 65%, rgba(0,255,255,0.05) 0%, transparent 70%)' }}
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{ background: 'radial-gradient(ellipse 55% 50% at 75% 55%, rgba(0,255,255,0.06) 0%, transparent 70%)' }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.4]"
+        aria-hidden="true"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)',
+          backgroundSize: '26px 26px',
+          maskImage: 'radial-gradient(ellipse 70% 60% at 70% 50%, black 5%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 70% 50%, black 5%, transparent 75%)',
+        }}
       />
 
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="mb-16 md:mb-24"
-        >
-          <h2 className="font-display text-4xl md:text-5xl mb-6 font-medium leading-[1.08] tracking-tight">
-            Kami paham susahnya mencari
-            <br />
-            <span className="text-[#00FFFF]">jasa web yang bisa diandalkan.</span>
-          </h2>
-          <p className="text-white/60 text-base leading-relaxed max-w-2xl">
-            Banyak pemilik usaha kecewa karena mendapat website lambat dengan desain seadanya.
-            Di Cozybytes, kami mengerjakan proyek Anda secara serius. Tampilannya rapi, loading cepat,
-            dan strukturnya jelas agar pengunjung langsung memahami layanan yang Anda jual.
-          </p>
-        </motion.div>
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Left: pain statement */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="lg:col-span-5"
+          >
+            <h2 className="font-display text-4xl font-medium leading-[1.08] tracking-tight md:text-5xl">
+              Kami paham susahnya mencari
+              <br />
+              <span className="text-[#00FFFF]">jasa web yang bisa diandalkan.</span>
+            </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-white/60">
+              Banyak pemilik usaha kecewa karena dapat website lambat dengan desain seadanya. Di Cozybytes, proyekmu kami kerjakan serius: tampilan rapi, loading cepat, dan struktur yang jelas.
+            </p>
+          </motion.div>
 
-        {/* Stats strip */}
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {stats.map((stat, i) => {
-            const Icon = stat.icon
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
-                whileHover={{ y: -3 }}
-                className={`relative text-center py-10 md:py-0 md:px-6 cursor-default ${
-                  i > 0 ? 'border-t md:border-t-0 md:border-l border-white/[0.06]' : ''
-                }`}
-              >
-                {/* Category label */}
-                <div className="flex items-center justify-center gap-2 mb-5">
-                  <Icon className="w-3.5 h-3.5 text-[#00FFFF]/50" strokeWidth={1.5} />
-                  <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/35">
-                    {stat.label}
-                  </span>
-                </div>
+          {/* Right: interactive metrics (featured + 2 secondary) */}
+          <div className="relative lg:col-span-7">
+            {/* Vertical guide line that draws in */}
+            <motion.div
+              className="absolute left-0 top-2 hidden w-px origin-top bg-gradient-to-b from-[#00FFFF]/40 to-transparent sm:block"
+              style={{ bottom: '0.5rem' }}
+              initial={reduce ? false : { scaleY: 0 }}
+              animate={inView ? { scaleY: 1 } : {}}
+              transition={{ duration: 1, delay: 0.2, ease: EASE }}
+            />
 
-                {/* The number */}
-                <div className="relative">
-                  <span className="font-display inline-block text-[4.5rem] font-medium leading-[0.9] tracking-tight text-white sm:text-[5.5rem] md:text-[4.5rem] lg:text-[6rem]">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} started={inView} />
-                  </span>
+            <div className="sm:pl-8">
+              {/* Featured metric */}
+              <MetricRow metric={metrics[0]} index={0} started={inView} />
 
-                  {/* Entry glow pulse */}
-                  {inView && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.3 }}
-                      animate={{ opacity: [0, 0.25, 0], scale: [0.3, 1.8, 2.5] }}
-                      transition={{ duration: 2, delay: 0.4 + i * 0.15, ease: 'easeOut' }}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[#00FFFF] blur-3xl pointer-events-none"
-                    />
-                  )}
-                </div>
-
-                {/* Accent underline */}
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.5 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  className="mx-auto mt-6 h-px w-16 origin-center"
-                  style={{ background: 'linear-gradient(to right, transparent, rgba(0,255,255,0.4), transparent)' }}
-                />
-              </motion.div>
-            )
-          })}
+              {/* Two secondary, side by side */}
+              <div className="mt-2 grid gap-2 border-t border-white/[0.06] pt-2 sm:grid-cols-2">
+                <MetricRow metric={metrics[1]} index={1} started={inView} />
+                <MetricRow metric={metrics[2]} index={2} started={inView} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
