@@ -126,7 +126,7 @@ export default function HeroSection() {
 
         {/* RIGHT: interactive mockup */}
         <div
-          className="pointer-events-none relative mt-24 h-[400px] w-full sm:h-[500px] lg:mt-0 lg:min-h-[600px] lg:w-1/2"
+          className="pointer-events-none relative mt-10 h-[290px] w-full sm:mt-24 sm:h-[500px] lg:mt-0 lg:min-h-[600px] lg:w-1/2"
           style={{ perspective: '1200px' }}
         >
           {/* Laptop */}
@@ -134,7 +134,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 100, filter: 'blur(20px)' }}
             animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
             transition={{ type: 'spring', stiffness: 50, damping: 20, delay: 0.3 }}
-            className="absolute -right-10 top-0 z-10 w-[120%] lg:-right-32 lg:top-20 lg:w-[140%]"
+            className="absolute -right-3 top-1 z-10 w-[104%] sm:-right-10 sm:top-0 sm:w-[120%] lg:-right-32 lg:top-20 lg:w-[140%]"
           >
             <motion.div
               className="relative w-full"
@@ -224,14 +224,14 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 100, rotateZ: -10, filter: 'blur(20px)' }}
             animate={{ opacity: 1, y: 0, rotateZ: -5, filter: 'blur(0px)' }}
             transition={{ type: 'spring', stiffness: 60, damping: 15, delay: 0.5 }}
-            className="absolute -bottom-10 left-0 z-30 w-[110px] sm:-bottom-20 sm:w-[140px] lg:-left-12 lg:w-[180px]"
+            className="absolute -bottom-4 left-1 z-30 w-[92px] sm:-bottom-20 sm:left-0 sm:w-[140px] lg:-left-12 lg:w-[180px]"
           >
             <motion.div style={{ x: phoneX, y: phoneY }}>
               <div
                 className="liquid-glass rounded-[1.5rem] border border-white/10 p-1 backdrop-blur-3xl sm:rounded-[2rem] sm:p-1.5"
                 style={{ boxShadow: '-10px 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,255,255,0.2)' }}
               >
-                <div className="relative h-[220px] overflow-hidden rounded-[1.3rem] border border-zinc-800 bg-zinc-950 sm:h-[280px] sm:rounded-[1.7rem] lg:h-[360px]">
+                <div className="relative h-[180px] overflow-hidden rounded-[1.3rem] border border-zinc-800 bg-zinc-950 sm:h-[280px] sm:rounded-[1.7rem] lg:h-[360px]">
                   <div className="absolute inset-x-0 top-0 z-20 flex h-4 items-start justify-center pt-1 sm:h-6 sm:pt-2">
                     <div className="h-3 w-8 rounded-full bg-black sm:h-4 sm:w-12" />
                   </div>

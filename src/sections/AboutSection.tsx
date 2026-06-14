@@ -29,6 +29,20 @@ const metrics = [
   },
 ]
 
+// True when hover-reveal is a bad fit: touch devices, or any viewport below lg.
+// Keeps the proof context visible where there is no reliable hover.
+function useNoHover() {
+  const [noHover, setNoHover] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 1023px)')
+    const update = () => setNoHover(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+  return noHover
+}
+
 function AnimatedCounter({ target, suffix, started }: { target: number; suffix: string; started: boolean }) {
   const reduce = useReducedMotion()
   const [count, setCount] = useState(reduce ? target : 0)
@@ -64,7 +78,9 @@ function MetricRow({
   const Icon = metric.icon
   const [hovered, setHovered] = useState(false)
   const reduce = useReducedMotion()
-  const showProof = hovered || reduce
+  const noHover = useNoHover()
+  // No reliable hover (touch / small screens): proof + underline stay open so context is never hidden.
+  const showProof = hovered || reduce || noHover
 
   return (
     <motion.div
