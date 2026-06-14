@@ -11,11 +11,11 @@ export default function HomePage() {
   return (
     <div className="bg-zinc-950 min-h-screen">
       <Helmet>
-        <title>Cozybytes Media | Jasa Pembuatan Website Profesional & Cepat</title>
-        <meta name="description" content="Kami membuat website bisnis dan landing page yang cepat dibuka dan mendatangkan pelanggan. Harga jelas dari awal, mulai Rp 1.499.000, dan kebanyakan proyek selesai dalam hitungan hari." />
+        <title>Jasa Pembuatan Website Profesional, Cepat & Anti Ribet | Cozybytes Media</title>
+        <meta name="description" content="Website yang bikin calon pelanggan langsung percaya. Kami bangun cepat, rapi, dan mudah ditemukan di Google. Harga jelas dari awal mulai Rp 1.499.000, kebanyakan selesai dalam hitungan hari." />
         <link rel="canonical" href="https://cozybytes.media/" />
-        <meta property="og:title" content="Cozybytes Media | Jasa Pembuatan Website Profesional & Cepat" />
-        <meta property="og:description" content="Kami membuat website bisnis dan landing page yang cepat dibuka dan mendatangkan pelanggan. Harga jelas dari awal, mulai Rp 1.499.000." />
+        <meta property="og:title" content="Jasa Pembuatan Website Profesional, Cepat & Anti Ribet | Cozybytes Media" />
+        <meta property="og:description" content="Website yang bikin calon pelanggan langsung percaya. Kami bangun cepat, rapi, dan mudah ditemukan di Google. Harga jelas dari awal mulai Rp 1.499.000." />
         <meta property="og:url" content="https://cozybytes.media/" />
       </Helmet>
       <Navbar />
