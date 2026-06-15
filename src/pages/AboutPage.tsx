@@ -388,7 +388,7 @@ export default function AboutPage() {
             </h2>
           </motion.div>
 
-          <div className="space-y-24 md:space-y-32">
+          <div className="space-y-14 md:space-y-32">
             {teamMembers.map((member, i) => (
               <TeamRow key={member.name} member={member} index={i} />
             ))}
