@@ -3,19 +3,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { CozybytesLogo } from './Logo'
+import { SERVICES as serviceLinks } from '../data/services'
 
 const links = [
   { label: 'Beranda', href: '/#beranda' },
   { label: 'Tentang Kami', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Cara Kerja', href: '/#cara-kerja' },
-]
-
-const serviceLinks = [
-  { label: 'Company Profile', href: '/layanan/website', desc: 'Tampilan profesional bisnis Anda' },
-  { label: 'Landing Page', href: '/layanan/landing-page', desc: 'Konversi tinggi untuk iklan' },
-  { label: 'E-Commerce', href: '/layanan/ecommerce', desc: 'Toko online mudah dikelola' },
-  { label: 'UI/UX Design', href: '/layanan/uiux', desc: 'Desain modern & user-friendly' },
 ]
 
 function ServicesDropdown() {
@@ -27,7 +21,13 @@ function ServicesDropdown() {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="relative text-white/70 hover:text-white text-sm transition-colors py-1 flex items-center gap-1">
+      {/* Link sungguhan ke hub, bukan <button>. Isi dropdown hanya ter-mount saat
+          di-hover, jadi ini satu-satunya jalur ke /layanan yang terlihat crawler. */}
+      <Link
+        to="/layanan"
+        onClick={() => setOpen(false)}
+        className="relative text-white/70 hover:text-white text-sm transition-colors py-1 flex items-center gap-1"
+      >
         <span className="flex">
           {'Layanan'.split('').map((char, i) => (
             <span key={i} className="inline-block whitespace-pre wave-char" style={{ animationDelay: `${i * 0.05}s` }}>
@@ -37,7 +37,7 @@ function ServicesDropdown() {
         </span>
         <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
         <div className={`absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left transition-transform duration-300 ease-out ${open ? 'scale-x-100' : 'scale-x-0'}`} />
-      </button>
+      </Link>
 
       <AnimatePresence>
         {open && (
@@ -220,7 +220,13 @@ export default function Navbar() {
 
             {/* Layanan sub-items */}
             <div className="border-b border-white/5">
-              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest pt-2.5 pb-1.5">Layanan</p>
+              <Link
+                to="/layanan"
+                onClick={() => setTimeout(() => setMenuOpen(false), 150)}
+                className="block pt-2.5 pb-1.5 text-xs font-semibold uppercase tracking-widest text-white/40 hover:text-white/70"
+              >
+                Layanan
+              </Link>
               {serviceLinks.map((svc) => (
                 <Link
                   key={svc.href}

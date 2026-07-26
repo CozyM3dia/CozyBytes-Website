@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Mail, Phone } from 'lucide-react'
 import { CozybytesLogo } from './Logo'
 import { motion, AnimatePresence } from 'framer-motion'
+import { SERVICES } from '../data/services'
 
 function InstagramIcon() {
   return (
@@ -146,7 +147,7 @@ function FooterLink({
 
 const footerLinks = [
   { label: 'Beranda', to: '/#beranda' },
-  { label: 'Layanan', to: '/#layanan' },
+  { label: 'Layanan', to: '/layanan' },
   { label: 'Tentang Kami', to: '/about' },
   { label: 'Portofolio', to: '/portfolio' },
   { label: 'Blog', to: '/blog' },
@@ -173,7 +174,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand + Social */}
           <div>
             <div className="mb-4">
@@ -203,6 +204,21 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+          </div>
+
+          {/* Layanan — link statis ke tiap halaman layanan.
+              Ini satu-satunya tempat link /layanan/* muncul di HTML hasil prerender:
+              dropdown di Navbar hanya ter-mount saat di-hover, jadi crawler tanpa JS
+              tidak pernah melihatnya dan halaman layanan jadi yatim di link graph. */}
+          <div>
+            <h3 className="text-white font-semibold text-sm mb-4">Layanan</h3>
+            <ul className="flex flex-col gap-2">
+              {SERVICES.map((svc) => (
+                <li key={svc.href}>
+                  <FooterLink to={svc.href}>{svc.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Links */}

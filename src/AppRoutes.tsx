@@ -10,6 +10,7 @@ const SyaratKetentuanPage = lazy(() => import('./pages/SyaratKetentuanPage'))
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
 const BlogPage = lazy(() => import('./pages/BlogPage'))
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
+const LayananPage = lazy(() => import('./pages/LayananPage'))
 const WebsitePage = lazy(() => import('./pages/WebsitePage'))
 const LandingPageServicePage = lazy(() => import('./pages/LandingPageServicePage'))
 const EcommercePage = lazy(() => import('./pages/EcommercePage'))
@@ -45,6 +46,7 @@ export default function AppRoutes() {
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/layanan" element={<LayananPage />} />
           <Route path="/layanan/website" element={<WebsitePage />} />
           <Route path="/layanan/landing-page" element={<LandingPageServicePage />} />
           <Route path="/layanan/ecommerce" element={<EcommercePage />} />

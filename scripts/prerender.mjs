@@ -24,6 +24,7 @@ const STATIC_ROUTES = [
   '/syarat-ketentuan',
   '/portfolio',
   '/blog',
+  '/layanan',
   '/layanan/website',
   '/layanan/landing-page',
   '/layanan/ecommerce',
