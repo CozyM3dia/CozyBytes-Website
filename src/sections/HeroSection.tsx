@@ -118,8 +118,10 @@ export default function HeroSection() {
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             </div>
+            {/* Klaim di sini harus bisa diverifikasi pengunjung saat itu juga.
+                Sebelumnya "15+ bisnis telah beralih bulan ini" — angka itu tidak akurat. */}
             <div className="text-xs font-medium tracking-wide text-zinc-500">
-              <span className="font-mono font-bold text-white/60">15+</span> bisnis telah beralih ke Cozybytes bulan ini
+              <span className="font-mono font-bold text-white/60">Harga tertera</span> di tiap halaman layanan. Tanpa biaya tersembunyi.
             </div>
           </motion.div>
         </div>

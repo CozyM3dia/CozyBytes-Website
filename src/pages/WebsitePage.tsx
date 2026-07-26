@@ -369,7 +369,9 @@ export default function WebsitePage() {
 
               <div className="mt-12 grid max-w-md grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-6">
                 {[
-                  { num: '15+', label: 'Bisnis aktif' },
+                  // Hanya klaim yang bisa dipertanggungjawabkan dari isi paket di halaman ini.
+                  // Sebelumnya "15+ Bisnis aktif" — angka itu tidak akurat.
+                  { num: '1 thn', label: 'Garansi bug' },
                   { num: '3-7', label: 'Hari kerja' },
                   { num: '100%', label: 'Hak milik kode' },
                 ].map((s) => (

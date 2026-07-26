@@ -149,7 +149,7 @@ const footerLinks = [
   { label: 'Beranda', to: '/#beranda' },
   { label: 'Layanan', to: '/layanan' },
   { label: 'Tentang Kami', to: '/about' },
-  { label: 'Portofolio', to: '/portfolio' },
+  { label: 'Konsep Desain', to: '/portfolio' },
   { label: 'Blog', to: '/blog' },
   { label: 'S&K', to: '/syarat-ketentuan' },
 ]

@@ -64,9 +64,9 @@ function MockBrowserContent({
       className="w-full h-full relative flex flex-col"
       style={{ background: gradient }}
     >
-      {/* Time badge */}
+      {/* Estimasi, bukan catatan pengerjaan — konsep ini tidak pernah dikirim ke klien */}
       <div className="absolute top-4 right-4 md:top-8 md:right-8 cyan-glass rounded-full px-4 py-1.5 text-xs md:text-sm font-semibold text-[#00FFFF] z-10">
-        {time}
+        Estimasi {time}
       </div>
 
       {/* Browser bar */}
@@ -130,11 +130,11 @@ export default function PortfolioPage() {
   return (
     <div className="bg-zinc-950 min-h-screen">
       <Helmet>
-        <title>Portfolio Proyek | Cozybytes Media</title>
-        <meta name="description" content="Lihat beberapa proyek website yang sudah kami kerjakan, dari landing page warung kopi sampai company profile klinik. Kebanyakan selesai dalam 2 sampai 5 hari." />
+        <title>Konsep Desain | Cozybytes Media</title>
+        <meta name="description" content="Konsep desain website buatan kami untuk berbagai jenis bisnis: landing page, company profile, dan toko online. Bukan proyek klien, tapi standar kualitas yang kami pakai." />
         <link rel="canonical" href="https://cozybytes.media/portfolio" />
-        <meta property="og:title" content="Portfolio Proyek | Cozybytes Media" />
-        <meta property="og:description" content="Beberapa proyek website yang sudah kami kerjakan, dari landing page sampai company profile. Kebanyakan selesai dalam 2 sampai 5 hari." />
+        <meta property="og:title" content="Konsep Desain | Cozybytes Media" />
+        <meta property="og:description" content="Konsep desain website untuk berbagai jenis bisnis. Bukan proyek klien, tapi standar kualitas yang kami pakai." />
         <meta property="og:url" content="https://cozybytes.media/portfolio" />
         <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
         <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
@@ -157,13 +157,15 @@ export default function PortfolioPage() {
             className="text-center"
           >
             <span className="text-[#00FFFF] text-xs font-semibold tracking-widest uppercase mb-3 block">
-              Portofolio
+              Konsep Desain
             </span>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight mb-4">
-              Semua <span className="text-[#00FFFF]">karya</span> kami.
+              Standar <span className="text-[#00FFFF]">kualitas</span> kami.
             </h1>
             <p className="text-white/50 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
-              Dari landing page hingga toko online, setiap proyek dibuat dengan dedikasi penuh.
+              Enam konsep desain untuk jenis bisnis yang berbeda. Nama bisnis di bawah ini fiktif
+              dan konsep ini kami buat sendiri, bukan proyek klien. Tujuannya sederhana: menunjukkan
+              standar kerja kami sebelum Anda memutuskan.
             </p>
           </motion.div>
         </div>
@@ -200,8 +202,8 @@ export default function PortfolioPage() {
           viewport={{ once: true }}
           className="flex justify-center mt-12 mb-4"
         >
-          <div className="px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-md text-white/60 italic text-sm md:text-base">
-            ... and many more
+          <div className="px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-md text-white/60 text-sm md:text-base">
+            Punya jenis bisnis lain? Konsepnya kami buatkan.
           </div>
         </motion.div>
       </section>
@@ -217,7 +219,7 @@ export default function PortfolioPage() {
             className="text-center"
           >
             <p className="text-white/50 mb-5 text-sm">
-              Tertarik untuk proyek berikutnya?
+              Mau lihat konsep untuk bisnis Anda sendiri?
             </p>
             <motion.a
               href="https://wa.me/6285894514719"
