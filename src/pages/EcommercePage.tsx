@@ -227,6 +227,8 @@ export default function EcommercePage() {
         <meta property="og:title" content="Jasa Pembuatan Toko Online E-Commerce Custom & Mandiri | Cozybytes" />
         <meta property="og:description" content="Toko online milik sendiri, tanpa potongan komisi marketplace. Pembayaran terkonfirmasi otomatis, ongkir real-time, notifikasi WhatsApp ke pembeli." />
         <meta property="og:url" content="https://cozybytes.media/layanan/ecommerce" />
+        <meta property="og:image" content="https://cozybytes.media/services/ecommerce.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/services/ecommerce.jpg" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

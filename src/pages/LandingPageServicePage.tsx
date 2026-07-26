@@ -261,6 +261,8 @@ export default function LandingPageServicePage() {
         <meta property="og:title" content="Jasa Pembuatan Landing Page Konversi Tinggi & Ads-Ready | Cozybytes" />
         <meta property="og:description" content="Landing page yang terbuka kurang dari 2 detik di HP, jadi budget iklan Anda tidak terbuang. Pixel iklan dan tombol WhatsApp sudah terpasang. Sewa mulai Rp 99 ribu per bulan." />
         <meta property="og:url" content="https://cozybytes.media/layanan/landing-page" />
+        <meta property="og:image" content="https://cozybytes.media/services/landing.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/services/landing.jpg" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

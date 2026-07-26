@@ -273,6 +273,8 @@ export default function WebsitePage() {
         <meta property="og:title" content="Jasa Pembuatan Website Company Profile Custom & Profesional | Cozybytes" />
         <meta property="og:description" content="Website company profile yang ditulis dari nol, bukan dari template. Cepat dibuka, aman, dan mudah ditemukan calon klien di Google. Gratis domain dan hosting setahun pertama." />
         <meta property="og:url" content="https://cozybytes.media/layanan/website" />
+        <meta property="og:image" content="https://cozybytes.media/services/company.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/services/company.jpg" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

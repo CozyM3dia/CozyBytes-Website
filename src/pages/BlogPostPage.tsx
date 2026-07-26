@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
+import type { Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ArrowLeft, Clock, User } from 'lucide-react'
 import Navbar from '../components/Navbar'
@@ -13,6 +14,13 @@ const colorMap = {
   gold: { glow: 'rgba(248,209,106,0.15)', accent: '#F8D16A', badge: 'border-[#F8D16A]/30 bg-[#F8D16A]/10 text-[#F8D16A]' },
   violet: { glow: 'rgba(196,181,253,0.15)', accent: 'rgba(196,181,253,0.8)', badge: 'border-violet-300/30 bg-violet-400/10 text-violet-200' },
   emerald: { glow: 'rgba(110,231,183,0.15)', accent: '#6EE7B7', badge: 'border-emerald-300/30 bg-emerald-400/10 text-emerald-300' },
+}
+
+// Gambar inline artikel selalu di bawah fold, jadi lazy-load semuanya
+const markdownComponents: Components = {
+  img: ({ node: _node, alt, ...props }) => (
+    <img {...props} alt={alt ?? ''} loading="lazy" decoding="async" width={1600} height={904} />
+  ),
 }
 
 export default function BlogPostPage() {
@@ -38,6 +46,10 @@ export default function BlogPostPage() {
 
   const colors = colorMap[post.categoryColor]
   const postUrl = `https://cozybytes.media/blog/${post.slug}`
+  // og:image dan schema.org image wajib absolute URL, sedangkan post.image tersimpan relatif
+  const ogImage = post.image
+    ? `https://cozybytes.media${post.image}`
+    : 'https://cozybytes.media/og-image.jpg'
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -49,7 +61,8 @@ export default function BlogPostPage() {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={postUrl} />
-        {post.image && <meta property="og:image" content={post.image} />}
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:image" content={ogImage} />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
@@ -59,7 +72,7 @@ export default function BlogPostPage() {
             datePublished: post.date,
             inLanguage: 'id',
             url: postUrl,
-            image: post.image || 'https://cozybytes.media/og-image.png',
+            image: ogImage,
             author: { '@type': 'Organization', name: post.author },
             publisher: {
               '@type': 'Organization',
@@ -85,6 +98,10 @@ export default function BlogPostPage() {
             <img
               src={post.image}
               alt=""
+              width={1600}
+              height={904}
+              fetchPriority="high"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-zinc-950/70 to-zinc-950" />
@@ -157,7 +174,9 @@ export default function BlogPostPage() {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="prose-cozybytes"
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+            {post.content}
+          </ReactMarkdown>
         </motion.div>
 
         {/* CTA bottom */}

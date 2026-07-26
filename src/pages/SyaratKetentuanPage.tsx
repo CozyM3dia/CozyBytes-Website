@@ -57,6 +57,8 @@ export default function SyaratKetentuanPage() {
         <title>Syarat & Ketentuan | Cozybytes Media</title>
         <meta name="description" content="Syarat dan ketentuan layanan Cozybytes Media: lingkup layanan, sistem pembayaran, revisi, hak kekayaan intelektual, dan kebijakan lainnya." />
         <link rel="canonical" href="https://cozybytes.media/syarat-ketentuan" />
+        <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
         <meta name="robots" content="noindex, follow" />
       </Helmet>
       <motion.div

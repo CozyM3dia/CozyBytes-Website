@@ -226,6 +226,8 @@ export default function UIUXPage() {
         <meta property="og:title" content="Jasa Desain UI/UX & Redesign Website Profesional | Cozybytes" />
         <meta property="og:description" content="Website lama Anda kami tata ulang supaya rapi, nyaman dipakai pengunjung, dan sesuai warna brand. Lengkap dengan prototype interaktif dan aset siap coding." />
         <meta property="og:url" content="https://cozybytes.media/layanan/uiux" />
+        <meta property="og:image" content="https://cozybytes.media/services/uiux.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/services/uiux.jpg" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

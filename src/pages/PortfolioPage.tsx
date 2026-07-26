@@ -136,6 +136,8 @@ export default function PortfolioPage() {
         <meta property="og:title" content="Portfolio Proyek | Cozybytes Media" />
         <meta property="og:description" content="Beberapa proyek website yang sudah kami kerjakan, dari landing page sampai company profile. Kebanyakan selesai dalam 2 sampai 5 hari." />
         <meta property="og:url" content="https://cozybytes.media/portfolio" />
+        <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
       </Helmet>
       <Navbar />
 

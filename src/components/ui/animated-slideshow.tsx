@@ -3,7 +3,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import * as React from "react"
-import { type HTMLMotionProps, MotionConfig, motion } from "motion/react"
+import { type HTMLMotionProps, MotionConfig, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface TextStaggerHoverProps {

@@ -41,6 +41,10 @@ function BlogHero({ post }: { post: BlogPost }) {
           <img
             src={post.image}
             alt=""
+            width={1600}
+            height={904}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/60 to-transparent" />
@@ -144,6 +148,8 @@ export default function BlogPage() {
         <meta property="og:title" content="Blog | Cozybytes Media" />
         <meta property="og:description" content="Tulisan seputar website untuk bisnis: SEO dasar, tren desain, dan strategi digital UMKM. Ditulis ringan, tanpa jargon berlebihan." />
         <meta property="og:url" content="https://cozybytes.media/blog" />
+        <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
       </Helmet>
       <Navbar />
 

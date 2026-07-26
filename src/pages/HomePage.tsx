@@ -17,6 +17,8 @@ export default function HomePage() {
         <meta property="og:title" content="Jasa Pembuatan Website Profesional, Cepat & Anti Ribet | Cozybytes Media" />
         <meta property="og:description" content="Website yang bikin calon pelanggan langsung percaya. Kami bangun cepat, rapi, dan mudah ditemukan di Google. Harga jelas dari awal mulai Rp 1.499.000." />
         <meta property="og:url" content="https://cozybytes.media/" />
+        <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
       </Helmet>
       <Navbar />
       <HeroSection />

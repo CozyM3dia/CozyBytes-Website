@@ -20,21 +20,21 @@ const teamMembers = [
   {
     role: 'Founder',
     name: 'Sibgha Alfirdausi Rambe',
-    image: '/team/sibgha-alfirdausi-rambe.png',
+    image: '/team/sibgha-alfirdausi-rambe.jpg',
     owns: 'Visi & Kreatif',
     desc: 'Mengarahkan visi Cozybytes Media, menjaga standar kreatif, dan memastikan setiap proyek terasa strategis untuk bisnis klien.',
   },
   {
     role: 'Co-Founder',
     name: 'Ubaidillah Rafi Ussalam',
-    image: '/team/ubaidillah-rafi-ussalam.png',
+    image: '/team/ubaidillah-rafi-ussalam.jpg',
     owns: 'Outreach & Marketing',
     desc: 'Menangani research, sales, marketing, dan outreach agar solusi Cozybytes tepat sasaran dan dekat dengan kebutuhan pasar.',
   },
   {
     role: 'Co-Founder',
     name: 'Hanan Ghaffari',
-    image: '/team/hanan-ghaffari.png',
+    image: '/team/hanan-ghaffari.jpg',
     owns: 'Technology',
     desc: 'Memimpin sisi teknis, engineering, dan implementasi website supaya desain yang rapi juga kuat, cepat, dan stabil.',
   },
@@ -112,7 +112,10 @@ function HeroPortraits() {
               src={m.image}
               alt={`${m.name}, ${m.role} Cozybytes Media`}
               className="h-full w-full object-cover saturate-[1.05]"
+              width={901}
+              height={1200}
               loading="eager"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
           </div>
@@ -134,8 +137,11 @@ function StoryImage() {
       <div className="relative z-10 overflow-hidden rounded-3xl border border-white/10 p-2 backdrop-blur-sm">
         <div className="aspect-[4/5] overflow-hidden rounded-2xl">
           <motion.img
-            src="/about_story.png"
+            src="/about_story.jpg"
             alt="Tim Cozybytes Media sedang bekerja di Bandar Lampung"
+            width={900}
+            height={900}
+            decoding="async"
             style={{ y, scale: 1.12 }}
             className="h-full w-full object-cover"
           />
@@ -185,7 +191,10 @@ function TeamRow({ member, index }: { member: (typeof teamMembers)[number]; inde
               src={member.image}
               alt={`${member.name}, ${member.role}`}
               className="h-full w-full object-cover saturate-[1.05] transition-transform duration-700 group-hover:scale-[1.04]"
+              width={901}
+              height={1200}
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
@@ -205,7 +214,7 @@ function TeamRow({ member, index }: { member: (typeof teamMembers)[number]; inde
         className={`lg:col-span-6 ${flipped ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-7'}`}
       >
         <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#00FFFF]/70">
-          {String(index + 1).padStart(2, '0')} · {member.role}
+          {String(index + 1).padStart(2, '0')} Â· {member.role}
         </span>
         <h3 className="font-display mt-3 text-3xl font-medium leading-[1.05] tracking-tight text-white md:text-4xl">
           {member.name}
@@ -255,6 +264,8 @@ export default function AboutPage() {
         <meta property="og:title" content="Tentang Kami | Cozybytes Media" />
         <meta property="og:description" content="Kenalan dengan tim di balik Cozybytes Media. Studio web dari Bandar Lampung yang membantu UMKM tampil profesional di internet." />
         <meta property="og:url" content="https://cozybytes.media/about" />
+        <meta property="og:image" content="https://cozybytes.media/og-image.jpg" />
+        <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

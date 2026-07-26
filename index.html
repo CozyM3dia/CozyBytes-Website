@@ -2,8 +2,9 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo.png?v=3" />
-    <link rel="apple-touch-icon" href="/logo.png?v=3" />
+    <!-- favicon.png = brand mark persegi; logo.png rasio 2:1 jadi kepotong kalau dipakai sebagai icon -->
+    <link rel="icon" type="image/png" sizes="500x500" href="/favicon.png?v=4" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=4" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO: title/description/canonical/og per halaman dikelola react-helmet-async di tiap route -->
@@ -11,16 +12,15 @@
     <meta name="author" content="Cozybytes Media" />
     <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph globals (Facebook, WhatsApp, LinkedIn) -->
-    <meta property="og:image" content="https://cozybytes.media/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <!-- Open Graph globals (Facebook, WhatsApp, LinkedIn).
+         og:image & twitter:image TIDAK ditaruh di sini: tag statis selalu muncul lebih dulu
+         daripada tag dari react-helmet-async, jadi crawler akan memakai gambar global dan
+         gambar spesifik per halaman tidak pernah terpakai. Tiap halaman set sendiri. -->
     <meta property="og:locale" content="id_ID" />
     <meta property="og:site_name" content="Cozybytes Media" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://cozybytes.media/og-image.png" />
 
     <!-- Structured Data: Local Business -->
     <script type="application/ld+json">
@@ -31,7 +31,7 @@
       "description": "Jasa pembuatan website profesional untuk UMKM dan bisnis lokal Indonesia. Landing page, company profile, toko online, custom website.",
       "url": "https://cozybytes.media",
       "logo": "https://cozybytes.media/logo.png",
-      "image": "https://cozybytes.media/og-image.png",
+      "image": "https://cozybytes.media/og-image.jpg",
       "email": "cozybytesmedia@gmail.com",
       "telephone": "+6285894514719",
       "address": {
@@ -46,37 +46,68 @@
         "longitude": 105.2668
       },
       "areaServed": "Indonesia",
-      "priceRange": "Rp 1.499.000 - Rp 5.000.000",
+      "priceRange": "Rp 99.000 - Rp 4.799.000",
       "currenciesAccepted": "IDR",
       "openingHours": "Mo-Su 08:00-21:00",
       "sameAs": [
-        "https://www.instagram.com/cozybytes.media",
-        "https://www.tiktok.com/@cozybytes.media"
+        "https://www.instagram.com/cozybytesmedia/",
+        "https://www.tiktok.com/@cozybytesmedia",
+        "https://linkedin.com/company/cozybytes-media"
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Paket Website",
+        "name": "Layanan Cozybytes Media",
         "itemListElement": [
           {
             "@type": "Offer",
-            "name": "Paket UMKM",
-            "description": "Landing page 1 halaman, domain & hosting gratis 1 tahun, mobile-friendly, SEO basic",
+            "name": "Landing Page",
+            "description": "Landing page konversi tinggi untuk iklan. Sewa bulanan, sewa tahunan, atau beli penuh.",
+            "price": "99000",
+            "priceCurrency": "IDR",
+            "url": "https://cozybytes.media/layanan/landing-page",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Jasa Pembuatan Landing Page",
+              "url": "https://cozybytes.media/layanan/landing-page"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Company Profile",
+            "description": "Website company profile profesional. Domain & hosting gratis 1 tahun, mobile-friendly, SEO.",
             "price": "1499000",
-            "priceCurrency": "IDR"
+            "priceCurrency": "IDR",
+            "url": "https://cozybytes.media/layanan/website",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Jasa Pembuatan Website Company Profile",
+              "url": "https://cozybytes.media/layanan/website"
+            }
           },
           {
             "@type": "Offer",
-            "name": "Paket Pro",
-            "description": "Hingga 5 halaman, free UI/UX design, maintenance 1 tahun, SEO friendly",
-            "price": "3000000",
-            "priceCurrency": "IDR"
+            "name": "UI/UX Design",
+            "description": "Desain UI/UX dan redesign website: visual design, prototype, developer handoff.",
+            "price": "999000",
+            "priceCurrency": "IDR",
+            "url": "https://cozybytes.media/layanan/uiux",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Jasa Desain UI/UX & Redesign Website",
+              "url": "https://cozybytes.media/layanan/uiux"
+            }
           },
           {
             "@type": "Offer",
-            "name": "Paket Premium",
-            "description": "Hingga 10 halaman + blog, SEO advanced, Google Analytics, priority support",
-            "price": "4799000",
-            "priceCurrency": "IDR"
+            "name": "Toko Online / E-Commerce",
+            "description": "Toko online dengan payment gateway dan ongkir otomatis. Harga custom sesuai kebutuhan.",
+            "priceCurrency": "IDR",
+            "url": "https://cozybytes.media/layanan/ecommerce",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Jasa Pembuatan Toko Online E-Commerce",
+              "url": "https://cozybytes.media/layanan/ecommerce"
+            }
           }
         ]
       }

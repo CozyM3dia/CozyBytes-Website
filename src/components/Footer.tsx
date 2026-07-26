@@ -149,7 +149,7 @@ const footerLinks = [
   { label: 'Layanan', to: '/#layanan' },
   { label: 'Tentang Kami', to: '/about' },
   { label: 'Portofolio', to: '/portfolio' },
-  { label: 'Pricing', to: '/pricing' },
+  { label: 'Blog', to: '/blog' },
   { label: 'S&K', to: '/syarat-ketentuan' },
 ]
 
@@ -247,7 +247,7 @@ export default function Footer() {
 
         <div className="border-t border-white/10 mt-10 pt-6 text-center">
           <p className="text-white/30 text-xs">
-            &copy; 2025 Cozybytes Media. All rights reserved.
+            &copy; {new Date().getFullYear()} Cozybytes Media. All rights reserved.
           </p>
         </div>
       </div>
