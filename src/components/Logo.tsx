@@ -15,7 +15,7 @@ export function CozybytesLogo({ size = 'md' }: LogoFullProps) {
       width={h * LOGO_RATIO}
       height={h}
       decoding="async"
-      style={{ height: h, width: 'auto', objectFit: 'contain' }}
+      style={{ height: h, width: h * LOGO_RATIO, objectFit: 'contain' }}
     />
   )
 }

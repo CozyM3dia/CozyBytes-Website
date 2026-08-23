@@ -8,19 +8,72 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,255,255,0.3) transparent;
   }
   body {
-    @apply bg-zinc-950 text-white font-sans;
+    @apply bg-zinc-950 text-white font-sans antialiased;
     margin: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
   #root {
     width: 100%;
     max-width: 100%;
     text-align: left;
   }
+  /* Focus styles — cyan ring for keyboard users, no outline for mouse */
+  :focus-visible {
+    outline: 2px solid #00FFFF;
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  /* SkipLink target */
+  #main-content:focus {
+    outline: none;
+  }
+  /* Better selection */
+  ::selection {
+    background: rgba(0,255,255,0.25);
+    color: #00FFFF;
+  }
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-@layer components {
+/* Hero mockup entrance animations — CSS-only (compositor, zero JS) */
+  @keyframes heroBar {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes heroBadge {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes heroCardFade {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes heroCardUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @layer components {
   .liquid-glass {
     background: rgba(255, 255, 255, 0.01);
     backdrop-filter: blur(4px);
@@ -119,6 +172,41 @@
     from { stroke-dashoffset: 0; }
     to { stroke-dashoffset: -3000; }
   }
+  @keyframes heroShimmer {
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(350%); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Perf: skip offscreen layout/paint for below-fold sections until they enter viewport.
+     This directly reduces TBT because browser doesn't need to layout/paint them at startup.
+     contain-intrinsic-size gives a placeholder height to avoid layout shift (CLS). */
+  #tentang, #layanan, #cara-kerja, #kontak {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+  }
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #09090B;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,255,255,0.35);
+  }
 
   /* Blog prose styling */
   .prose-cozybytes {
@@ -175,4 +263,44 @@
   .prose-cozybytes img {
     @apply rounded-xl my-6;
   }
+}
+
+/* ============ Global page atmosphere (aurora + grain + vignette) ============ */
+@keyframes aurora-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-5vw, 5vh, 0) scale(1.14); }
+}
+@keyframes aurora-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4vw, -4vh, 0) scale(0.92); }
+}
+@keyframes aurora-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-4vw, -6vh, 0) scale(1.08); }
+}
+
+@keyframes grain-jitter {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-1.5%, 1%, 0); }
+  50% { transform: translate3d(1%, -1.5%, 0); }
+  75% { transform: translate3d(1.5%, 1.5%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes beam-travel {
+  0% { left: -20%; opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 106%; opacity: 0; }
+}
+@keyframes cone-breathe {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@keyframes ring-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.vignette {
+  background: radial-gradient(ellipse 130% 100% at 50% 35%, transparent 55%, rgba(0, 0, 0, 0.3) 100%);
 }

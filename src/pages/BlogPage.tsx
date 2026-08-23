@@ -1,8 +1,8 @@
-import { useRef } from 'react'
+import { useRef, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { motion, useInView } from 'framer-motion'
-import { Clock, ArrowRight } from 'lucide-react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { Clock, ArrowRight, Search, Filter } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { getAllPosts, type BlogPost } from '../lib/blog'
@@ -137,10 +137,23 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 export default function BlogPage() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
-  const posts = getAllPosts()
+  const allPosts = getAllPosts()
+  const [query, setQuery] = useState('')
+  const [activeCat, setActiveCat] = useState<string>('Semua')
+
+  const categories = useMemo(() => ['Semua', ...Array.from(new Set(allPosts.map(p => p.category)))], [allPosts])
+
+  const posts = useMemo(() => {
+    return allPosts.filter(p => {
+      const matchCat = activeCat === 'Semua' || p.category === activeCat
+      const q = query.toLowerCase()
+      const matchQuery = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+      return matchCat && matchQuery
+    })
+  }, [allPosts, query, activeCat])
 
   return (
-    <div className="min-h-screen bg-zinc-950">
+    <div className="min-h-screen">
       <Helmet>
         <title>Blog | Cozybytes Media</title>
         <meta name="description" content="Tulisan kami seputar website untuk bisnis: cara memilih jasa pembuatan website, dasar SEO, tren desain, dan strategi digital untuk UMKM. Ditulis ringan, tanpa jargon berlebihan." />
@@ -152,6 +165,7 @@ export default function BlogPage() {
         <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
       </Helmet>
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
 
       <section
         ref={ref}
@@ -179,18 +193,64 @@ export default function BlogPage() {
             </p>
           </motion.div>
 
-          {posts.length === 0 ? (
-            <p className="text-white/40 text-center py-20">Belum ada artikel. Stay tuned!</p>
-          ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post, i) => (
-                <BlogCard key={post.slug} post={post} index={i} />
+          {/* Search & Filter */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="relative flex-1 max-w-md">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+              <input
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="Cari artikel, kategori, topik..."
+                className="w-full rounded-full border border-white/10 bg-white/[0.04] py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-white/30 focus:border-[#00FFFF]/30 focus:outline-none focus:ring-2 focus:ring-[#00FFFF]/20"
+                aria-label="Cari artikel"
+              />
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-thin">
+              <Filter className="h-3.5 w-3.5 text-white/30 flex-shrink-0" />
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCat(cat)}
+                  aria-pressed={activeCat === cat}
+                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${activeCat === cat ? 'bg-[#00FFFF] text-black shadow-[0_0_14px_rgba(0,255,255,0.3)]' : 'border border-white/10 bg-white/[0.02] text-white/60 hover:border-white/20 hover:text-white'}`}
+                >
+                  {cat}
+                </button>
               ))}
             </div>
-          )}
+          </motion.div>
+
+          <AnimatePresence mode="wait">
+            {posts.length === 0 ? (
+              <motion.p
+                key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="text-white/40 text-center py-16 rounded-2xl border border-white/5 bg-white/[0.01]"
+              >
+                Tidak ada artikel untuk <span className="text-white">“{query || activeCat}”</span>. Coba kata kunci lain.
+              </motion.p>
+            ) : (
+              <motion.div
+                key="grid"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                {posts.map((post, i) => (
+                  <BlogCard key={post.slug} post={post} index={i} />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <p className="mt-6 text-center text-xs text-white/25">{posts.length} dari {allPosts.length} artikel</p>
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

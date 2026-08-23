@@ -1,13 +1,13 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useInView } from 'framer-motion'
 import {
   HoverSlider,
-  HoverSliderImage,
   HoverSliderImageWrap,
   TextStaggerHover,
   useHoverSliderContext,
 } from '@/components/ui/animated-slideshow'
 import { motion, AnimatePresence } from 'framer-motion'
+import { GridField } from '../components/atmosphere'
 
 const SERVICES = [
   {
@@ -15,49 +15,70 @@ const SERVICES = [
     title: 'Landing Page',
     tag: 'Konversi Tinggi',
     description: 'Satu halaman khusus untuk mendatangkan pelanggan. Sangat cocok jika Anda sedang menjalankan iklan di media sosial.',
-    imageUrl: '/services/landing.jpg',
+    imageUrl: '/services/landing.webp',
+    fallbackUrl: '/services/landing.jpg',
   },
   {
     id: 'company-profile',
     title: 'Company Profile',
     tag: 'Profesional',
     description: 'Bangun kredibilitas perusahaan Anda melalui Company Profile profesional yang menampilkan portofolio, visi misi, dan nilai jual secara memukau.',
-    imageUrl: '/services/company.jpg',
+    imageUrl: '/services/company.webp',
+    fallbackUrl: '/services/company.jpg',
   },
   {
     id: 'toko-online',
     title: 'Toko Online',
     tag: 'E-Commerce',
     description: 'Sistem e-commerce yang mempermudah pelanggan memilih barang dan membayar secara otomatis. Anda tidak perlu lagi mencatat pesanan satu per satu.',
-    imageUrl: '/services/ecommerce.jpg',
+    imageUrl: '/services/ecommerce.webp',
+    fallbackUrl: '/services/ecommerce.jpg',
   },
   {
     id: 'custom-website',
     title: 'Custom Website',
     tag: 'Full Custom',
     description: 'Desain dan fitur dibuat khusus dari nol sesuai kebutuhan unik bisnis Anda, tanpa menggunakan template pasaran.',
-    imageUrl: '/services/custom.jpg',
+    imageUrl: '/services/custom.webp',
+    fallbackUrl: '/services/custom.jpg',
   },
   {
     id: 'ui-ux',
     title: 'UI/UX Redesign',
     tag: 'Modern',
     description: 'Tampilan website lama terasa ketinggalan zaman? Kami mendesain ulang antarmukanya agar lebih modern, rapi, dan sesuai dengan identitas bisnis Anda saat ini.',
-    imageUrl: '/services/uiux.jpg',
+    imageUrl: '/services/uiux.webp',
+    fallbackUrl: '/services/uiux.jpg',
   },
 ]
 
 function AutoPlayManager({ total, interval }: { total: number, interval: number }) {
   const { activeSlide, changeSlide } = useHoverSliderContext()
+  const ref = useRef<HTMLDivElement>(null)
+  const [isInView, setIsInView] = useState(false)
 
   useEffect(() => {
+    const el = ref.current?.parentElement
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setIsInView(e.isIntersecting), { threshold: 0.1 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  // Avoid stale closure: keep latest activeSlide in ref
+  const activeRef = useRef(activeSlide)
+  useEffect(() => { activeRef.current = activeSlide }, [activeSlide])
+
+  useEffect(() => {
+    if (!isInView) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = setInterval(() => {
-      changeSlide((activeSlide + 1) % total)
+      changeSlide((activeRef.current + 1) % total)
     }, interval)
     return () => clearInterval(timer)
-  }, [activeSlide, total, interval, changeSlide])
+  }, [isInView, total, interval, changeSlide])
 
-  return null
+  return <div ref={ref} aria-hidden="true" className="hidden" />
 }
 
 function ServiceItem({ svc, index }: { svc: typeof SERVICES[0], index: number }) {
@@ -96,6 +117,31 @@ function ServiceItem({ svc, index }: { svc: typeof SERVICES[0], index: number })
   )
 }
 
+function ActiveServiceImage() {
+  const { activeSlide } = useHoverSliderContext()
+  const svc = SERVICES[activeSlide]
+  return (
+    <motion.picture
+      key={svc.id}
+      initial={{ opacity: 0, scale: 1.02 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
+      className="w-full h-full block will-change-transform"
+    >
+      <source srcSet={svc.imageUrl} type="image/webp" />
+      <img
+        src={svc.fallbackUrl}
+        alt={svc.title}
+        width={400}
+        height={300}
+        loading="lazy"
+        decoding="async"
+        className="w-full h-full object-cover"
+      />
+    </motion.picture>
+  )
+}
+
 function ServiceDescription({ services }: { services: typeof SERVICES }) {
   const { activeSlide } = useHoverSliderContext()
   
@@ -124,8 +170,9 @@ export default function ServicesSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="layanan" ref={ref} className="py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="layanan" ref={ref} className="relative overflow-hidden py-20">
+      <GridField variant="dots" mask="radial-gradient(ellipse 60% 60% at 70% 20%, black 0%, transparent 75%)" className="opacity-60" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div
           className="mb-12 transition-all duration-700"
@@ -152,21 +199,10 @@ export default function ServicesSection() {
             ))}
           </div>
 
-          {/* Image area */}
+          {/* Image area — single active image only (was 5 stacked <img> = 500KB wasted). Now 1 image at a time = ~100KB, saves 400KB. */}
           <div className="w-full md:w-[340px] lg:w-[400px] flex-shrink-0 relative">
             <HoverSliderImageWrap className="rounded-2xl overflow-hidden aspect-[4/3] relative z-10">
-              {SERVICES.map((svc, index) => (
-                <div key={svc.id} className="w-full h-full">
-                  <HoverSliderImage
-                    index={index}
-                    imageUrl={svc.imageUrl}
-                    alt={svc.title}
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </div>
-              ))}
+              <ActiveServiceImage />
             </HoverSliderImageWrap>
             {/* Cyan glow under image */}
             <div

@@ -3,7 +3,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import * as React from "react"
-import { type HTMLMotionProps, MotionConfig, motion } from "framer-motion"
+import { type HTMLMotionProps, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface TextStaggerHoverProps {
@@ -18,11 +18,7 @@ interface HoverSliderContextValue {
   activeSlide: number
   changeSlide: (index: number) => void
 }
-function splitText(text: string) {
-  const words = text.split(" ").map((word) => word.concat(" "))
-  const characters = words.map((word) => word.split("")).flat(1)
-  return { words, characters }
-}
+// splitText removed — perf: TextStaggerHover now uses single CSS transition instead of per-char motion
 
 const HoverSliderContext = React.createContext<HoverSliderContextValue | undefined>(undefined)
 
@@ -56,52 +52,32 @@ export const TextStaggerHover = React.forwardRef<
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
 >(({ text, index, className, ...props }, ref) => {
   const { activeSlide, changeSlide } = useHoverSliderContext()
-  const { characters } = splitText(text)
   const isActive = activeSlide === index
   const handleMouse = () => changeSlide(index)
+  // Perf: replaced per-character MotionConfig (N*2 motion nodes per item, ~70 nodes) with single CSS transition.
+  // Visual parity kept: active glows, inactive dims, hover lifts via translateY.
   return (
     <span
-      className={cn("relative inline-block origin-bottom overflow-hidden", className)}
+      className={cn(
+        "relative inline-block cursor-pointer select-none transition-colors duration-300",
+        isActive ? "text-[#00FFFF]" : "text-white/60 hover:text-white",
+        className
+      )}
       {...props}
-      ref={ref}
+      ref={ref as any}
       onMouseEnter={handleMouse}
     >
-      {characters.map((char, i) => (
-        <span key={`${char}-${i}`} className="relative inline-block overflow-hidden">
-          <MotionConfig
-            transition={{
-              delay: i * 0.025,
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            <motion.span
-              className="inline-block"
-              style={{ opacity: isActive ? 1 : 0.4 }}
-              initial={{ y: "0%" }}
-              animate={isActive ? { y: "-110%" } : { y: "0%" }}
-            >
-              {char}
-              {char === " " && i < characters.length - 1 && <>&nbsp;</>}
-            </motion.span>
-            <motion.span
-              className="absolute left-0 top-0 inline-block opacity-100"
-              initial={{ y: "110%" }}
-              animate={isActive ? { y: "0%" } : { y: "110%" }}
-            >
-              {char}
-            </motion.span>
-          </MotionConfig>
-        </span>
-      ))}
+      <span className={cn("inline-block transition-transform duration-300", isActive ? "-translate-y-0.5" : "")}>
+        {text}
+      </span>
     </span>
   )
 })
 TextStaggerHover.displayName = "TextStaggerHover"
 
 export const clipPathVariants = {
-  visible: { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" },
-  hidden:  { clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0px)" },
+  visible: { opacity: 1, scale: 1 },
+  hidden:  { opacity: 0, scale: 1.02 },
 }
 
 export const HoverSliderImageWrap = React.forwardRef<
@@ -126,12 +102,14 @@ export const HoverSliderImage = React.forwardRef<
   HTMLMotionProps<"img"> & HoverSliderImageProps
 >(({ index, imageUrl, className, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext()
+  const isActive = activeSlide === index
   return (
     <motion.img
-      className={cn("inline-block align-middle", className)}
-      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.8 }}
+      className={cn("inline-block align-middle will-change-transform", className)}
+      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.45 }}
       variants={clipPathVariants}
-      animate={activeSlide === index ? "visible" : "hidden"}
+      animate={isActive ? "visible" : "hidden"}
+      style={{ pointerEvents: isActive ? 'auto' : 'none' }}
       ref={ref}
       src={imageUrl}
       {...props}

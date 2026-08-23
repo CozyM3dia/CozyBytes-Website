@@ -90,7 +90,34 @@ async function main() {
 
   // Dibaca sekali sebelum route mana pun ditulis, supaya penulisan '/' nanti
   // tidak mencemari template untuk route berikutnya.
-  const template = readFileSync(templatePath, 'utf8')
+  let template = readFileSync(templatePath, 'utf8')
+
+  // === PERF 100: inline critical CSS to eliminate render-blocking ===
+  // Vite emits <link rel="stylesheet" crossorigin href="/assets/index-*.css"> which blocks FCP/LCP ~400ms.
+  // For Lighthouse, inlining the CSS eliminates the blocking request.
+  // We inline full CSS (68KB) as <style> and REMOVE the external link for first paint (no extra fetch).
+  // Subsequent navigations will still have styles via inline, no need for external on first load.
+  const cssMatch = template.match(/<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/)
+  if (cssMatch) {
+    try {
+      const cssHref = cssMatch[1]
+      const cssPath = join(DIST, cssHref.replace(/^\//, ''))
+      if (existsSync(cssPath)) {
+        const cssContent = readFileSync(cssPath, 'utf8')
+        const inlineTag = `<style data-critical="true">${cssContent}</style>`
+        template = template.replace('</head>', `  ${inlineTag}\n  </head>`)
+        // Remove external stylesheet link entirely for first paint — inline already provides all styles.
+        // Keep a low-priority prefetch for cache on next pages (optional, not render-blocking)
+        template = template.replace(
+          `<link rel="stylesheet" crossorigin href="${cssHref}">`,
+          `<link rel="prefetch" as="style" crossorigin href="${cssHref}">`
+        )
+        console.log(`  inline critical CSS ${cssHref} ${(Buffer.byteLength(cssContent)/1024).toFixed(0)}KB (external removed for FCP)`)
+      }
+    } catch (e) {
+      console.warn('  inline CSS gagal', e.message)
+    }
+  }
 
   const { render } = await import(pathToFileURL(SSR_ENTRY).href)
 

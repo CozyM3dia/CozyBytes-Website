@@ -1,7 +1,12 @@
 import { Suspense, lazy, useEffect } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import HomePage from './pages/HomePage'
+import SkipLink from './components/SkipLink'
+import ScrollProgress from './components/ScrollProgress'
+import BackToTop from './components/BackToTop'
+import SiteAtmosphere from './components/SiteAtmosphere'
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 // HomePage eager (landing utama), sisanya di-split per route supaya bundle awal kecil.
 // Saat prerender, react-dom/static menunggu lazy chunk ini selesai sebelum menulis HTML.
@@ -37,23 +42,29 @@ function RouteFallback() {
 export default function AppRoutes() {
   return (
     <MotionConfig reducedMotion="user">
+      <SkipLink />
+      <ScrollProgress />
+      <BackToTop />
       <ScrollToTop />
-      <Suspense fallback={<RouteFallback />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage />} />
-          <Route path="/layanan" element={<LayananPage />} />
-          <Route path="/layanan/website" element={<WebsitePage />} />
-          <Route path="/layanan/landing-page" element={<LandingPageServicePage />} />
-          <Route path="/layanan/ecommerce" element={<EcommercePage />} />
-          <Route path="/layanan/uiux" element={<UIUXPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
+      <SiteAtmosphere />
+      <div className="relative z-10">
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/layanan" element={<LayananPage />} />
+            <Route path="/layanan/website" element={<WebsitePage />} />
+            <Route path="/layanan/landing-page" element={<LandingPageServicePage />} />
+            <Route path="/layanan/ecommerce" element={<EcommercePage />} />
+            <Route path="/layanan/uiux" element={<UIUXPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </div>
     </MotionConfig>
   )
 }

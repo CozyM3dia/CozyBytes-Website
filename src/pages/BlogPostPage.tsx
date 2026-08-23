@@ -29,8 +29,9 @@ export default function BlogPostPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen">
         <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <div className="flex flex-col items-center justify-center py-40 px-6 text-center">
           <h1 className="font-display text-4xl font-medium tracking-tight text-white mb-4">
             Artikel tidak ditemukan
@@ -39,7 +40,8 @@ export default function BlogPostPage() {
             Kembali ke Blog
           </Link>
         </div>
-        <Footer />
+        </main>
+      <Footer />
       </div>
     )
   }
@@ -52,7 +54,7 @@ export default function BlogPostPage() {
     : 'https://cozybytes.media/og-image.jpg'
 
   return (
-    <div className="min-h-screen bg-zinc-950">
+    <div className="min-h-screen">
       <Helmet>
         <title>{`${post.title} | Cozybytes Media`}</title>
         <meta name="description" content={post.excerpt} />

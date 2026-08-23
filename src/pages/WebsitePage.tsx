@@ -8,8 +8,10 @@ import {
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { LightCone } from '../components/atmosphere'
 import { PricingCard } from '../components/ServicePricingCard'
 import type { PricingTier } from '../components/ServicePricingCard'
+import { BrandIcon } from '../components/icons/brand'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20company%20profile.'
 
@@ -262,8 +264,9 @@ export default function WebsitePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
+    <div className="min-h-screen text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
 
       <Helmet>
         <title>Jasa Pembuatan Website Company Profile Custom & Profesional | Cozybytes</title>
@@ -317,6 +320,7 @@ export default function WebsitePage() {
 
       {/* ============ HERO: asymmetric split, copy left + live demo right ============ */}
       <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-24" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -628,7 +632,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ PAIN POINTS: editorial numbered rows ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -665,7 +669,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ FEATURES: bento grid with visual variety ============ */}
-      <section className="bg-zinc-950 py-24 md:py-32">
+      <section className="py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-16 max-w-2xl">
             <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
@@ -758,7 +762,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ COMPARISON TABLE ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-14 max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -797,7 +801,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ TECH STACK: marquee ============ */}
-      <section className="overflow-hidden border-t border-white/5 bg-zinc-950 py-20">
+      <section className="overflow-hidden border-t border-white/5 py-20">
         <div className="mx-auto mb-10 max-w-6xl px-5 md:px-8">
           <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
             Teknologi yang kami pakai setiap hari.
@@ -812,7 +816,7 @@ export default function WebsitePage() {
                 key={`${tech}-${i}`}
                 className="flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-6 py-3"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF]/60" />
+                <BrandIcon name={tech} className="h-[18px] w-[18px] shrink-0 text-white/55" />
                 <span className="whitespace-nowrap font-mono text-sm text-white/70">{tech}</span>
               </div>
             ))}
@@ -826,7 +830,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ PROCESS: vertical timeline ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4">
@@ -866,7 +870,8 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ PRICING ============ */}
-      <section id="harga" ref={pricingRef} className="bg-zinc-950 py-24 md:py-32">
+      <section id="harga" ref={pricingRef} className="relative overflow-hidden py-24 md:py-32">
+        <LightCone tint="gold" className="left-1/2 -translate-x-1/2 -top-16" />
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -903,7 +908,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ FAQ: minimal divide list ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-3xl px-5 md:px-8">
           <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
             Pertanyaan yang sering kami dengar.
@@ -941,7 +946,7 @@ export default function WebsitePage() {
       </section>
 
       {/* ============ BOTTOM CTA: typographic statement ============ */}
-      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+      <section className="relative overflow-hidden py-28 md:py-36">
         <div
           className="pointer-events-none absolute inset-0"
           style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
@@ -977,6 +982,7 @@ export default function WebsitePage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

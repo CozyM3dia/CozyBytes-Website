@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { Rocket, Clock, Heart } from 'lucide-react'
+import { Crosshair } from '../components/atmosphere'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -49,8 +50,11 @@ function AnimatedCounter({ target, suffix, started }: { target: number; suffix: 
 
   useEffect(() => {
     if (!started) return
-    if (reduce) { setCount(target); return }
     let frame: number
+    if (reduce) {
+      frame = requestAnimationFrame(() => setCount(target))
+      return () => cancelAnimationFrame(frame)
+    }
     const duration = 1500
     const start = performance.now()
     const step = (now: number) => {
@@ -148,6 +152,7 @@ export default function AboutSection() {
 
   return (
     <section id="tentang" ref={ref} className="relative overflow-hidden py-28 md:py-36">
+      <Crosshair className="absolute right-[8%] top-[16%]" />
       {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"

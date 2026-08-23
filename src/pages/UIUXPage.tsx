@@ -4,12 +4,13 @@ import { Helmet } from 'react-helmet-async'
 import {
   Users, Layout, Palette, Smartphone, FileText,
   Repeat, MessageCircle, ArrowUpRight, Check,
-  ChevronDown
+  ChevronDown, Clock, Compass, LayoutGrid, AlertTriangle
 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PricingCard } from '../components/ServicePricingCard'
 import type { PricingTier } from '../components/ServicePricingCard'
+import { LightCone } from '../components/atmosphere'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20UI%2FUX%20design.'
 
@@ -123,20 +124,36 @@ const featuresList = [
 
 const painPoints = [
   {
+    num: '01',
+    kicker: 'Kredibilitas',
     title: 'Tampilan Website Terlihat Jadul',
     desc: 'Website yang kuno membuat calon pembeli meragukan profesionalitas bisnis Anda, menurunkan tingkat kepercayaan sebelum membaca penawaran.',
+    icon: Clock,
+    accent: 'cyan' as const,
   },
   {
+    num: '02',
+    kicker: 'Navigasi',
     title: 'Ruwet & Pengunjung Mudah Tersesat',
     desc: 'Navigasi yang berantakan membuat pengunjung kesulitan mencari tombol kontak atau katalog produk, lalu menutup halaman dalam hitungan detik.',
+    icon: Compass,
+    accent: 'gold' as const,
   },
   {
+    num: '03',
+    kicker: 'Responsif',
     title: 'Tampilan Rusak Saat Dibuka di HP',
     desc: 'Teks terpotong, gambar tumpang tindih, dan tombol terlalu rapat saat dibuka dari ponsel pintar, menyiksa kenyamanan pengunjung.',
+    icon: Smartphone,
+    accent: 'violet' as const,
   },
   {
+    num: '04',
+    kicker: 'Originalitas',
     title: 'Layout Kaku WordPress Template',
     desc: 'Desain template instan yang kaku dan mirip dengan puluhan website kompetitor lain, gagal membedakan brand Anda di pasar.',
+    icon: LayoutGrid,
+    accent: 'emerald' as const,
   },
 ]
 
@@ -215,8 +232,9 @@ export default function UIUXPage() {
   const [sliderVal, setSliderVal] = useState<number>(50)
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
+    <div className="min-h-screen text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
 
       <Helmet>
         <title>Jasa Desain UI/UX & Redesign Website Profesional | Cozybytes</title>
@@ -270,6 +288,7 @@ export default function UIUXPage() {
 
       {/* ============ HERO: copy left + before/after slider right ============ */}
       <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-24" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -489,42 +508,133 @@ export default function UIUXPage() {
         </div>
       </section>
 
-      {/* ============ PAIN POINTS: full-width stacked rows ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="max-w-2xl">
-            <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
-              Tampilan berantakan
-              <br />
-              membuat pembeli ragu.
-            </h2>
+      {/* ============ PAIN POINTS: world-class editorial bento ============ */}
+      <section className="relative overflow-hidden border-t border-white/5 py-24 md:py-32">
+        {/* atmosphere */}
+        <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 0%, rgba(0,255,255,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 90% 80%, rgba(248,209,106,0.04) 0%, transparent 60%)' }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="pointer-events-none absolute top-0 left-1/2 h-px w-[80%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00FFFF]/20 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-5 md:px-8">
+          {/* header */}
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
+              className="lg:col-span-7"
+            >
+              <span className="mb-4 inline-flex items-center gap-2 border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
+                <AlertTriangle className="h-3 w-3" /> Audit Cepat
+              </span>
+              <h2 className="font-display text-[2.2rem] font-medium leading-[0.95] tracking-tight sm:text-5xl md:text-[3.4rem]">
+                <span className="text-white">Tampilan berantakan</span>
+                <br />
+                <span className="font-light italic text-white/90">membuat pembeli</span> <span className="text-[#00FFFF]">ragu.</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/50">
+                Empat sinyal paling sering yang bikin calon pembeli menutup tab dalam 3 detik — dan yang kami rapikan di setiap redesign.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="hidden lg:col-span-5 lg:flex lg:justify-end"
+            >
+              <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-[#00FFFF] shadow-[0_0_10px_rgba(0,255,255,0.8)] animate-pulse" />
+                <span className="font-mono text-xs text-white/60">4 pain → 4 fix • Cozybytes audit</span>
+              </div>
+            </motion.div>
           </div>
 
-          <div className="mt-14 divide-y divide-white/[0.08] border-y border-white/[0.08]">
-            {painPoints.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="group grid gap-3 py-8 md:grid-cols-12 md:items-baseline"
-              >
-                <span className="font-mono text-sm font-bold text-[#00FFFF]/50 md:col-span-1">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3 className="text-lg font-bold text-white transition-colors group-hover:text-[#00FFFF] md:col-span-4">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-white/50 md:col-span-7">{item.desc}</p>
-              </motion.div>
-            ))}
+          {/* bento grid */}
+          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:gap-6">
+            {painPoints.map((p, i) => {
+              const Icon = p.icon
+              const accentMap = {
+                cyan: { border: 'hover:border-[#00FFFF]/30', glow: 'rgba(0,255,255,0.08)', iconBg: 'bg-[#00FFFF]/10 text-[#00FFFF] group-hover:bg-[#00FFFF] group-hover:text-black', line: 'bg-[#00FFFF]' },
+                gold: { border: 'hover:border-[#F8D16A]/30', glow: 'rgba(248,209,106,0.08)', iconBg: 'bg-[#F8D16A]/10 text-[#F8D16A] group-hover:bg-[#F8D16A] group-hover:text-black', line: 'bg-[#F8D16A]' },
+                violet: { border: 'hover:border-violet-300/30', glow: 'rgba(196,181,253,0.08)', iconBg: 'bg-violet-400/10 text-violet-300 group-hover:bg-violet-300 group-hover:text-black', line: 'bg-violet-300' },
+                emerald: { border: 'hover:border-emerald-300/30', glow: 'rgba(110,231,183,0.08)', iconBg: 'bg-emerald-400/10 text-emerald-300 group-hover:bg-emerald-300 group-hover:text-black', line: 'bg-emerald-300' },
+              }[p.accent]
+
+              return (
+                <motion.div
+                  key={p.num}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22,1,0.36,1] }}
+                  whileHover={{ y: -6 }}
+                  className={`group relative flex flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-white/[0.02] p-7 md:p-8 backdrop-blur-sm transition-all duration-300 ${accentMap.border} hover:bg-white/[0.035] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]`}
+                >
+                  {/* glow */}
+                  <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" style={{ background: accentMap.glow }} />
+                  {/* ghost number */}
+                  <span className="pointer-events-none absolute -right-2 -top-2 font-display text-[88px] font-medium leading-none text-white/[0.04] group-hover:text-white/[0.06] transition-colors">
+                    {p.num}
+                  </span>
+
+                  <div className="relative">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 transition-all duration-300 ${accentMap.iconBg}`}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="font-mono text-xs font-bold tracking-[0.18em] text-white/25 group-hover:text-white/40 transition-colors">
+                        {p.num} <span className="text-white/10">/</span> 04
+                      </span>
+                    </div>
+
+                    <span className="mt-5 inline-block rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
+                      {p.kicker}
+                    </span>
+
+                    <h3 className="mt-3 font-display text-xl font-medium leading-tight tracking-tight text-white md:text-[22px]">
+                      {p.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-relaxed text-white/50">
+                      {p.desc}
+                    </p>
+
+                    {/* bottom line */}
+                    <div className="mt-7 flex items-center gap-3">
+                      <div className="h-px flex-1 bg-white/[0.06] group-hover:bg-white/10 transition-colors" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/25 group-hover:text-white/50 transition-colors flex items-center gap-1.5">
+                        Dampak konversi <span className={`h-1 w-1 rounded-full ${accentMap.line} opacity-60 group-hover:opacity-100`} />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
+
+          {/* bottom bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-10 flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/5 bg-white/[0.01] px-6 py-5 md:flex-row"
+          >
+            <p className="text-sm text-white/60 text-center md:text-left">
+              Semua masalah di atas bisa kami audit <span className="font-semibold text-white">gratis</span> dari link website lama Anda.
+            </p>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#00FFFF] px-5 py-2.5 text-sm font-bold text-black shadow-[0_0_22px_rgba(0,255,255,0.25)] hover:shadow-[0_0_30px_rgba(0,255,255,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98]">
+              <MessageCircle className="h-4 w-4" /> Audit Gratis
+            </a>
+          </motion.div>
         </div>
       </section>
 
       {/* ============ FEATURES: sticky left header + rows right ============ */}
-      <section className="bg-zinc-950 py-24 md:py-32">
+      <section className="py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -568,7 +678,7 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ COMPARISON ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-14 max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -606,7 +716,7 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ DELIVERABLES: pill cloud ============ */}
-      <section className="border-t border-white/5 bg-zinc-950 py-20">
+      <section className="border-t border-white/5 py-20">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
           <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
             Yang Anda terima saat serah terima.
@@ -634,7 +744,7 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ WORKFLOW: horizontal stepper ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-16 max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -670,7 +780,8 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ PRICING ============ */}
-      <section id="harga" ref={pricingRef} className="bg-zinc-950 py-24 md:py-32">
+      <section id="harga" ref={pricingRef} className="relative overflow-hidden py-24 md:py-32">
+        <LightCone tint="gold" className="left-1/2 -translate-x-1/2 -top-16" />
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -707,7 +818,7 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ FAQ ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-3xl px-5 md:px-8">
           <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
             Pertanyaan seputar desain UI/UX.
@@ -745,7 +856,7 @@ export default function UIUXPage() {
       </section>
 
       {/* ============ BOTTOM CTA ============ */}
-      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+      <section className="relative overflow-hidden py-28 md:py-36">
         <div
           className="pointer-events-none absolute inset-0"
           style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
@@ -781,6 +892,7 @@ export default function UIUXPage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

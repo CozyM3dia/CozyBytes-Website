@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, RefreshCcw, Code2, Timer } from 'lucide-react'
 import { CozybytesLogo } from './Logo'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SERVICES } from '../data/services'
 
 function InstagramIcon() {
@@ -79,24 +79,31 @@ const faqs = [
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false)
+  const id = question.replace(/\s+/g, '-').toLowerCase().slice(0, 24)
   return (
     <div className="border-b border-white/10 py-4">
       <button
-        className="flex w-full items-center justify-between text-left text-white/90 hover:text-white transition-colors"
+        id={`faq-btn-${id}`}
+        aria-expanded={isOpen}
+        aria-controls={`faq-panel-${id}`}
+        className="flex w-full items-center justify-between text-left text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF]/40 rounded-lg transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="font-medium text-sm md:text-base">{question}</span>
-        <span className="text-[#00FFFF] text-xl ml-4">
-          {isOpen ? '-' : '+'}
+        <span aria-hidden="true" className={`ml-4 flex h-7 w-7 items-center justify-center rounded-full border text-sm transition-all ${isOpen ? 'border-[#00FFFF]/30 bg-[#00FFFF]/10 text-[#00FFFF] rotate-180' : 'border-white/10 text-white/40'}`}>
+          {isOpen ? '−' : '+'}
         </span>
       </button>
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            id={`faq-panel-${id}`}
+            role="region"
+            aria-labelledby={`faq-btn-${id}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: [0.22,1,0.36,1] }}
             className="overflow-hidden"
           >
             <p className="mt-4 text-sm text-white/50 leading-relaxed">
@@ -154,9 +161,68 @@ const footerLinks = [
   { label: 'S&K', to: '/syarat-ketentuan' },
 ]
 
+const trustItems = [
+  { index: '01', label: 'Garansi revisi sampai puas', Icon: RefreshCcw, accent: 'bg-emerald-400' },
+  { index: '02', label: 'Hak milik kode 100%', Icon: Code2, accent: 'bg-cyan' },
+  { index: '03', label: 'Balas < 24 jam', Icon: Timer, accent: 'bg-[#F8D16A]' },
+]
+
+function TrustStrip() {
+  const reduceMotion = useReducedMotion()
+  const container = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
+  }
+  const item = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 6 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  }
+
+  return (
+    <div className="border-b border-white/[0.06]">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={container}
+        className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-y-3 px-6 py-4"
+      >
+        {trustItems.map(({ index, label, Icon, accent }, i) => (
+          <div key={index} className="flex items-center">
+            {i > 0 && (
+              <span aria-hidden="true" className="mr-6 hidden h-3 w-px bg-white/10 sm:block" />
+            )}
+            <motion.span
+              variants={item}
+              className="group flex cursor-default items-baseline gap-2.5"
+            >
+              <span className="font-mono text-[10px] tracking-[0.2em] text-white/25">
+                {index}
+              </span>
+              <Icon className="h-3 w-3 self-center text-white/35" strokeWidth={1.5} />
+              <span className="relative text-xs font-medium tracking-wide text-white/75">
+                {label}
+                <span
+                  aria-hidden="true"
+                  className={`absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 ${accent} transition-transform duration-300 ease-out group-hover:scale-x-100`}
+                />
+              </span>
+            </motion.span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  )
+}
+
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-zinc-950">
+    <footer className="border-t border-white/10">
+      <TrustStrip />
       <div className="max-w-6xl mx-auto px-6 py-14">
         {/* FAQ Section */}
         <div className="mb-20 max-w-3xl">

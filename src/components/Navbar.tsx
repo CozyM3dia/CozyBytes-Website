@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
@@ -14,28 +14,47 @@ const links = [
 
 function ServicesDropdown() {
   const [open, setOpen] = useState(false)
+  const closeTimeout = useRef<number | null>(null)
+
+  const handleEnter = () => {
+    if (closeTimeout.current) window.clearTimeout(closeTimeout.current)
+    setOpen(true)
+  }
+  const handleLeave = () => {
+    if (closeTimeout.current) window.clearTimeout(closeTimeout.current)
+    closeTimeout.current = window.setTimeout(() => setOpen(false), 120) as unknown as number
+  }
 
   return (
     <div
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onFocusCapture={handleEnter}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) handleLeave()
+      }}
+      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false) }}
     >
       {/* Link sungguhan ke hub, bukan <button>. Isi dropdown hanya ter-mount saat
-          di-hover, jadi ini satu-satunya jalur ke /layanan yang terlihat crawler. */}
+           di-hover, jadi ini satu-satunya jalur ke /layanan yang terlihat crawler. */}
       <Link
         to="/layanan"
         onClick={() => setOpen(false)}
-        className="relative text-white/70 hover:text-white text-sm transition-colors py-1 flex items-center gap-1"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="Layanan - buka submenu"
+        className="relative text-white/70 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-full text-sm transition-colors py-1 flex items-center gap-1"
       >
-        <span className="flex">
+        <span className="flex" aria-hidden="true">
           {'Layanan'.split('').map((char, i) => (
             <span key={i} className="inline-block whitespace-pre wave-char" style={{ animationDelay: `${i * 0.05}s` }}>
               {char}
             </span>
           ))}
         </span>
-        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <span className="sr-only">Layanan</span>
         <div className={`absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left transition-transform duration-300 ease-out ${open ? 'scale-x-100' : 'scale-x-0'}`} />
       </Link>
 
@@ -47,14 +66,17 @@ function ServicesDropdown() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
             className="absolute top-full left-0 pt-4 w-60 z-50"
+            role="menu"
+            aria-label="Submenu layanan"
           >
             <div className="bg-zinc-950/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
               {serviceLinks.map((svc) => (
                 <Link
                   key={svc.href}
                   to={svc.href}
+                  role="menuitem"
                   onClick={() => setOpen(false)}
-                  className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors group/item"
+                  className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-white/5 focus-visible:bg-white/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00FFFF]/40 transition-colors group/item"
                 >
                   <span className="text-white text-sm font-medium group-hover/item:text-[#00FFFF] transition-colors">{svc.label}</span>
                   <span className="text-white/35 text-xs mt-0.5">{svc.desc}</span>
@@ -71,6 +93,7 @@ function ServicesDropdown() {
 function NavLink({ href, label }: { href: string; label: string }) {
   const loc = useLocation()
   const nav = useNavigate()
+  const isActive = loc.pathname === href || (href !== '/#beranda' && loc.pathname.startsWith(href))
 
   const handleClick = (e: React.MouseEvent) => {
     if (href.startsWith('/#')) {
@@ -92,9 +115,10 @@ function NavLink({ href, label }: { href: string; label: string }) {
       <Link
         to={href}
         onClick={handleClick}
-        className="relative text-white/70 hover:text-white text-sm transition-colors py-1 flex"
+        aria-current={isActive ? 'page' : undefined}
+        className="relative text-white/70 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-full text-sm transition-colors py-1 flex"
       >
-        <span className="relative z-10 flex">
+        <span className="relative z-10 flex" aria-hidden="true">
           {label.split('').map((char, i) => (
             <span
               key={i}
@@ -105,9 +129,10 @@ function NavLink({ href, label }: { href: string; label: string }) {
             </span>
           ))}
         </span>
+        <span className="sr-only">{label}</span>
         {/* Normal Underline */}
         <div 
-          className="absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" 
+          className="absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left scale-x-0 group-hover:scale-x-100 group-focus-within:scale-x-100 transition-transform duration-300 ease-out" 
         />
       </Link>
     </div>
@@ -120,7 +145,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handler)
+    window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
@@ -133,9 +158,18 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  // Close mobile menu on Escape
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
       <motion.nav
+        aria-label="Navigasi utama"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -145,7 +179,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0">
+          <Link to="/" className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF] rounded-full" aria-label="Cozybytes Media - Beranda">
             <CozybytesLogo size="sm" />
           </Link>
 
@@ -172,11 +206,13 @@ export default function Navbar() {
 
           {/* Hamburger */}
           <button
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-white rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF]"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Tutup menu' : 'Buka menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
-            <div className="w-5 flex flex-col gap-1">
+            <div className="w-5 flex flex-col gap-1" aria-hidden="true">
               <span className={`block h-0.5 bg-white transition-all ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
               <span className={`block h-0.5 bg-white transition-all ${menuOpen ? 'opacity-0' : ''}`} />
               <span className={`block h-0.5 bg-white transition-all ${menuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
@@ -190,6 +226,10 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div 
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu navigasi"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}

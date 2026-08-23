@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion'
+import { useState, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, Filter } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { ContainerScroll } from '../components/ui/container-scroll-animation'
+import { LightCone } from '../components/atmosphere'
 
 const projects = [
   {
@@ -127,8 +129,11 @@ function MockBrowserContent({
 }
 
 export default function PortfolioPage() {
+  const [activeType, setActiveType] = useState('Semua')
+  const types = useMemo(() => ['Semua', ...Array.from(new Set(projects.map(p => p.type)))], [])
+  const filtered = useMemo(() => activeType === 'Semua' ? projects : projects.filter(p => p.type === activeType), [activeType])
   return (
-    <div className="bg-zinc-950 min-h-screen">
+    <div className="min-h-screen">
       <Helmet>
         <title>Konsep Desain | Cozybytes Media</title>
         <meta name="description" content="Konsep desain website buatan kami untuk berbagai jenis bisnis: landing page, company profile, dan toko online. Bukan proyek klien, tapi standar kualitas yang kami pakai." />
@@ -140,15 +145,17 @@ export default function PortfolioPage() {
         <meta name="twitter:image" content="https://cozybytes.media/og-image.jpg" />
       </Helmet>
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
 
       {/* Header */}
       <section
-        className="pt-36 pb-16 md:pb-24"
+        className="relative overflow-hidden pt-36 pb-16 md:pb-24"
         style={{
           background:
             'radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,255,0.08) 0%, transparent 60%)',
         }}
       >
+        <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-24" />
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -167,13 +174,35 @@ export default function PortfolioPage() {
               dan konsep ini kami buat sendiri, bukan proyek klien. Tujuannya sederhana: menunjukkan
               standar kerja kami sebelum Anda memutuskan.
             </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+              <Filter className="h-3.5 w-3.5 text-white/30" />
+              {types.map(t => (
+                <button
+                  key={t}
+                  onClick={() => setActiveType(t)}
+                  aria-pressed={activeType === t}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${activeType === t ? 'bg-[#00FFFF] text-black shadow-[0_0_14px_rgba(0,255,255,0.3)]' : 'border border-white/10 bg-white/[0.02] text-white/60 hover:border-white/20 hover:text-white'}`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <p className="mt-3 text-center text-xs text-white/25">{filtered.length} konsep{activeType !== 'Semua' ? ` • ${activeType}` : ''}</p>
           </motion.div>
         </div>
       </section>
 
       {/* Scroll showcase */}
       <section className="px-4 pt-10 md:px-6 md:pt-14">
-        {projects.map((project) => (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeType}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+          >
+            {filtered.map((project) => (
           <ContainerScroll
             key={project.name}
             titleComponent={
@@ -194,6 +223,8 @@ export default function PortfolioPage() {
             />
           </ContainerScroll>
         ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* And many more bubble */}
         <motion.div 
@@ -236,6 +267,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

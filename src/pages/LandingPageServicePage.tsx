@@ -10,6 +10,8 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PricingCard } from '../components/ServicePricingCard'
 import type { PricingTier } from '../components/ServicePricingCard'
+import { LightCone } from '../components/atmosphere'
+import { BrandIcon } from '../components/icons/brand'
 
 const WA_LINK = 'https://wa.me/6285894514719?text=Halo%20Cozybytes%2C%20saya%20tertarik%20dengan%20layanan%20landing%20page.'
 
@@ -250,8 +252,9 @@ export default function LandingPageServicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
+    <div className="min-h-screen text-white selection:bg-[#00FFFF]/30 selection:text-[#00FFFF]">
       <Navbar />
+      <main id="main-content" tabIndex={-1} className="outline-none">
 
       <Helmet>
         <title>Jasa Pembuatan Landing Page Konversi Tinggi & Ads-Ready | Cozybytes</title>
@@ -305,6 +308,7 @@ export default function LandingPageServicePage() {
 
       {/* ============ HERO: copy + anatomy controls left, phone mockup right ============ */}
       <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-24 pb-16">
+        <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-24" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -482,7 +486,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ PAIN POINTS: sticky left + divide rows right ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -525,7 +529,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ FEATURES: bento 3-col with variety ============ */}
-      <section className="bg-zinc-950 py-24 md:py-32">
+      <section className="py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-16 max-w-2xl">
             <span className="mb-4 inline-block border-l-2 border-[#00FFFF] pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">
@@ -616,7 +620,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ COMPARISON ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-14 max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -654,7 +658,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ TECH: pill cloud ============ */}
-      <section className="border-t border-white/5 bg-zinc-950 py-20">
+      <section className="border-t border-white/5 py-20">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
           <h2 className="font-display text-2xl font-medium tracking-tight text-white/80 md:text-3xl">
             Infrastruktur ringan, siap pasang pixel.
@@ -669,7 +673,8 @@ export default function LandingPageServicePage() {
                 transition={{ duration: 0.35, delay: i * 0.03 }}
                 className="rounded-full border border-white/[0.08] bg-white/[0.02] px-5 py-2.5 font-mono text-sm text-white/70 transition-colors hover:border-[#00FFFF]/30 hover:text-[#00FFFF]"
               >
-                {item}
+                <BrandIcon name={item} className="h-[18px] w-[18px] shrink-0 opacity-80" />
+                <span>{item}</span>
               </motion.span>
             ))}
           </div>
@@ -682,7 +687,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ WORKFLOW: horizontal stepper ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="mb-16 max-w-2xl">
             <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-5xl">
@@ -718,7 +723,8 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ PRICING ============ */}
-      <section id="harga" ref={pricingRef} className="bg-zinc-950 py-24 md:py-32">
+      <section id="harga" ref={pricingRef} className="relative overflow-hidden py-24 md:py-32">
+        <LightCone tint="gold" className="left-1/2 -translate-x-1/2 -top-16" />
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -755,7 +761,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ FAQ ============ */}
-      <section className="border-t border-white/5 bg-[#09090B] py-24 md:py-32">
+      <section className="border-t border-white/5 py-24 md:py-32">
         <div className="mx-auto max-w-3xl px-5 md:px-8">
           <h2 className="font-display text-3xl font-medium leading-[1.08] tracking-tight md:text-4xl">
             Pertanyaan seputar landing page.
@@ -793,7 +799,7 @@ export default function LandingPageServicePage() {
       </section>
 
       {/* ============ BOTTOM CTA ============ */}
-      <section className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+      <section className="relative overflow-hidden py-28 md:py-36">
         <div
           className="pointer-events-none absolute inset-0"
           style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,255,0.10) 0%, transparent 70%)' }}
@@ -829,6 +835,7 @@ export default function LandingPageServicePage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

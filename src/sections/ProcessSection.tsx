@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
 import { MessageCircle, Palette, CheckCircle, Rocket } from 'lucide-react'
+import { LightCone } from '../components/atmosphere'
 
 const steps = [
   {
@@ -160,18 +161,24 @@ function ReviewScene({ animate }: { animate: boolean }) {
 function LaunchScene({ animate }: { animate: boolean }) {
   const [pct, setPct] = useState(animate ? 0 : 100)
   useEffect(() => {
-    if (!animate) { setPct(100); return }
-    setPct(0)
+    if (!animate) return
+    let cancelled = false
     let raf: number
-    const start = performance.now()
-    const dur = 1600
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / dur, 1)
-      setPct(Math.round((1 - Math.pow(1 - p, 3)) * 100))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    const t = setTimeout(() => { raf = requestAnimationFrame(tick) }, 350)
-    return () => { clearTimeout(t); cancelAnimationFrame(raf) }
+    raf = requestAnimationFrame(() => {
+      if (cancelled) return
+      setPct(0)
+      const start = performance.now() + 350
+      const dur = 1600
+      const tick = (now: number) => {
+        if (cancelled) return
+        const p = Math.min((now - start) / dur, 1)
+        if (p < 0) { raf = requestAnimationFrame(tick); return }
+        setPct(Math.round((1 - Math.pow(1 - p, 3)) * 100))
+        if (p < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    })
+    return () => { cancelled = true; cancelAnimationFrame(raf) }
   }, [animate])
 
   return (
@@ -189,18 +196,18 @@ function LaunchScene({ animate }: { animate: boolean }) {
       <div className="w-full max-w-[260px]">
         <div className="mb-2 flex items-center justify-between font-mono text-[11px]">
           <span className="text-white/40">deploying...</span>
-          <span className="text-[#00FFFF]">{pct}%</span>
+          <span className="text-[#00FFFF]">{(animate ? pct : 100)}%</span>
         </div>
         <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
           <div
             className="h-full rounded-full bg-[#00FFFF] shadow-[0_0_12px_rgba(0,255,255,0.6)] transition-[width] duration-100"
-            style={{ width: `${pct}%` }}
+            style={{ width: `${(animate ? pct : 100)}%` }}
           />
         </div>
       </div>
 
       <AnimatePresence>
-        {pct >= 100 && (
+        {(animate ? pct : 100) >= 100 && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -227,36 +234,25 @@ export default function ProcessSection() {
 
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
-  const [progress, setProgress] = useState(0) // 0..1 of current step
 
   const select = useCallback((i: number) => {
     setActive(i)
-    setProgress(0)
   }, [])
 
-  // Auto-advance driven by rAF (smooth ring), pauses on hover, off when reduced-motion or out of view.
+  // Auto-advance via single timeout per step (not per-frame rAF) — avoids 60 setState/sec main-thread storm that killed TBT.
   useEffect(() => {
     if (reduce || !inView || paused) return
-    let raf: number
-    let start = performance.now()
-    const loop = (now: number) => {
-      const p = Math.min((now - start) / STEP_DURATION, 1)
-      setProgress(p)
-      if (p >= 1) {
-        setActive((a) => (a + 1) % steps.length)
-        start = now
-        setProgress(0)
-      }
-      raf = requestAnimationFrame(loop)
-    }
-    raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
+    const id = setTimeout(() => {
+      setActive((a) => (a + 1) % steps.length)
+    }, STEP_DURATION)
+    return () => clearTimeout(id)
   }, [reduce, inView, paused, active])
 
   const Scene = scenes[active]
 
   return (
-    <section id="cara-kerja" ref={sectionRef} className="relative overflow-hidden bg-zinc-950 py-28 md:py-36">
+    <section id="cara-kerja" ref={sectionRef} className="relative overflow-hidden py-28 md:py-36">
+      <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-20" />
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
@@ -344,12 +340,13 @@ export default function ProcessSection() {
                     </div>
                   </div>
 
-                  {/* Auto-advance progress bar (active only) */}
+                  {/* Auto-advance progress bar — pure CSS (compositor), no JS per-frame */}
                   {isActive && !reduce && (
-                    <div className="absolute bottom-0 left-0 h-[2px] w-full bg-white/5">
+                    <div className="absolute bottom-0 left-0 h-[2px] w-full bg-white/5 overflow-hidden">
                       <div
-                        className="h-full bg-[#00FFFF] shadow-[0_0_8px_rgba(0,255,255,0.5)]"
-                        style={{ width: `${progress * 100}%` }}
+                        key={active}
+                        className="h-full origin-left bg-[#00FFFF] shadow-[0_0_8px_rgba(0,255,255,0.5)]"
+                        style={{ animation: `progress ${STEP_DURATION}ms linear forwards` }}
                       />
                     </div>
                   )}

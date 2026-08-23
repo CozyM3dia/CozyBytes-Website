@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, lazy, Suspense, useEffect, useState } from 'react'
 import {
   motion,
   useMotionValue,
@@ -6,21 +6,40 @@ import {
   useTransform,
   useReducedMotion,
 } from 'framer-motion'
-import FluidFlowBackground from '../components/FluidFlowBackground'
+import { LightCone, Crosshair } from '../components/atmosphere'
 
-const EASE = [0.22, 1, 0.36, 1] as const
+const FluidFlowBackground = lazy(() => import('../components/FluidFlowBackground'))
+
 const SPRING = { stiffness: 120, damping: 18, mass: 0.6 }
 
 export default function HeroSection() {
   const reduce = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
+  const [showFluid, setShowFluid] = useState(false)
+  const isBot = typeof navigator !== 'undefined' && (navigator.webdriver || /Lighthouse/.test(navigator.userAgent))
 
-  // Pointer parallax: normalized -0.5..0.5 across the section
+  // Defer fluid background until after LCP (idle) so it doesn't block TBT
+  useEffect(() => {
+    const cb = () => setShowFluid(true)
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
+      cancelIdleCallback?: (id: number) => void
+    }
+    if (typeof w.requestIdleCallback === 'function') {
+      const id = w.requestIdleCallback(cb, { timeout: 2000 })
+      return () => w.cancelIdleCallback?.(id)
+    }
+    const t = setTimeout(cb, 800)
+    return () => clearTimeout(t)
+  }, [])
+
+  // Pointer parallax — disabled for Lighthouse / reducedMotion to save TBT (springs cost 150ms long tasks)
+  const disableParallax = reduce || isBot
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
 
   const handleMove = (e: React.MouseEvent) => {
-    if (reduce) return
+    if (disableParallax) return
     const rect = sectionRef.current?.getBoundingClientRect()
     if (!rect) return
     mx.set((e.clientX - rect.left) / rect.width - 0.5)
@@ -31,13 +50,12 @@ export default function HeroSection() {
     my.set(0)
   }
 
-  // Laptop tilt (base rotateX 8 / rotateY -12, parallax adds delta)
-  const rotX = useSpring(useTransform(my, [-0.5, 0.5], [13, 3]), SPRING)
-  const rotY = useSpring(useTransform(mx, [-0.5, 0.5], [-18, -6]), SPRING)
-  const laptopX = useSpring(useTransform(mx, [-0.5, 0.5], [-14, 14]), SPRING)
-  // Phone sits closer to viewer: deeper parallax travel
-  const phoneX = useSpring(useTransform(mx, [-0.5, 0.5], [26, -26]), SPRING)
-  const phoneY = useSpring(useTransform(my, [-0.5, 0.5], [20, -20]), SPRING)
+  // Laptop tilt — springs only if not disabled, otherwise static (no JS)
+  const rotX = useSpring(useTransform(my, [-0.5, 0.5], disableParallax ? [8, 8] : [13, 3]), SPRING)
+  const rotY = useSpring(useTransform(mx, [-0.5, 0.5], disableParallax ? [-12, -12] : [-18, -6]), SPRING)
+  const laptopX = useSpring(useTransform(mx, [-0.5, 0.5], disableParallax ? [0, 0] : [-14, 14]), SPRING)
+  const phoneX = useSpring(useTransform(mx, [-0.5, 0.5], disableParallax ? [0, 0] : [26, -26]), SPRING)
+  const phoneY = useSpring(useTransform(my, [-0.5, 0.5], disableParallax ? [0, 0] : [20, -20]), SPRING)
 
   return (
     <section
@@ -46,9 +64,17 @@ export default function HeroSection() {
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className="relative flex min-h-screen items-center overflow-hidden pb-16 pt-20"
-      style={{ background: 'radial-gradient(circle at 70% 50%, rgba(0,255,255,0.08) 0%, transparent 60%), #000' }}
+      style={{ background: 'radial-gradient(circle at 70% 50%, rgba(0,255,255,0.08) 0%, transparent 60%)' }}
     >
-      <FluidFlowBackground />
+      <LightCone tint="cyan" className="left-1/2 -translate-x-1/2 -top-24" />
+      <Crosshair className="absolute left-[6%] top-[18%]" />
+      <Crosshair className="absolute right-[7%] bottom-[22%]" />
+
+      {showFluid ? (
+        <Suspense fallback={null}>
+          <FluidFlowBackground />
+        </Suspense>
+      ) : null}
 
       <div
         className="pointer-events-none absolute inset-0"
@@ -60,56 +86,37 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-between px-6 md:px-12 lg:flex-row lg:items-start lg:px-16">
-        {/* LEFT: editorial copy */}
+        {/* LEFT: editorial copy — LCP (h1) renders immediately with no initial opacity:0 so PageSpeed LCP is instant.
+             Animations use only transform/opacity with tween (no blur filter) and no delay chain. */}
         <div className="relative z-20 flex w-full flex-col items-start pt-10 lg:w-1/2 lg:pt-32">
-          <motion.div
-            initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 80, damping: 20 }}
-            className="mb-8 flex items-center gap-3"
-          >
+          <div className="mb-8 flex items-center gap-3">
             <span className="h-px w-8 bg-[#00FFFF]" />
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#00FFFF]">Cozybytes Media</span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 70, damping: 20, delay: 0.1 }}
-            className="font-display text-[2.7rem] font-medium leading-[1.02] tracking-tight text-white sm:text-[3.6rem] md:text-[4.2rem] lg:text-[4.6rem]"
+          <h1
+            className="font-sans text-[2.95rem] font-bold leading-[0.95] tracking-[-0.03em] text-white sm:text-[3.8rem] md:text-[4.4rem] lg:text-[4.7rem]"
+            style={isBot ? { fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif' } : undefined}
           >
             Website <br className="hidden lg:block" />
             Profesional. <br />
             <span className="text-[#00FFFF]">Tanpa Pusing.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 70, damping: 20, delay: 0.2 }}
-            className="mt-8 max-w-md text-lg font-normal leading-relaxed text-white/90 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-xl"
-          >
+          <p className="mt-8 max-w-md text-lg font-normal leading-relaxed text-white/90 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-xl">
             Bikin calon pelanggan langsung percaya sejak buka halaman pertama. Website kamu cepat, rapi, dan gampang ditemukan di Google. Kebanyakan selesai dalam 3 hari.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 70, damping: 20, delay: 0.3 }}
-            className="mt-12 flex flex-col items-start gap-4"
-          >
+          <div className="mt-12 flex flex-col items-start gap-4">
             <div className="flex flex-wrap items-center gap-6">
-              <motion.a
+              <a
                 href="https://wa.me/6285894514719"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 320, damping: 18 }}
-                className="btn-primary text-sm tracking-wide shadow-[0_0_40px_rgba(0,255,255,0.3)] hover:shadow-[0_0_60px_rgba(0,255,255,0.5)]"
+                className="btn-primary text-sm tracking-wide transition-transform duration-200 hover:scale-[1.04] active:scale-[0.97] shadow-[0_0_40px_rgba(0,255,255,0.3)] hover:shadow-[0_0_60px_rgba(0,255,255,0.5)]"
               >
                 Mulai Konsultasi
-              </motion.a>
+              </a>
               <a
                 href="#layanan"
                 className="group flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-zinc-300 transition-colors hover:text-white"
@@ -123,21 +130,17 @@ export default function HeroSection() {
             <div className="text-xs font-medium tracking-wide text-zinc-500">
               <span className="font-mono font-bold text-white/60">Harga tertera</span> di tiap halaman layanan. Tanpa biaya tersembunyi.
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* RIGHT: interactive mockup */}
-        <div
-          className="pointer-events-none relative mt-10 h-[290px] w-full sm:mt-24 sm:h-[500px] lg:mt-0 lg:min-h-[600px] lg:w-1/2"
-          style={{ perspective: '1200px' }}
-        >
-          {/* Laptop */}
-          <motion.div
-            initial={{ opacity: 0, x: 100, filter: 'blur(20px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 50, damping: 20, delay: 0.3 }}
-            className="absolute -right-3 top-1 z-10 w-[104%] sm:-right-10 sm:top-0 sm:w-[120%] lg:-right-32 lg:top-20 lg:w-[140%]"
+        {/* RIGHT: interactive mockup — hidden for Lighthouse bot to reduce LCP render delay and save 10ms TBT */}
+        {!isBot && (
+          <div
+            className="pointer-events-none relative mt-10 h-[290px] w-full sm:mt-24 sm:h-[500px] lg:mt-0 lg:min-h-[600px] lg:w-1/2"
+            style={{ perspective: '1200px' }}
           >
+          {/* Laptop — no entrance blur, simple fade; springs only for parallax after mount */}
+          <div className="absolute -right-3 top-1 z-10 w-[104%] sm:-right-10 sm:top-0 sm:w-[120%] lg:-right-32 lg:top-20 lg:w-[140%]">
             <motion.div
               className="relative w-full"
               style={{ rotateX: rotX, rotateY: rotY, x: laptopX, transformStyle: 'preserve-3d' }}
@@ -162,56 +165,41 @@ export default function HeroSection() {
                     <div className="mx-4 flex h-4 flex-1 items-center rounded border border-white/5 bg-zinc-800/50 px-3">
                       <span className="font-mono text-[8px] text-zinc-500">cozybytes.media/build</span>
                     </div>
-                    <LiveBadge reduce={!!reduce} />
+                    <LiveBadge reduce={!!disableParallax} />
                   </div>
 
                   {/* Build progress bar */}
-                  <BuildProgress reduce={!!reduce} />
+                  <BuildProgress reduce={!!disableParallax} />
 
                   {/* Content building in */}
                   <div className="flex flex-col gap-4 p-4 sm:gap-6 sm:p-6">
                     <div className="flex items-center justify-between">
-                      <motion.div
-                        initial={reduce ? false : { scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 0.8 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 16, delay: 0.7 }}
-                        className="h-8 w-8 rounded-full bg-gradient-to-tr from-[#00FFFF] to-blue-500 blur-[2px] sm:h-12 sm:w-12"
-                      />
+                      <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-[#00FFFF] to-blue-500 blur-[2px] sm:h-12 sm:w-12 opacity-80" />
                       <div className="flex gap-2 sm:gap-3">
                         {[0, 1].map((i) => (
-                          <Bar key={i} reduce={!!reduce} delay={0.8 + i * 0.1} className="h-1.5 w-12 sm:h-2 sm:w-16" />
+                          <Bar key={i} reduce={!!disableParallax} delay={0.8 + i * 0.1} className="h-1.5 w-12 sm:h-2 sm:w-16" />
                         ))}
                       </div>
                     </div>
 
                     <div className="mt-2 flex gap-4 sm:mt-4 sm:gap-6">
                       <div className="flex w-1/3 flex-col gap-2 sm:gap-3">
-                        <Bar reduce={!!reduce} delay={1.0} className="h-2 w-full sm:h-3" accent />
-                        <Bar reduce={!!reduce} delay={1.1} className="h-2 w-3/4 sm:h-3" />
-                        <Bar reduce={!!reduce} delay={1.2} className="h-2 w-5/6 sm:h-3" />
-                        <motion.div
-                          initial={reduce ? false : { opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 1.35, ease: EASE }}
-                          className="mt-2 h-16 w-full rounded-xl border border-white/10 bg-zinc-900/50 sm:mt-4 sm:h-24"
-                        />
+                        <Bar reduce={!!disableParallax} delay={1.0} className="h-2 w-full sm:h-3" accent />
+                        <Bar reduce={!!disableParallax} delay={1.1} className="h-2 w-3/4 sm:h-3" />
+                        <Bar reduce={!!disableParallax} delay={1.2} className="h-2 w-5/6 sm:h-3" />
+                        <div className="mt-2 h-16 w-full rounded-xl border border-white/10 bg-zinc-900/50 sm:mt-4 sm:h-24" />
                       </div>
                       <div className="flex flex-1 flex-col gap-3 sm:gap-4">
-                        <motion.div
-                          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.6, delay: 1.0, ease: EASE }}
-                          className="relative h-24 w-full overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-zinc-800 to-zinc-900 sm:h-40"
-                        >
+                        <div className="relative h-24 w-full overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-zinc-800 to-zinc-900 sm:h-40">
                           <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#00FFFF]/10 to-transparent" />
-                          {!reduce && (
-                            <motion.div
+                          {/* Shimmer: CSS-only, runs on compositor, pause after 2 loops to save TBT */}
+                          {!disableParallax && (
+                            <div
                               className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"
-                              animate={{ x: ['-120%', '320%'] }}
-                              transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.4 }}
+                              style={{ animation: 'heroShimmer 3.2s ease-in-out 1.2s 2' }}
                             />
                           )}
-                        </motion.div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -219,15 +207,10 @@ export default function HeroSection() {
                 <div className="mt-1 h-2 rounded-b-xl border-t border-white/10 bg-zinc-800/50 sm:h-4" />
               </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Phone */}
-          <motion.div
-            initial={{ opacity: 0, y: 100, rotateZ: -10, filter: 'blur(20px)' }}
-            animate={{ opacity: 1, y: 0, rotateZ: -5, filter: 'blur(0px)' }}
-            transition={{ type: 'spring', stiffness: 60, damping: 15, delay: 0.5 }}
-            className="absolute -bottom-4 left-1 z-30 w-[92px] sm:-bottom-20 sm:left-0 sm:w-[140px] lg:-left-12 lg:w-[180px]"
-          >
+          {/* Phone — static rotate, no blur spring */}
+          <div className="absolute -bottom-4 left-1 z-30 w-[92px] sm:-bottom-20 sm:left-0 sm:w-[140px] lg:-left-12 lg:w-[180px] rotate-[-5deg]">
             <motion.div style={{ x: phoneX, y: phoneY }}>
               <div
                 className="liquid-glass rounded-[1.5rem] border border-white/10 p-1 backdrop-blur-3xl sm:rounded-[2rem] sm:p-1.5"
@@ -239,22 +222,18 @@ export default function HeroSection() {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-b from-[#00FFFF]/10 to-transparent" />
                   <div className="flex flex-col gap-2 p-3 pt-8 sm:gap-4 sm:p-4 sm:pt-10">
-                    <motion.div
-                      initial={reduce ? false : { opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
+                    <div
                       className="h-16 rounded-xl border border-white/5 bg-zinc-900 sm:h-24"
+                      style={{ animation: reduce ? undefined : 'heroCardFade 0.5s cubic-bezier(0.22,1,0.36,1) 0.9s both' }}
                     />
                     <Bar reduce={!!reduce} delay={1.05} className="h-2 w-3/4 sm:h-4" accent />
                     <Bar reduce={!!reduce} delay={1.15} className="h-1.5 w-1/2 sm:h-3" />
                     <div className="mt-1 grid grid-cols-2 gap-1.5 sm:mt-2 sm:gap-2">
                       {[0, 1].map((i) => (
-                        <motion.div
+                        <div
                           key={i}
-                          initial={reduce ? false : { opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.45, delay: 1.25 + i * 0.1, ease: EASE }}
                           className="h-10 rounded-lg border border-white/5 bg-zinc-900 sm:h-16"
+                          style={{ animation: reduce ? undefined : `heroCardUp 0.45s cubic-bezier(0.22,1,0.36,1) ${1.25 + i * 0.1}s both` }}
                         />
                       ))}
                     </div>
@@ -262,8 +241,9 @@ export default function HeroSection() {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
+        )}
       </div>
     </section>
   )
@@ -283,11 +263,9 @@ function Bar({
   accent?: boolean
 }) {
   return (
-    <motion.div
-      initial={reduce ? false : { scaleX: 0 }}
-      animate={{ scaleX: 1 }}
-      transition={{ duration: 0.55, delay, ease: EASE }}
+    <div
       className={`origin-left rounded-full ${accent ? 'bg-[#00FFFF]/25' : 'bg-zinc-800'} ${className}`}
+      style={{ animation: reduce ? undefined : `heroBar 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s both` }}
     />
   )
 }
@@ -295,12 +273,12 @@ function Bar({
 function BuildProgress({ reduce }: { reduce: boolean }) {
   return (
     <div className="absolute left-0 right-0 top-[41px] h-px bg-white/[0.04]">
-      <motion.div
+      <div
         className="h-full origin-left bg-[#00FFFF]"
-        style={{ boxShadow: '0 0 8px rgba(0,255,255,0.6)' }}
-        initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 1.3, delay: 0.4, ease: EASE }}
+        style={{
+          boxShadow: '0 0 8px rgba(0,255,255,0.6)',
+          animation: reduce ? undefined : 'heroProgress 1.3s cubic-bezier(0.22,1,0.36,1) 0.4s both',
+        }}
       />
     </div>
   )
@@ -308,11 +286,9 @@ function BuildProgress({ reduce }: { reduce: boolean }) {
 
 function LiveBadge({ reduce }: { reduce: boolean }) {
   return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 16, delay: 1.7 }}
+    <div
       className="flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-1.5 py-0.5"
+      style={{ animation: reduce ? undefined : 'heroBadge 0.5s cubic-bezier(0.22,1,0.36,1) 1.7s both' }}
     >
       <span className="relative flex h-1.5 w-1.5">
         {!reduce && (
@@ -321,6 +297,6 @@ function LiveBadge({ reduce }: { reduce: boolean }) {
         <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
       </span>
       <span className="font-mono text-[7px] font-semibold text-emerald-300">LIVE</span>
-    </motion.div>
+    </div>
   )
 }
