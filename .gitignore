@@ -29,3 +29,9 @@ blog-agent/.env
 blog-agent/__pycache__/
 *.pyc
 .env
+
+.vercel
+
+# Audit visual (skrinsot + report sementara)
+audit/
+audit-*/
