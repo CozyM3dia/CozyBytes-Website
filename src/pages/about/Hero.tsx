@@ -68,7 +68,7 @@ function PortraitCard({
             alt={`${member.name}, ${member.role} Cozybytes Media`}
             width={901}
             height={1200}
-            loading={index === 0 ? 'eager' : 'lazy'}
+            loading="eager"
             decoding="async"
             className="h-full w-full object-cover saturate-[1.05]"
           />

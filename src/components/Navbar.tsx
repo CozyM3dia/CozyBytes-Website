@@ -43,18 +43,11 @@ function ServicesDropdown() {
         onClick={() => setOpen(false)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label="Layanan - buka submenu"
+        aria-label="Layanan"
         className="relative text-white/70 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-full text-sm transition-colors py-1 flex items-center gap-1"
       >
-        <span className="flex" aria-hidden="true">
-          {'Layanan'.split('').map((char, i) => (
-            <span key={i} className="inline-block whitespace-pre wave-char" style={{ animationDelay: `${i * 0.05}s` }}>
-              {char}
-            </span>
-          ))}
-        </span>
+        <WaveLabel text="Layanan" />
         <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
-        <span className="sr-only">Layanan</span>
         <div className={`absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left transition-transform duration-300 ease-out ${open ? 'scale-x-100' : 'scale-x-0'}`} />
       </Link>
 
@@ -90,6 +83,22 @@ function ServicesDropdown() {
   )
 }
 
+function WaveLabel({ text }: { text: string }) {
+  return (
+    <span className="flex" aria-hidden="true">
+      {text.split('').map((char, i) => (
+        <span
+          key={i}
+          className="inline-block whitespace-pre wave-char"
+          style={{ animationDelay: `${i * 0.05}s` }}
+        >
+          {char}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 function NavLink({ href, label }: { href: string; label: string }) {
   const loc = useLocation()
   const nav = useNavigate()
@@ -115,21 +124,13 @@ function NavLink({ href, label }: { href: string; label: string }) {
       <Link
         to={href}
         onClick={handleClick}
+        aria-label={label}
         aria-current={isActive ? 'page' : undefined}
         className="relative text-white/70 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-full text-sm transition-colors py-1 flex"
       >
-        <span className="relative z-10 flex" aria-hidden="true">
-          {label.split('').map((char, i) => (
-            <span
-              key={i}
-              className="inline-block whitespace-pre wave-char"
-              style={{ animationDelay: `${i * 0.05}s` }}
-            >
-              {char}
-            </span>
-          ))}
+        <span className="relative z-10">
+          <WaveLabel text={label} />
         </span>
-        <span className="sr-only">{label}</span>
         {/* Normal Underline */}
         <div 
           className="absolute left-0 right-0 -bottom-1 h-[1.5px] bg-[#00FFFF] origin-left scale-x-0 group-hover:scale-x-100 group-focus-within:scale-x-100 transition-transform duration-300 ease-out" 

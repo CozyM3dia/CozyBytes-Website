@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
+import {
+  firstInvalidContactField,
+  hasContactFieldErrors,
+  validateContact,
+} from '../lib/contactValidation'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
@@ -12,27 +17,57 @@ export default function ContactForm({ serviceDefault = '' }: { serviceDefault?: 
 
   const update = (k: string, v: string) => setForm(prev => ({ ...prev, [k]: v }))
 
+  function showFieldErrors(next: Record<string, string>) {
+    setErrors(next)
+    setMsg('')
+    setState('idle')
+    const first = firstInvalidContactField(next)
+    if (first) {
+      requestAnimationFrame(() => document.getElementById(`cf-${first}`)?.focus())
+    }
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     if (form.website) return // honeypot filled -> spam, silently succeed
+
+    const fieldErrors = validateContact(form)
+    if (hasContactFieldErrors(fieldErrors)) {
+      showFieldErrors(fieldErrors)
+      return
+    }
+
     setState('loading')
     setErrors({})
+    setMsg('')
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      const data = await res.json()
-      if (!res.ok || !data.ok) {
-        if (data.errors) setErrors(data.errors)
-        setMsg(data.error || 'Gagal mengirim. Coba lagi.')
-        setState('error')
-      } else {
-        setMsg(data.message)
+      let data: { ok?: boolean; errors?: Record<string, string>; error?: string; message?: string } = {}
+      try {
+        data = await res.json()
+      } catch {
+        data = {}
+      }
+
+      if (res.ok && data.ok) {
+        setMsg(data.message || 'Pesan terkirim!')
         setState('success')
         setForm({ name: '', email: '', phone: '', message: '', service: serviceDefault, website: '' })
+        return
       }
+
+      // 400 validation from the API: field messages only, never the server-failed banner.
+      if (data.errors && (res.status === 400 || hasContactFieldErrors(data.errors))) {
+        showFieldErrors(data.errors)
+        return
+      }
+
+      setMsg(data.error || 'Gagal mengirim. Coba lagi.')
+      setState('error')
     } catch {
       setMsg('Koneksi gagal. Periksa internet atau hubungi via WhatsApp.')
       setState('error')

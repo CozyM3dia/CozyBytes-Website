@@ -54,28 +54,17 @@ function MemberRow({ member, index }: { member: TeamMember; index: number }) {
           style={{ rotateX: srx, rotateY: sry, transformStyle: 'preserve-3d' }}
           className="relative z-10 overflow-hidden rounded-3xl border border-white/10 shadow-[0_24px_70px_rgba(0,0,0,0.5)] transition-colors duration-500 group-hover:border-[#00FFFF]/30"
         >
-          <motion.div
-            initial={reduce ? false : { clipPath: 'inset(0 100% 0 0)' }}
-            whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.9, ease: EASE }}
-          >
-            <div className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.03]">
-              <motion.img
-                src={member.image}
-                alt={`${member.name}, ${member.role} Cozybytes Media`}
-                initial={reduce ? false : { scale: 1.18 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 1.2, ease: EASE }}
-                className="h-full w-full object-cover grayscale-[35%] transition-[filter] duration-700 group-hover:grayscale-0"
-                width={901}
-                height={1200}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </motion.div>
+          <div className="aspect-[4/5] w-full transition-transform duration-700 group-hover:scale-[1.03]">
+            <img
+              src={member.image}
+              alt={`${member.name}, ${member.role} Cozybytes Media`}
+              className="h-full w-full object-cover grayscale-[35%] transition-[filter] duration-700 group-hover:grayscale-0"
+              width={901}
+              height={1200}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
 
           <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/50 px-3.5 py-1.5 backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-[#00FFFF] group-hover:animate-pulse" />
